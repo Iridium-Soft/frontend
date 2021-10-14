@@ -1,5 +1,5 @@
 import { Component } from "react";
-import { Switch } from "react-router-dom";
+import { Switch, Route } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 import './index.css';
@@ -11,7 +11,9 @@ class App extends Component {
     return (
       <div className="app">
         <Switch>
-          
+          <Route path="/" component={AnnouncementsList}>
+
+          </Route>
         </Switch>
       </div>
     );
