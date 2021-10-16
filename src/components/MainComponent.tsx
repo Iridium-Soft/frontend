@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import AnnouncementsList from "./AnnouncementsList";
-import { Route, Switch } from "react-router-dom";
+import { Redirect, Route, Switch } from "react-router-dom";
 import HeaderComponent from "./HeaderComponent";
 import SidebarComponent from "./SidebarComponent";
 
@@ -16,11 +16,11 @@ export default class MainComponent extends Component<Props, State> {
         <SidebarComponent />
         <Switch>
           <Route
+            exact
             path="/announcements_list"
             component={AnnouncementsList}
-          >
-
-          </Route>
+          />
+          <Redirect to="/" />
         </Switch>
       </>
     );
