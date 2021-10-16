@@ -50,8 +50,8 @@ export default class AnnouncementsList extends Component<Props, State> {
       this.state;
 
     return (
-      <div className="container p-3">
-        <h3 className="row justify-content-center">Lista de convocatorias</h3>
+      <div className="container p-3 position-relative">
+        <h2 className="row justify-content-center">Lista de convocatorias</h2>
         {announcements && announcements.map((announcement: AnnouncementData) => (
           <div className="row mx-0 mb-2">
             <div
