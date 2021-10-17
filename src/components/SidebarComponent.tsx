@@ -46,17 +46,15 @@ export default class SidebarComponent extends Component<Props, State> {
             </a>
           </li>
           <li>
-            <a href="">
-              <Link to="/announcements_list">
+            <Link to="/announcements_list">
                 <i className="fa fa-bullhorn"></i>
                 <span className="link_name">Convocatorias</span>
-              </Link>
-            </a>
+            </Link>
             <ul className="sub-menu blank">
               <li>
-                <a className="link_name" href="">
-                  <Link to="/announcements_list">Convocatorias</Link>
-                </a>
+                <Link className="link_name" to="/announcements_list">
+                  Convocatorias
+                </Link>
               </li>
             </ul>
           </li>

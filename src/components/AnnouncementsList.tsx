@@ -51,12 +51,12 @@ export default class AnnouncementsList extends Component<Props, State> {
 
     return (
       <div className="container p-3 position-relative">
-        <h2 className="row justify-content-center">Lista de convocatorias</h2>
+        <h3 className="row justify-content-center">Convocatorias disponibles</h3>
         {announcements && announcements.map((announcement: AnnouncementData) => (
           <div className="row mx-0 mb-2">
             <div
               className="
-              btn btn-info col-8 offset-2 btn-md announcement"
+              btn btn-info col-12 btn-md announcement"
             >
               <div className="row">
                 <div className="col-xs-12 col-md-6 col-lg-4">
