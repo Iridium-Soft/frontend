@@ -7,6 +7,17 @@ type Props = {
 };
 
 export default function AnnouncementDetails(props: Props): JSX.Element {
+  const confirmApplication = () => {
+    const option = window.confirm(
+      `Usted como grupo-empresa GRUPO-EMPRESA desea postular a la convocatoria "${props.announcement.titulo}"`
+    );
+    if (option) {
+      console.log("Aplicar");
+    } else {
+      console.log("No aplicar");
+    }
+  };
+
   return (
     <div
       className="modal fade"
@@ -71,7 +82,11 @@ export default function AnnouncementDetails(props: Props): JSX.Element {
             >
               Cancelar
             </button>
-            <button type="button" className="btn btn-primary">
+            <button
+              type="button"
+              className="btn btn-primary"
+              onClick={() => confirmApplication()}
+            >
               Aplicar
             </button>
           </div>
