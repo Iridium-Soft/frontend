@@ -50,6 +50,13 @@ export default class AnnouncementsForm extends Component<
     //console.log(this.state);
   }
 
+  actionBtnCancel() {
+    const option = window.confirm(
+      "¿Está seguro de cancelar el registro de convocatoria?"
+    );
+    console.log(option);
+  }
+
   render() {
     return (
       <>
@@ -71,7 +78,7 @@ export default class AnnouncementsForm extends Component<
                   placeholder="Título"
                   value={this.state.titulo}
                   onChange={this.handleTitulo}
-                  //required
+                  required
                 />
               </div>
             </div>
@@ -88,7 +95,7 @@ export default class AnnouncementsForm extends Component<
                   placeholder="Código"
                   value={this.state.codigo}
                   onChange={this.handleCodigo}
-                  //required
+                  required
                 />
               </div>
             </div>
@@ -115,7 +122,7 @@ export default class AnnouncementsForm extends Component<
                   className="form-control"
                   id="fechaLimite"
                   name="fechaLimite"
-                  //required
+                  required
                 />
               </div>
             </div>
@@ -132,7 +139,7 @@ export default class AnnouncementsForm extends Component<
                   className="form-control"
                   id="fechaInicio"
                   name="fechaInicio"
-                  //required
+                  required
                 />
               </div>
             </div>
@@ -146,7 +153,7 @@ export default class AnnouncementsForm extends Component<
                   className="form-control"
                   id="fechaFin"
                   name="fechaFin"
-                  //required
+                  required
                 />
               </div>
             </div>
@@ -161,13 +168,17 @@ export default class AnnouncementsForm extends Component<
                   className="form-control"
                   id="subirPdf"
                   name="subirPdf"
-                  //required
+                  required
                 />
               </div>
             </div>
             <div className="form-group row">
               <div className="col-md-12 m-3 d-flex justify-content-between">
-                <button type="button" className="btn btn-secondary">
+                <button
+                  type="button"
+                  className="btn btn-secondary"
+                  onClick={() => this.actionBtnCancel()}
+                >
                   Cancelar
                 </button>
                 <button type="submit" className="btn btn-primary">

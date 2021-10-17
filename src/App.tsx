@@ -12,12 +12,16 @@ class App extends Component {
     return (
       <div className="app">
         <Switch>
-          <Route exact path="/">
-            <AnnouncementsList />
-          </Route>
-          <Route exact path="/announcement-form">
-            <AnnouncementsForm />
-          </Route>
+          <Route
+            exact
+            path="/announcements_list"
+            component={AnnouncementsList}
+          />
+          <Route
+            exact
+            path="/announcement_form"
+            component={AnnouncementsForm}
+          />
         </Switch>
       </div>
     );
