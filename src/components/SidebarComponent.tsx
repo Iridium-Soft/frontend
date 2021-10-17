@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import "./SidebarComponent.css";
+import { Link } from "react-router-dom";
 
 type Props = {};
 type State = {
@@ -45,14 +46,16 @@ export default class SidebarComponent extends Component<Props, State> {
             </a>
           </li>
           <li>
-            <a href="#">
-              <i className="fa fa-bullhorn"></i>
-              <span className="link_name">Convocatorias</span>
+            <a href="">
+              <Link to="/announcements_list">
+                <i className="fa fa-bullhorn"></i>
+                <span className="link_name">Convocatorias</span>
+              </Link>
             </a>
             <ul className="sub-menu blank">
               <li>
-                <a className="link_name" href="#">
-                  Category
+                <a className="link_name" href="">
+                  <Link to="/announcements_list">Convocatorias</Link>
                 </a>
               </li>
             </ul>
