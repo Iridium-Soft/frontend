@@ -2,8 +2,9 @@ import React from "react";
 import AnnouncementData from "../types/announcement.type";
 
 type Props = {
-    announcement: AnnouncementData;
-    modalId: string;
+    announcement: AnnouncementData,
+    modalId: string,
+    isPublished: boolean
 };
 
 export default function PostAnnouncement(props: Props): JSX.Element {
@@ -31,7 +32,7 @@ export default function PostAnnouncement(props: Props): JSX.Element {
                 <div className="modal-content">
                     <div className="modal-header">
                         <h5 className="modal-title" id={`label${props.modalId}`}>
-                            {props.announcement.titulo}
+                            Publicar convocatoria
                         </h5>
                         <button
                             type="button"
@@ -41,37 +42,20 @@ export default function PostAnnouncement(props: Props): JSX.Element {
                         ></button>
                     </div>
                     <div className="modal-body">
-                        <div className="row">
-                            <div className="col-12">
-                                <h6>{props.announcement.codigo}</h6>
-                            </div>
+                        <div className="row mt-3">
+                            <h6 className="col-12">Convocatoria registrada:</h6>
                         </div>
                         <div className="row mt-3">
-                            <h5 className="col-12">Descripción</h5>
-                            <p>
-                                Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                                Quibusdam, mollitia natus corrupti corporis ipsa maiores. Quae
-                                blanditiis reprehenderit doloribus obcaecati eligendi illo
-                                excepturi a iusto vel alias, culpa, impedit omnis.
-                            </p>
-                        </div>
-                        <div className="row">
-                            <h5 className="col-md-8">Fecha limite de recepción: </h5>
-                            <p className="col-4">Fecha1</p>
-                        </div>
-                        <h5>Fechas de duración del contrato</h5>
-                        <div className="row">
-                            <h5 className="col-md-2">Inicio: </h5>
-                            <p className="col-md-2">Fecha2</p>
-                            <h5 className="offset-md-3 col-md-2">Fin: </h5>
-                            <p className="col-md-2">Fecha3</p>
-                        </div>
-                        <div className="row mt-3">
-                            <div className="d-grid gap-2 col-6 mx-auto">
+                            <div className="d-grid gap-2 col-6">
                                 <a className="btn btn-primary" type="button" href="#">
-                                    Descargar archivo adjunto
+                                    {props.announcement.titulo}.pdf
                                 </a>
                             </div>
+                        </div>
+                        <div className="row mt-2">
+                            <p className={`${props.isPublished ? "text-success" : "text-danger"}`}>
+                                Estado: {props.isPublished ? "Publicada" : "No publicada"}
+                            </p>
                         </div>
                     </div>
                     <div className="modal-footer">
@@ -87,7 +71,7 @@ export default function PostAnnouncement(props: Props): JSX.Element {
                             className="btn btn-primary"
                             onClick={() => confirmApplication()}
                         >
-                            Aplicar
+                            Publicar convocatoria
                         </button>
                     </div>
                 </div>
