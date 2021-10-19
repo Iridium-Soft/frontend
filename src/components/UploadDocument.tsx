@@ -41,6 +41,7 @@ export default class UploadDocument extends Component<Props, State> {
             let baseURL:any = "";
             let reader = new FileReader();
             reader.readAsDataURL(file);
+
             reader.onload = () => {
                 console.log("Called", reader);
                 baseURL = reader.result;
@@ -55,9 +56,7 @@ export default class UploadDocument extends Component<Props, State> {
         this.toggleUploadButton();
         console.log(e.target.files[0]);
         let { file } = this.state;
-
         file = e.target.files[0];
-
         this.getBase64(file)
             .then(result => {
                 file["base64"] = result;
@@ -75,13 +74,14 @@ export default class UploadDocument extends Component<Props, State> {
         });
     };
     render() {
-        const { isUploaded } = this.state;
+        const { isUploaded, file } = this.state;
         const { name } = this.props;
 
         return (
         <div className={`box ${isUploaded ? "green" : "red"}`}>
             <div className="file-upload btn btn-secondary">
                 <span>{name}</span>
+
                 <input type="file" className="upload" id="upload-btn" onChange={this.handleFileInputChange}/>
                 <i className="fa fa-upload icon"></i>
             </div>
@@ -89,3 +89,4 @@ export default class UploadDocument extends Component<Props, State> {
         );
     }
 }
+//<div>{file?.name}</div>
