@@ -3,6 +3,8 @@ import AnnouncementsList from "./AnnouncementsList";
 import { Route, Switch } from "react-router-dom";
 import HeaderComponent from "./HeaderComponent";
 import SidebarComponent from "./SidebarComponent";
+import UploadDocumentsPage from "./UploadDocumentsPage";
+import MyAnnouncementsList from "./MyAnnouncementsList";
 
 type Props = {};
 
@@ -19,6 +21,12 @@ export default class MainComponent extends Component<Props, State> {
             path="/announcements_list"
             component={AnnouncementsList}
           >
+
+          </Route>
+          <Route path="/documents"
+                 component={UploadDocumentsPage}>
+          </Route>
+          <Route path="/my_announcements" component={MyAnnouncementsList}>
 
           </Route>
         </Switch>
