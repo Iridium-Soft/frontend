@@ -1,23 +1,38 @@
 import React from "react";
 import AnnouncementData from "../types/announcement.type";
+import AnnouncementDataService from "../services/announcement.service";
 
 type Props = {
     announcement: AnnouncementData,
     modalId: string,
-    isPublished: boolean
 };
 
 export default function PostAnnouncement(props: Props): JSX.Element {
-    const confirmApplication = () => {
-        const option = window.confirm(
-            `Usted como grupo-empresa GRUPO-EMPRESA desea postular a la convocatoria "${props.announcement.titulo}"`
-        );
-        if (option) {
-            console.log("Aplicar");
-        } else {
-            console.log("No aplicar");
-        }
-    };
+    const publishAnnouncement = () => {
+        const { id,
+            titulo,
+            encargado,
+            codigo,
+            descripcion,
+            fechaLimRec,
+            fechaIniDur,
+            fechaFinDur,
+            documento} = props.announcement;
+            AnnouncementDataService.update({
+                    id: id,
+                    titulo: titulo,
+                    encargado: encargado,
+                    codigo: codigo,
+                    descripcion: descripcion,
+                    fechaLimRec: fechaLimRec,
+                    fechaIniDur: fechaIniDur,
+                    fechaFinDur: fechaFinDur,
+                    documento: documento,
+                    publica: true,
+                 },
+                id);
+
+    }
 
     return (
         <div
@@ -53,8 +68,8 @@ export default function PostAnnouncement(props: Props): JSX.Element {
                             </div>
                         </div>
                         <div className="row mt-2">
-                            <p className={`${props.isPublished ? "text-success" : "text-danger"}`}>
-                                Estado: {props.isPublished ? "Publicada" : "No publicada"}
+                            <p className={`${props.announcement.publica ? "text-success" : "text-danger"}`}>
+                                Estado: {props.announcement.publica ? "Publicada" : "No publicada"}
                             </p>
                         </div>
                     </div>
@@ -69,7 +84,7 @@ export default function PostAnnouncement(props: Props): JSX.Element {
                         <button
                             type="button"
                             className="btn btn-info text-white"
-                            onClick={() => confirmApplication()}
+                            onClick={publishAnnouncement}
                         >
                             Publicar convocatoria
                         </button>

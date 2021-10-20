@@ -44,7 +44,6 @@ export default class MyAnnouncementsList extends Component<Props, State> {
         this.setState({
           announcements: response.data,
         });
-        console.log(response.data);
       })
       .catch((e) => {
         console.log(e);
@@ -65,7 +64,6 @@ export default class MyAnnouncementsList extends Component<Props, State> {
         <PostAnnouncement
           announcement={this.state.currentAnnouncement}
           modalId={modalId}
-          isPublished={true}
         />
         <div className="container p-3 position-relative">
           <h2 className="row justify-content-center">Mis convocatorias</h2>
