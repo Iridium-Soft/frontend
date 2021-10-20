@@ -20,10 +20,16 @@ export default class AnnouncementsList extends Component<Props, State> {
     this.state = {
       announcements: [],
       currentAnnouncement: {
-        id: "idDefault",
-        titulo: "TituloDefault",
-        encargado: "nombreDefault",
-        codigo: "codDefault",
+        id: "",
+        titulo: "",
+        encargado: "",
+        codigo: "",
+        descripcion: "",
+        fechaLimRec: "",
+        fechaIniDur: "",
+        fechaFinDur: "",
+        documento: "",
+        publica: false,
       },
     };
   }

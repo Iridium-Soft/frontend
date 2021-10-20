@@ -5,41 +5,115 @@ import AnnouncementData from "../types/announcement.type";
 type FormElement = React.FormEvent<HTMLFormElement>;
 type ChangeElement = React.ChangeEvent<HTMLInputElement>;
 type Props = {};
+type State = {
+  id?: any | null;
+  titulo: string;
+  encargado: string;
+  codigo: string;
+  descripcion: string;
+  fechaLimRec: string;
+  fechaIniDur: string;
+  fechaFinDur: string;
+  documento: string;
+  publica: boolean;
 
-export default class AnnouncementsForm extends Component<
-  Props,
-  AnnouncementData
-> {
+  file: any;
+  base64URL: any;
+};
+
+export default class AnnouncementsForm extends Component<Props, State> {
   constructor(props: Props) {
     super(props);
 
     this.state = {
-      id: 8,
+      id: "",
       titulo: "",
       encargado: "Leticia Blanco",
       codigo: "",
+      descripcion: "",
+      fechaLimRec: "",
+      fechaIniDur: "",
+      fechaFinDur: "",
+      documento: "",
+      publica: false,
+
+      file: null,
+      base64URL: null,
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleTitulo = this.handleTitulo.bind(this);
     this.handleCodigo = this.handleCodigo.bind(this);
+    this.handleFechaLimRec = this.handleFechaLimRec.bind(this);
+    this.handleFechaIniDur = this.handleFechaIniDur.bind(this);
+    this.handleFechaFinDur = this.handleFechaFinDur.bind(this);
+    this.handleSubirConvocatoria = this.handleSubirConvocatoria.bind(this);
   }
 
   handleTitulo(event: ChangeElement) {
     this.setState({
-      id: this.state.id,
       titulo: event.target.value,
-      encargado: this.state.encargado,
-      codigo: this.state.codigo,
     });
   }
 
   handleCodigo(event: ChangeElement) {
     this.setState({
-      id: this.state.id,
-      titulo: this.state.titulo,
-      encargado: this.state.encargado,
+      id: event.target.value,
       codigo: event.target.value,
+    });
+  }
+
+  handleFechaLimRec(event: ChangeElement) {
+    this.setState({
+      fechaLimRec: event.target.value,
+    });
+  }
+
+  handleFechaIniDur(event: ChangeElement) {
+    this.setState({
+      fechaIniDur: event.target.value,
+    });
+  }
+
+  handleFechaFinDur(event: ChangeElement) {
+    this.setState({
+      fechaFinDur: event.target.value,
+    });
+  }
+
+  getBase64 = (file: any) => {
+    return new Promise((resolve) => {
+      let baseURL: any = "";
+      let reader = new FileReader();
+      reader.readAsDataURL(file);
+
+      reader.onload = () => {
+        baseURL = reader.result;
+        resolve(baseURL);
+      };
+    });
+  };
+
+  handleSubirConvocatoria(e: any) {
+    let { file } = this.state;
+    file = e.target.files[0];
+    this.getBase64(file)
+      .then((result) => {
+        file["base64"] = result;
+        this.setState({
+          base64URL: result,
+          file,
+        });
+        this.setState({
+          documento: this.state.base64URL,
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+
+    this.setState({
+      file: e.target.files[0],
     });
   }
 
@@ -109,6 +183,10 @@ export default class AnnouncementsForm extends Component<
                   id="descripcion"
                   name="descripcion"
                   rows={6}
+                  value={this.state.descripcion}
+                  onChange={(e) =>
+                    this.setState({ descripcion: e.target.value })
+                  }
                 ></textarea>
               </div>
             </div>
@@ -122,6 +200,8 @@ export default class AnnouncementsForm extends Component<
                   className="form-control"
                   id="fechaLimite"
                   name="fechaLimite"
+                  value={this.state.fechaLimRec}
+                  onChange={this.handleFechaLimRec}
                   required
                 />
               </div>
@@ -139,6 +219,8 @@ export default class AnnouncementsForm extends Component<
                   className="form-control"
                   id="fechaInicio"
                   name="fechaInicio"
+                  value={this.state.fechaIniDur}
+                  onChange={this.handleFechaIniDur}
                   required
                 />
               </div>
@@ -153,6 +235,8 @@ export default class AnnouncementsForm extends Component<
                   className="form-control"
                   id="fechaFin"
                   name="fechaFin"
+                  value={this.state.fechaFinDur}
+                  onChange={this.handleFechaFinDur}
                   required
                 />
               </div>
@@ -168,6 +252,7 @@ export default class AnnouncementsForm extends Component<
                   className="form-control"
                   id="subirPdf"
                   name="subirPdf"
+                  onChange={this.handleSubirConvocatoria}
                   required
                 />
               </div>
