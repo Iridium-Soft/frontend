@@ -86,9 +86,9 @@ export default function AnnouncementDetails(props: Props): JSX.Element {
               <h5>Fechas de duración del contrato</h5>
               <div className="row">
                 <h5 className="col-md-2">Inicio: </h5>
-                <p className="col-md-2">{props.announcement.fechaIniDur}</p>
-                <h5 className="offset-md-3 col-md-2">Fin: </h5>
-                <p className="col-md-2">{props.announcement.fechaFinDur}</p>
+                <p className="col-md-3">{props.announcement.fechaIniDur}</p>
+                <h5 className="offset-md-1 col-md-2">Fin: </h5>
+                <p className="col-md-3">{props.announcement.fechaFinDur}</p>
               </div>
               <div className="row mt-3">
                 <div className="d-grid gap-2 col-6 mx-auto">
