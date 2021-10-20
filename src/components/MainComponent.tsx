@@ -5,6 +5,7 @@ import HeaderComponent from "./HeaderComponent";
 import SidebarComponent from "./SidebarComponent";
 import UploadDocumentsPage from "./UploadDocumentsPage";
 import MyAnnouncementsList from "./MyAnnouncementsList";
+import AnnouncementsForm from "./AnnouncementsForm";
 
 type Props = {};
 
@@ -20,15 +21,17 @@ export default class MainComponent extends Component<Props, State> {
           <Route
             path="/announcements_list"
             component={AnnouncementsList}
-          >
-
-          </Route>
-          <Route path="/documents"
-                 component={UploadDocumentsPage}>
-          </Route>
-          <Route path="/my_announcements" component={MyAnnouncementsList}>
-
-          </Route>
+          ></Route>
+          <Route path="/documents" component={UploadDocumentsPage}></Route>
+          <Route
+            path="/my_announcements"
+            component={MyAnnouncementsList}
+          ></Route>
+          <Route
+            exact
+            path="/announcement_form"
+            component={AnnouncementsForm}
+          />
         </Switch>
       </>
     );
