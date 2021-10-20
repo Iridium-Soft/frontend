@@ -4,7 +4,8 @@ import "./UploadDocument.css";
 import DocumentData from "../types/announcement.type";
 
 type Props = {
-    name: string;
+    name: string,
+    parentCallback: any,
 }
 
 type State = {
@@ -24,6 +25,7 @@ export default class UploadDocument extends Component<Props, State> {
         this.getBase64 = this.getBase64.bind(this);
         this.handleFileInputChange = this.handleFileInputChange.bind(this);
         this.toggleUploadButton = this.toggleUploadButton.bind(this);
+        this.onTrigger = this.onTrigger.bind(this);
     }
 
     toggleUploadButton() {
@@ -35,26 +37,25 @@ export default class UploadDocument extends Component<Props, State> {
         )
     }
 
+    onTrigger() {
+        this.props.parentCallback(this.state.base64URL);
+    }
+
     getBase64 = (file:any) => {
         return new Promise(resolve => {
-            let fileInfo;
             let baseURL:any = "";
             let reader = new FileReader();
             reader.readAsDataURL(file);
 
             reader.onload = () => {
-                console.log("Called", reader);
                 baseURL = reader.result;
-                console.log(baseURL);
                 resolve(baseURL);
             };
-            console.log(fileInfo);
         });
     };
 
     handleFileInputChange = (e:any) => {
         this.toggleUploadButton();
-        console.log(e.target.files[0]);
         let { file } = this.state;
         file = e.target.files[0];
         this.getBase64(file)
@@ -64,6 +65,7 @@ export default class UploadDocument extends Component<Props, State> {
                     base64URL: result,
                     file
                 });
+                this.onTrigger();
             })
             .catch(err => {
                 console.log(err);
@@ -74,7 +76,7 @@ export default class UploadDocument extends Component<Props, State> {
         });
     };
     render() {
-        const { isUploaded, file } = this.state;
+        const { isUploaded, file, base64URL } = this.state;
         const { name } = this.props;
 
         return (

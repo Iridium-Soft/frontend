@@ -1,7 +1,7 @@
 import http from "../http-common";
-import DocumentData from "../types/document.type";
+import DocumentData from "../types/documents.type";
 
-class DocumentDataService {
+class DocumentsDataService {
     getAll() {
         return http.get("/documentos")
     }
@@ -31,4 +31,4 @@ class DocumentDataService {
     }
 }
 
-export default new DocumentDataService();
+export default new DocumentsDataService();

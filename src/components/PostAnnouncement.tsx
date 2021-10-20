@@ -47,7 +47,7 @@ export default function PostAnnouncement(props: Props): JSX.Element {
                         </div>
                         <div className="row mt-3">
                             <div className="d-grid gap-2 col-6">
-                                <a className="btn btn-primary" type="button" href="#">
+                                <a className="btn btn-info text-white" type="button" href="#">
                                     {props.announcement.titulo}.pdf
                                 </a>
                             </div>
@@ -61,14 +61,14 @@ export default function PostAnnouncement(props: Props): JSX.Element {
                     <div className="modal-footer">
                         <button
                             type="button"
-                            className="btn btn-secondary"
+                            className="btn btn-secondary text-white"
                             data-bs-dismiss="modal"
                         >
                             Cancelar
                         </button>
                         <button
                             type="button"
-                            className="btn btn-primary"
+                            className="btn btn-info text-white"
                             onClick={() => confirmApplication()}
                         >
                             Publicar convocatoria
