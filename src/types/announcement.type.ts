@@ -3,4 +3,10 @@ export default interface AnnouncementData {
   titulo: string,
   encargado: string,
   codigo: string,
+  descripcion: string,
+  fechaLimRec: string,
+  fechaIniDur: string,
+  fechaFinDur: string,
+  documento: string,
+  publica: boolean
 }

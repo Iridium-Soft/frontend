@@ -7,7 +7,7 @@ class DocumentsDataService {
     }
 
     get(id: string) {
-        return http.get(`/documentos/${id}`);
+        return http.get(`/documento/convocatoria/${id}`);
     }
 
     create(data: DocumentData) {
