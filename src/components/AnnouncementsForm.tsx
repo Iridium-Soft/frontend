@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import AnnouncementDataService from "../services/announcement.service";
-import AnnouncementData from "../types/announcement.type";
+import Snackbar from "@mui/material/Snackbar";
+import IconButton from "@mui/material/IconButton";
 
 type FormElement = React.FormEvent<HTMLFormElement>;
 type ChangeElement = React.ChangeEvent<HTMLInputElement>;
@@ -19,6 +20,9 @@ type State = {
 
   file: any;
   base64URL: any;
+
+  open: boolean;
+  message: string;
 };
 
 export default class AnnouncementsForm extends Component<Props, State> {
@@ -39,6 +43,9 @@ export default class AnnouncementsForm extends Component<Props, State> {
 
       file: null,
       base64URL: null,
+
+      open: false,
+      message: "",
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -119,8 +126,19 @@ export default class AnnouncementsForm extends Component<Props, State> {
 
   handleSubmit(e: FormElement) {
     e.preventDefault();
-    AnnouncementDataService.create(this.state);
-    alert("Convocatoria guardada");
+    AnnouncementDataService.create({
+      id: this.state.id,
+      titulo: this.state.titulo,
+      encargado: this.state.encargado,
+      codigo: this.state.codigo,
+      descripcion: this.state.descripcion,
+      fechaLimRec: this.state.fechaLimRec,
+      fechaIniDur: this.state.fechaIniDur,
+      fechaFinDur: this.state.fechaFinDur,
+      documento: this.state.documento,
+      publica: this.state.publica,
+    });
+    this.setState({ message: "Registro de convocatoria exitoso", open: true });
     //console.log(this.state);
   }
 
@@ -132,6 +150,27 @@ export default class AnnouncementsForm extends Component<Props, State> {
   }
 
   render() {
+    const closeSnackbar = (
+      event: React.SyntheticEvent | React.MouseEvent,
+      reason?: string
+    ) => {
+      if (reason === "clickaway") {
+        return;
+      }
+      this.setState({ open: false });
+    };
+
+    const actionCloseSnackbar = (
+      <IconButton
+        size="small"
+        aria-label="close"
+        color="inherit"
+        onClick={closeSnackbar}
+      >
+        <span aria-hidden="true">&times;</span>
+      </IconButton>
+    );
+
     return (
       <>
         <div className="container">
@@ -273,6 +312,13 @@ export default class AnnouncementsForm extends Component<Props, State> {
             </div>
           </form>
         </div>
+        <Snackbar
+          open={this.state.open}
+          autoHideDuration={6000}
+          onClose={closeSnackbar}
+          message={this.state.message}
+          action={actionCloseSnackbar}
+        />
       </>
     );
   }
