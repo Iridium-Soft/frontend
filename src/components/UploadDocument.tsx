@@ -84,7 +84,7 @@ export default class UploadDocument extends Component<Props, State> {
             <div className="file-upload btn btn-secondary">
                 <span>{name}</span>
 
-                <input type="file" className="upload" id="upload-btn" onChange={this.handleFileInputChange}/>
+                <input type="file" accept="application/pdf" className="upload" id="upload-btn" onChange={this.handleFileInputChange}/>
                 <i className="fa fa-upload icon"></i>
             </div>
         </div>
