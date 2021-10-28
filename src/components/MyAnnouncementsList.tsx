@@ -22,7 +22,7 @@ export default class MyAnnouncementsList extends Component<Props, State> {
       currentAnnouncement: {
         id: "",
         titulo: "",
-        encargado: "",
+        consultorEnc: "",
         codigo: "",
         descripcion: "",
         fechaLimRec: "",
@@ -87,7 +87,7 @@ export default class MyAnnouncementsList extends Component<Props, State> {
                         {announcement.codigo}
                       </div>
                       <div className="col-md-4 col-lg-4 d-none d-md-block text-end">
-                        {announcement.encargado}
+                        {announcement.consultorEnc}
                       </div>
                     </div>
                   </button>

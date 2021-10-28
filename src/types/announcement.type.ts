@@ -1,7 +1,7 @@
 export default interface AnnouncementData {
   id?: any | null,
   titulo: string,
-  encargado: string,
+  consultorEnc: string,
   codigo: string,
   descripcion: string,
   fechaLimRec: string,

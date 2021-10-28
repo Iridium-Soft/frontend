@@ -6,6 +6,7 @@ import SidebarComponent from "./SidebarComponent";
 import UploadDocumentsPage from "./UploadDocumentsPage";
 import MyAnnouncementsList from "./MyAnnouncementsList";
 import AnnouncementsForm from "./AnnouncementsForm";
+import WorkCalendar from "./WorkCalendar";
 
 type Props = {};
 
@@ -33,6 +34,11 @@ export default class MainComponent extends Component<Props, State> {
             exact
             path="/announcement_form"
             component={AnnouncementsForm}
+          />
+          <Route
+            exact
+            path="/my_work_calendar"
+            component={WorkCalendar}
           />
           <Redirect to="/" />
         </Switch>

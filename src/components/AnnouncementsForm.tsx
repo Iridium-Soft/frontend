@@ -9,7 +9,7 @@ type Props = {};
 type State = {
   id?: any | null;
   titulo: string;
-  encargado: string;
+  consultorEnc: string;
   codigo: string;
   descripcion: string;
   fechaLimRec: string;
@@ -32,7 +32,7 @@ export default class AnnouncementsForm extends Component<Props, State> {
     this.state = {
       id: "",
       titulo: "",
-      encargado: "Leticia Blanco",
+      consultorEnc: "Leticia Blanco",
       codigo: "",
       descripcion: "",
       fechaLimRec: "",
@@ -129,7 +129,7 @@ export default class AnnouncementsForm extends Component<Props, State> {
     AnnouncementDataService.create({
       id: this.state.id,
       titulo: this.state.titulo,
-      encargado: this.state.encargado,
+      consultorEnc: this.state.consultorEnc,
       codigo: this.state.codigo,
       descripcion: this.state.descripcion,
       fechaLimRec: this.state.fechaLimRec,

@@ -1,4 +1,5 @@
 import React from "react";
+import { useState , useEffect } from "react";
 import AnnouncementData from "../types/announcement.type";
 import AnnouncementDataService from "../services/announcement.service";
 
@@ -8,10 +9,11 @@ type Props = {
 };
 
 export default function PostAnnouncement(props: Props): JSX.Element {
+    const [ toggle, setToggle ] = useState(props.announcement.publica);
     const publishAnnouncement = () => {
         const { id,
             titulo,
-            encargado,
+            consultorEnc,
             codigo,
             descripcion,
             fechaLimRec,
@@ -21,7 +23,7 @@ export default function PostAnnouncement(props: Props): JSX.Element {
             AnnouncementDataService.update({
                     id: id,
                     titulo: titulo,
-                    encargado: encargado,
+                    consultorEnc: consultorEnc,
                     codigo: codigo,
                     descripcion: descripcion,
                     fechaLimRec: fechaLimRec,
@@ -31,8 +33,16 @@ export default function PostAnnouncement(props: Props): JSX.Element {
                     publica: true,
                  },
                 id);
-
+            setToggle(!toggle);
     }
+
+    useEffect(() => {
+        console.log(toggle)
+        // @ts-ignore
+        document.getElementById("colorsito").className = toggle ? "text-success" : "text-danger";
+        // @ts-ignore
+        document.getElementById("mensajito").innerHTML = `<p>Estado: ${toggle ? "Publicada" : "No publicada"}</p>`;
+    });
 
     return (
         <div
@@ -68,9 +78,11 @@ export default function PostAnnouncement(props: Props): JSX.Element {
                             </div>
                         </div>
                         <div className="row mt-2">
-                            <p className={`${props.announcement.publica ? "text-success" : "text-danger"}`}>
-                                Estado: {props.announcement.publica ? "Publicada" : "No publicada"}
-                            </p>
+                            <div id="colorsito" className={`${props.announcement.publica ? "text-success" : "text-danger"}`}>
+                                <p id="mensajito">
+                                    Estado: {props.announcement.publica ? "Publicada" : "No publicada"}
+                                </p>
+                            </div>
                         </div>
                     </div>
                     <div className="modal-footer">
