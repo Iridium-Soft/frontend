@@ -23,6 +23,8 @@ type State = {
 
   open: boolean;
   message: string;
+
+  validate: boolean;
 };
 
 export default class AnnouncementsForm extends Component<Props, State> {
@@ -46,6 +48,8 @@ export default class AnnouncementsForm extends Component<Props, State> {
 
       open: false,
       message: "",
+
+      validate: false,
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -126,6 +130,38 @@ export default class AnnouncementsForm extends Component<Props, State> {
 
   handleSubmit(e: FormElement) {
     e.preventDefault();
+    this.setState({ validate: true });
+    if (!/[a-zA-Z]+/.test(this.state.titulo)) {
+      this.setState({
+        message: "Llene correctamente los campos. Título incorrecto",
+        open: true,
+      });
+      return;
+    } else if (this.state.codigo === "") {
+      this.setState({
+        message: "Llene correctamente los campos. Código incorrecto",
+        open: true,
+      });
+      return;
+    } else if (
+      this.state.fechaLimRec === "" ||
+      this.state.fechaIniDur === "" ||
+      this.state.fechaFinDur === "" ||
+      new Date(this.state.fechaLimRec) > new Date(this.state.fechaIniDur) ||
+      new Date(this.state.fechaIniDur) > new Date(this.state.fechaFinDur)
+    ) {
+      this.setState({
+        message: "Llene correctamente los campos. Fechas incorrectas",
+        open: true,
+      });
+      return;
+    } else if (this.state.file == null) {
+      this.setState({
+        message: "Llene correctamente los campos. Suba un archivo",
+        open: true,
+      });
+      return;
+    }
     AnnouncementDataService.create({
       id: this.state.id,
       titulo: this.state.titulo,
@@ -140,13 +176,6 @@ export default class AnnouncementsForm extends Component<Props, State> {
     });
     this.setState({ message: "Registro de convocatoria exitoso", open: true });
     //console.log(this.state);
-  }
-
-  actionBtnCancel() {
-    const option = window.confirm(
-      "¿Está seguro de cancelar el registro de convocatoria?"
-    );
-    console.log(option);
   }
 
   render() {
@@ -173,11 +202,49 @@ export default class AnnouncementsForm extends Component<Props, State> {
 
     return (
       <>
+        <div
+          className="modal fade"
+          id="popupCancelModal"
+          tabIndex={-1}
+          aria-hidden={true}
+        >
+          <div className="modal-dialog">
+            <div className="modal-content">
+              <div className="modal-header">
+                <h5 className="modal-title">
+                  ¿Está seguro de cancelar el registro de convocatoria?
+                </h5>
+                <button
+                  type="button"
+                  className="btn-close"
+                  data-bs-dismiss="modal"
+                  aria-label="Close"
+                ></button>
+              </div>
+              <div className="modal-footer">
+                <button
+                  type="button"
+                  className="btn btn-secondary"
+                  data-bs-dismiss="modal"
+                >
+                  Cancelar
+                </button>
+                <button
+                  type="button"
+                  className="btn btn-primary"
+                  onClick={() => window.location.reload()}
+                >
+                  Aceptar
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
         <div className="container">
           <div className="row mt-5">
             <h1>Formulario de registro de convocatoria</h1>
           </div>
-          <form onSubmit={this.handleSubmit} method="post">
+          <form onSubmit={this.handleSubmit} method="post" noValidate>
             <div className="form-group row m-3">
               <label htmlFor="titulo" className="col-md-2 col-form-label">
                 Título
@@ -287,7 +354,7 @@ export default class AnnouncementsForm extends Component<Props, State> {
               <div className="col-md-10">
                 <input
                   type="file"
-                  accept=".pdf,.doc,.docx"
+                  accept=".pdf"
                   className="form-control"
                   id="subirPdf"
                   name="subirPdf"
@@ -296,16 +363,19 @@ export default class AnnouncementsForm extends Component<Props, State> {
                 />
               </div>
             </div>
-            <div className="form-group row">
-              <div className="col-md-12 m-3 d-flex justify-content-between">
+            <div className="form-group row m-3 d-flex justify-content-end">
+              <div className="col-1">
                 <button
                   type="button"
-                  className="btn btn-secondary"
-                  onClick={() => this.actionBtnCancel()}
+                  className="btn btn-danger"
+                  data-bs-toggle="modal"
+                  data-bs-target="#popupCancelModal"
                 >
                   Cancelar
                 </button>
-                <button type="submit" className="btn btn-primary">
+              </div>
+              <div className="col-1">
+                <button type="submit" className="btn btn-success">
                   Guardar
                 </button>
               </div>
