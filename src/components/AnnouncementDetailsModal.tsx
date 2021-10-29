@@ -1,7 +1,5 @@
 import React from "react";
 import AnnouncementData from "../types/announcement.type";
-import Snackbar from "@mui/material/Snackbar";
-import IconButton from "@mui/material/IconButton";
 
 type Props = {
   announcement: AnnouncementData;
@@ -9,43 +7,6 @@ type Props = {
 };
 
 export default function AnnouncementDetails(props: Props): JSX.Element {
-  const [open, setOpen] = React.useState(false);
-  const [message, setMessage] = React.useState("");
-
-  const confirmApplication = () => {
-    const option = window.confirm(
-      `Usted como grupo-empresa GRUPO-EMPRESA desea postular a la convocatoria "${props.announcement.titulo}"`
-    );
-    if (option) {
-      setMessage("Su grupo-empresa aplicó a la convocatoria seleccionada");
-      setOpen(true);
-    } else {
-      setMessage("Aplicación a la convocatoria cancelada");
-      setOpen(true);
-    }
-  };
-
-  const closeSnackbar = (
-    event: React.SyntheticEvent | React.MouseEvent,
-    reason?: string
-  ) => {
-    if (reason === "clickaway") {
-      return;
-    }
-    setOpen(false);
-  };
-
-  const actionCloseSnackbar = (
-    <IconButton
-      size="small"
-      aria-label="close"
-      color="inherit"
-      onClick={closeSnackbar}
-    >
-      <span aria-hidden="true">&times;</span>
-    </IconButton>
-  );
-
   return (
     <>
       <div
@@ -98,32 +59,9 @@ export default function AnnouncementDetails(props: Props): JSX.Element {
                 </div>
               </div>
             </div>
-            <div className="modal-footer">
-              <button
-                type="button"
-                className="btn btn-secondary"
-                data-bs-dismiss="modal"
-              >
-                Cancelar
-              </button>
-              <button
-                type="button"
-                className="btn btn-primary"
-                onClick={() => confirmApplication()}
-              >
-                Aplicar
-              </button>
-            </div>
           </div>
         </div>
       </div>
-      <Snackbar
-        open={open}
-        autoHideDuration={6000}
-        onClose={closeSnackbar}
-        message={message}
-        action={actionCloseSnackbar}
-      />
     </>
   );
 }
