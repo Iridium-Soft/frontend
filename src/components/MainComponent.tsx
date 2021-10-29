@@ -6,6 +6,8 @@ import SidebarComponent from "./SidebarComponent";
 import UploadDocumentsPage from "./UploadDocumentsPage";
 import MyAnnouncementsList from "./MyAnnouncementsList";
 import AnnouncementsForm from "./AnnouncementsForm";
+import ApplyToAnnouncement from "./ApplyToAnnouncement";
+import PetisForm from "./PetisForm";
 
 type Props = {};
 
@@ -34,6 +36,12 @@ export default class MainComponent extends Component<Props, State> {
             path="/announcement_form"
             component={AnnouncementsForm}
           />
+          <Route
+            exact
+            path="/apply_to_announcement"
+            component={ApplyToAnnouncement}
+          />
+          <Route exact path="/petis_form" component={PetisForm} />
           <Redirect to="/" />
         </Switch>
       </>
