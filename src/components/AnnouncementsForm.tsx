@@ -17,14 +17,13 @@ type State = {
   fechaFinDur: string;
   documento: string;
   publica: boolean;
+  pliego: string;
 
   file: any;
   base64URL: any;
 
   open: boolean;
   message: string;
-
-  validate: boolean;
 };
 
 export default class AnnouncementsForm extends Component<Props, State> {
@@ -34,7 +33,7 @@ export default class AnnouncementsForm extends Component<Props, State> {
     this.state = {
       id: "",
       titulo: "",
-      encargado: "Leticia Blanco",
+      encargado: "",
       codigo: "",
       descripcion: "",
       fechaLimRec: "",
@@ -42,14 +41,13 @@ export default class AnnouncementsForm extends Component<Props, State> {
       fechaFinDur: "",
       documento: "",
       publica: false,
+      pliego: "",
 
       file: null,
       base64URL: null,
 
       open: false,
       message: "",
-
-      validate: false,
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -130,7 +128,6 @@ export default class AnnouncementsForm extends Component<Props, State> {
 
   handleSubmit(e: FormElement) {
     e.preventDefault();
-    this.setState({ validate: true });
     if (!/[a-zA-Z]+/.test(this.state.titulo)) {
       this.setState({
         message: "Llene correctamente los campos. Título incorrecto",
@@ -155,7 +152,7 @@ export default class AnnouncementsForm extends Component<Props, State> {
         open: true,
       });
       return;
-    } else if (this.state.file == null) {
+    } else if (this.state.file === null) {
       this.setState({
         message: "Llene correctamente los campos. Suba un archivo",
         open: true,
@@ -173,9 +170,9 @@ export default class AnnouncementsForm extends Component<Props, State> {
       fechaFinDur: this.state.fechaFinDur,
       documento: this.state.documento,
       publica: this.state.publica,
+      pliego: this.state.pliego,
     });
     this.setState({ message: "Registro de convocatoria exitoso", open: true });
-    //console.log(this.state);
   }
 
   render() {

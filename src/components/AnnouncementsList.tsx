@@ -30,6 +30,7 @@ export default class AnnouncementsList extends Component<Props, State> {
         fechaFinDur: "",
         documento: "",
         publica: false,
+        pliego: "",
       },
     };
   }

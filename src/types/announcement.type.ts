@@ -9,4 +9,5 @@ export default interface AnnouncementData {
   fechaFinDur: string,
   documento: string,
   publica: boolean
+  pliego: string
 }

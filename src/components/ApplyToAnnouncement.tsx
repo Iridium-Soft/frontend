@@ -26,7 +26,7 @@ export default class ApplyToAnnouncement extends Component<Props, State> {
       currentAnnouncement: {
         id: "",
         titulo: "",
-        encargado: "Leticia Blanco",
+        encargado: "",
         codigo: "",
         descripcion: "",
         fechaLimRec: "",
@@ -34,6 +34,7 @@ export default class ApplyToAnnouncement extends Component<Props, State> {
         fechaFinDur: "",
         documento: "",
         publica: false,
+        pliego: "",
       },
 
       open: false,
