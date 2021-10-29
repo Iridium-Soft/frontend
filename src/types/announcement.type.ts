@@ -1,12 +1,13 @@
 export default interface AnnouncementData {
   id?: any | null,
   titulo: string,
-  encargado: string,
+  consultorEnc: string,
   codigo: string,
   descripcion: string,
   fechaLimRec: string,
   fechaIniDur: string,
   fechaFinDur: string,
   documento: string,
-  publica: boolean
+  publica: boolean,
+  pliego: string,
 }

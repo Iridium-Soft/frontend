@@ -11,7 +11,7 @@ export default function PostAnnouncement(props: Props): JSX.Element {
     const publishAnnouncement = () => {
         const { id,
             titulo,
-            encargado,
+            consultorEnc,
             codigo,
             descripcion,
             fechaLimRec,
@@ -21,7 +21,7 @@ export default function PostAnnouncement(props: Props): JSX.Element {
             AnnouncementDataService.update({
                     id: id,
                     titulo: titulo,
-                    encargado: encargado,
+                    consultorEnc: consultorEnc,
                     codigo: codigo,
                     descripcion: descripcion,
                     fechaLimRec: fechaLimRec,
@@ -29,6 +29,7 @@ export default function PostAnnouncement(props: Props): JSX.Element {
                     fechaFinDur: fechaFinDur,
                     documento: documento,
                     publica: true,
+                    pliego: "",
                  },
                 id);
 

@@ -17,6 +17,7 @@ type State = {
   fechaFinDur: string;
   documento: string;
   publica: boolean;
+  pliego: string;
 
   file: any;
   base64URL: any;
@@ -40,6 +41,7 @@ export default class AnnouncementsForm extends Component<Props, State> {
       fechaFinDur: "",
       documento: "",
       publica: false,
+      pliego: "",
 
       file: null,
       base64URL: null,
@@ -129,7 +131,7 @@ export default class AnnouncementsForm extends Component<Props, State> {
     AnnouncementDataService.create({
       id: this.state.id,
       titulo: this.state.titulo,
-      encargado: this.state.encargado,
+      consultorEnc: this.state.encargado,
       codigo: this.state.codigo,
       descripcion: this.state.descripcion,
       fechaLimRec: this.state.fechaLimRec,
@@ -137,6 +139,7 @@ export default class AnnouncementsForm extends Component<Props, State> {
       fechaFinDur: this.state.fechaFinDur,
       documento: this.state.documento,
       publica: this.state.publica,
+      pliego: this.state.pliego,
     });
     this.setState({ message: "Registro de convocatoria exitoso", open: true });
     //console.log(this.state);

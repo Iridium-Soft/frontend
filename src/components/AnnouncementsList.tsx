@@ -22,7 +22,7 @@ export default class AnnouncementsList extends Component<Props, State> {
       currentAnnouncement: {
         id: "",
         titulo: "",
-        encargado: "",
+        consultorEnc: "",
         codigo: "",
         descripcion: "",
         fechaLimRec: "",
@@ -30,6 +30,7 @@ export default class AnnouncementsList extends Component<Props, State> {
         fechaFinDur: "",
         documento: "",
         publica: false,
+        pliego: ""
       },
     };
   }
@@ -58,6 +59,7 @@ export default class AnnouncementsList extends Component<Props, State> {
 
   render() {
     const { announcements } = this.state;
+    const consultor = announcements[0]?.consultorEnc;
     const modalId: string = "modalAplicar";
 
     return (
@@ -67,13 +69,16 @@ export default class AnnouncementsList extends Component<Props, State> {
           modalId={modalId}
         />
         <div className="container p-3 position-relative">
-          <h2 className="row justify-content-center">Lista de convocatorias</h2>
+          <div className="row">
+            <div className="col-8"><h3>Convocatorias Publicas</h3></div>
+            <div className="col-4"><p className="text-secondary pb-0"><strong>Consultor: {consultor}</strong></p></div>
+          </div>
           {announcements &&
             announcements.map((announcement: AnnouncementData) => (
               <>
                 <div className="row mx-0 mb-2">
                   <button
-                    className="btn btn-info col-12 btn-md announcement"
+                    className="btn btn-info col-9 btn-md announcement"
                     data-bs-toggle="modal"
                     data-bs-target={`#${modalId}`}
                     onClick={() =>
@@ -81,17 +86,25 @@ export default class AnnouncementsList extends Component<Props, State> {
                     }
                   >
                     <div className="row">
-                      <div className="col-xs-12 col-md-6 col-lg-4">
+                      <div className="col-xs-12 col-md-6 col-lg-8">
                         {announcement.titulo}
                       </div>
-                      <div className="col-md-2 col-lg-4 d-none d-lg-block text-end">
+                      <div className="col-md-6 col-lg-4">
                         {announcement.codigo}
-                      </div>
-                      <div className="col-md-4 col-lg-4 d-none d-md-block text-end">
-                        {announcement.encargado}
                       </div>
                     </div>
                   </button>
+
+                  <div className="dropdown col-3">
+                    <button className="btn btn-info dropdown-toggle announcement" type="button" id="dropdownMenuButton1"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                      Archivos
+                    </button>
+                    <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                      <li><a className="dropdown-item" href={this.state.currentAnnouncement.documento}>Descargar Convocatoria</a></li>
+                      {() => (this.state.currentAnnouncement.pliego !== "") && <li><a className="dropdown-item" href="#">Descargar Pliego de Especificacion</a></li>}
+                    </ul>
+                  </div>
                 </div>
               </>
             ))}
