@@ -9,7 +9,7 @@ type Props = {};
 type State = {
   id?: any | null;
   titulo: string;
-  encargado: string;
+  consultorEnc: string;
   codigo: string;
   descripcion: string;
   fechaLimRec: string;
@@ -24,8 +24,6 @@ type State = {
 
   open: boolean;
   message: string;
-
-  validate: boolean;
 };
 
 export default class AnnouncementsForm extends Component<Props, State> {
@@ -35,7 +33,7 @@ export default class AnnouncementsForm extends Component<Props, State> {
     this.state = {
       id: "",
       titulo: "",
-      encargado: "Leticia Blanco",
+      consultorEnc: "",
       codigo: "",
       descripcion: "",
       fechaLimRec: "",
@@ -50,8 +48,6 @@ export default class AnnouncementsForm extends Component<Props, State> {
 
       open: false,
       message: "",
-
-      validate: false,
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -132,7 +128,6 @@ export default class AnnouncementsForm extends Component<Props, State> {
 
   handleSubmit(e: FormElement) {
     e.preventDefault();
-    this.setState({ validate: true });
     if (!/[a-zA-Z]+/.test(this.state.titulo)) {
       this.setState({
         message: "Llene correctamente los campos. Título incorrecto",
@@ -157,7 +152,7 @@ export default class AnnouncementsForm extends Component<Props, State> {
         open: true,
       });
       return;
-    } else if (this.state.file == null) {
+    } else if (this.state.file === null) {
       this.setState({
         message: "Llene correctamente los campos. Suba un archivo",
         open: true,
@@ -167,7 +162,7 @@ export default class AnnouncementsForm extends Component<Props, State> {
     AnnouncementDataService.create({
       id: this.state.id,
       titulo: this.state.titulo,
-      consultorEnc: this.state.encargado,
+      consultorEnc: this.state.consultorEnc,
       codigo: this.state.codigo,
       descripcion: this.state.descripcion,
       fechaLimRec: this.state.fechaLimRec,
@@ -178,7 +173,6 @@ export default class AnnouncementsForm extends Component<Props, State> {
       pliego: this.state.pliego,
     });
     this.setState({ message: "Registro de convocatoria exitoso", open: true });
-    //console.log(this.state);
   }
 
   render() {

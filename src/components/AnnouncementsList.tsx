@@ -30,7 +30,7 @@ export default class AnnouncementsList extends Component<Props, State> {
         fechaFinDur: "",
         documento: "",
         publica: false,
-        pliego: ""
+        pliego: "",
       },
     };
   }
@@ -70,8 +70,14 @@ export default class AnnouncementsList extends Component<Props, State> {
         />
         <div className="container p-3 position-relative">
           <div className="row">
-            <div className="col-8"><h3>Convocatorias Publicas</h3></div>
-            <div className="col-4"><p className="text-secondary pb-0"><strong>Consultor: {consultor}</strong></p></div>
+            <div className="col-8">
+              <h3>Convocatorias Publicas</h3>
+            </div>
+            <div className="col-4">
+              <p className="text-secondary pb-0">
+                <strong>Consultor: {consultor}</strong>
+              </p>
+            </div>
           </div>
           {announcements &&
             announcements.map((announcement: AnnouncementData) => (
@@ -96,13 +102,36 @@ export default class AnnouncementsList extends Component<Props, State> {
                   </button>
 
                   <div className="dropdown col-3">
-                    <button className="btn btn-info dropdown-toggle announcement" type="button" id="dropdownMenuButton1"
-                            data-bs-toggle="dropdown" aria-expanded="false">
+                    <button
+                      className="btn btn-info dropdown-toggle announcement"
+                      type="button"
+                      id="dropdownMenuButton1"
+                      data-bs-toggle="dropdown"
+                      aria-expanded="false"
+                    >
                       Archivos
                     </button>
-                    <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                      <li><a className="dropdown-item" href={this.state.currentAnnouncement.documento}>Descargar Convocatoria</a></li>
-                      {() => (this.state.currentAnnouncement.pliego !== "") && <li><a className="dropdown-item" href="#">Descargar Pliego de Especificacion</a></li>}
+                    <ul
+                      className="dropdown-menu"
+                      aria-labelledby="dropdownMenuButton1"
+                    >
+                      <li>
+                        <a
+                          className="dropdown-item"
+                          href={this.state.currentAnnouncement.documento}
+                        >
+                          Descargar Convocatoria
+                        </a>
+                      </li>
+                      {() =>
+                        this.state.currentAnnouncement.pliego !== "" && (
+                          <li>
+                            <a className="dropdown-item" href="#">
+                              Descargar Pliego de Especificacion
+                            </a>
+                          </li>
+                        )
+                      }
                     </ul>
                   </div>
                 </div>
