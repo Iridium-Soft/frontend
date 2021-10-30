@@ -118,7 +118,10 @@ export default class PetisForm extends Component<Props, State> {
         open: true,
       });
       return;
-    } else if (this.state.codigoPliego === "") {
+    } else if (
+      /\s+/g.test(this.state.codigoPliego) ||
+      this.state.codigoPliego === ""
+    ) {
       this.setState({
         message: "Llene correctamente los campos. Código incorrecto",
         open: true,
@@ -143,6 +146,15 @@ export default class PetisForm extends Component<Props, State> {
       codigoConvocatoria: this.state.codigoConvocatoria,
       documentoPliego: this.state.documentoPliego,
     });
+    // @ts-ignore
+    let announcementAux: AnnouncementData = AnnouncementDataService.get(
+      this.state.codigoConvocatoria
+    );
+    announcementAux.pliego = this.state.documentoPliego;
+    AnnouncementDataService.update(
+      announcementAux,
+      this.state.codigoConvocatoria
+    );
     this.setState({
       message: "Registro de Pliego de Especificación exitoso",
       open: true,

@@ -134,7 +134,7 @@ export default class AnnouncementsForm extends Component<Props, State> {
         open: true,
       });
       return;
-    } else if (this.state.codigo === "") {
+    } else if (/\s+/g.test(this.state.codigo) || this.state.codigo === "") {
       this.setState({
         message: "Llene correctamente los campos. Código incorrecto",
         open: true,
