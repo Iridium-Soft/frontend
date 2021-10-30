@@ -271,7 +271,7 @@ export default class PetisForm extends Component<Props, State> {
                   </option>
                   {this.state.announcements.map(
                     (announcement: AnnouncementData) =>
-                      announcement.pliego !== "" ? (
+                      announcement.pliego === "" ? (
                         <option value={announcement.codigo}>
                           {announcement.titulo}
                         </option>
