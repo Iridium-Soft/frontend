@@ -3,12 +3,15 @@ import AnnouncementDataService from "../services/announcement.service";
 import "./AnnouncementsList.css";
 import AnnouncementData from "../types/announcement.type";
 import PostAnnouncement from "../components/PostAnnouncement";
-
+import PostSpecificationsTIS from "./PostSpecificationsTIS";
+import PetisData from "../types/petis.type";
+import PetisDataService from "../services/petis.service";
 type Props = {};
 
 type State = {
   announcements: Array<AnnouncementData>;
   currentAnnouncement: AnnouncementData;
+  currentPetis: PetisData;
 };
 
 export default class MyAnnouncementsList extends Component<Props, State> {
@@ -16,6 +19,7 @@ export default class MyAnnouncementsList extends Component<Props, State> {
     super(props);
     this.retrieveAnnouncements = this.retrieveAnnouncements.bind(this);
     this.refreshList = this.refreshList.bind(this);
+    this.retrievePetis = this.retrievePetis.bind(this);
 
     this.state = {
       announcements: [],
@@ -31,6 +35,14 @@ export default class MyAnnouncementsList extends Component<Props, State> {
         documento: "",
         publica: false,
         pliego: "",
+      },
+      currentPetis: {
+        id: "",
+        titulo: "",
+        codigoPliego: "",
+        codigoConvocatoria: "",
+        documentoPliego: "",
+        publica: false,
       },
     };
   }
@@ -56,16 +68,33 @@ export default class MyAnnouncementsList extends Component<Props, State> {
     this.setState({});
   }
 
+  retrievePetis(codConv: string) {
+    PetisDataService.get(codConv)
+      .then((response) => {
+        this.setState({
+          currentPetis: response.data,
+        });
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  }
+
   render() {
     const { announcements } = this.state;
     const modalId: string = "modalAplicar";
 
     return (
       <>
-        <PostAnnouncement
+        <PostSpecificationsTIS
+          petis={this.state.currentPetis}
+          modalId={modalId}
+          tituloConv={this.state.currentAnnouncement.titulo}
+        />
+        {/* <PostAnnouncement
           announcement={this.state.currentAnnouncement}
           modalId={modalId}
-        />
+        /> */}
         <div className="container p-3 position-relative">
           <h2 className="row justify-content-center">Mis convocatorias</h2>
           {announcements &&
@@ -76,9 +105,14 @@ export default class MyAnnouncementsList extends Component<Props, State> {
                     className="btn btn-info col-12 btn-md announcement"
                     data-bs-toggle="modal"
                     data-bs-target={`#${modalId}`}
-                    onClick={() =>
-                      this.setState({ currentAnnouncement: announcement })
-                    }
+                    onClick={async () => {
+                      await this.setState({
+                        currentAnnouncement: announcement,
+                      });
+                      await this.retrievePetis(
+                        this.state.currentAnnouncement.id
+                      );
+                    }}
                   >
                     <div className="row">
                       <div className="col-xs-12 col-md-6 col-lg-4">

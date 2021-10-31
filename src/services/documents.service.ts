@@ -10,6 +10,10 @@ class DocumentsDataService {
     return http.get(`/documento/convocatoria/${id}`);
   }
 
+  getPEtis(id: string) {
+    return http.get(`/documento/pliego/${id}`);
+  }
+
   create(data: DocumentData) {
     return http.post("/documentos", data);
   }
