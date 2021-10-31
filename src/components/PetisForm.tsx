@@ -145,6 +145,7 @@ export default class PetisForm extends Component<Props, State> {
       codigoPliego: this.state.codigoPliego,
       codigoConvocatoria: this.state.codigoConvocatoria,
       documentoPliego: this.state.documentoPliego,
+      publica: false,
     });
     // @ts-ignore
     let announcementAux: AnnouncementData = AnnouncementDataService.get(

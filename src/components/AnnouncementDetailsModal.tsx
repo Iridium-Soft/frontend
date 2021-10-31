@@ -53,7 +53,12 @@ export default function AnnouncementDetails(props: Props): JSX.Element {
               </div>
               <div className="row mt-3">
                 <div className="d-grid gap-2 col-6 mx-auto">
-                  <a className="btn btn-primary" type="button" href="#">
+                  <a
+                    download={`${props.announcement.titulo}.pdf`}
+                    className="btn btn-primary"
+                    type="button"
+                    href={props.announcement.documento}
+                  >
                     Descargar archivo adjunto
                   </a>
                 </div>
