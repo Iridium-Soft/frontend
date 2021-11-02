@@ -1,13 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
 import AnnouncementData from "../types/announcement.type";
 import AnnouncementDataService from "../services/announcement.service";
+import documentsService from "../services/documents.service";
 
 type Props = {
   announcement: AnnouncementData;
+  refresh: any;
   modalId: string;
 };
 
 export default function PostAnnouncement(props: Props): JSX.Element {
+  const [documento, setDocumento] = useState("");
   const publishAnnouncement = () => {
     const {
       id,
@@ -36,8 +39,17 @@ export default function PostAnnouncement(props: Props): JSX.Element {
       },
       id
     );
+    props.refresh();
   };
-
+  const retrieveAnnouncementDoc = () => {
+    documentsService.get(props.announcement.documento)
+      .then((response) => {
+        setDocumento(response.data);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  };
   return (
     <div
       className="modal fade"
@@ -66,7 +78,15 @@ export default function PostAnnouncement(props: Props): JSX.Element {
             </div>
             <div className="row mt-3">
               <div className="d-grid gap-2 col-6">
-                <a className="btn btn-info text-white" type="button" href="#">
+                <a
+                  download={`${props.announcement.titulo}.pdf`}
+                  className="btn btn-info text-white"
+                  type="button"
+                  href={documento}
+                  onClick={async () => {
+                    await retrieveAnnouncementDoc();
+                  }}
+                >
                   {props.announcement.titulo}.pdf
                 </a>
               </div>

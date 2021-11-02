@@ -9,7 +9,7 @@ type Props = {
 };
 
 export default function PostSpecificationsTIS(props: Props): JSX.Element {
-  const [state, setState] = useState("");
+  const [documento, setDocumento] = useState("");
   const publishPetis = () => {
     const {
       id,
@@ -34,7 +34,7 @@ export default function PostSpecificationsTIS(props: Props): JSX.Element {
   const retrievePetisDoc = () => {
     PetisDataService.get(props.petis.documentoPliego)
       .then((response) => {
-        setState(response.data);
+        setDocumento(response.data);
       })
       .catch((e) => {
         console.log(e);
@@ -78,9 +78,9 @@ export default function PostSpecificationsTIS(props: Props): JSX.Element {
                   download={`${props.petis.titulo}.pdf`}
                   className="btn btn-primary"
                   type="button"
-                  href={state}
-                  onClick={() => {
-                    retrievePetisDoc();
+                  href={documento}
+                  onClick={async () => {
+                    await retrievePetisDoc();
                   }}
                 >
                   Descargar Pliego de Especificación
