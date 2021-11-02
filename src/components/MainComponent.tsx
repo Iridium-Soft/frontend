@@ -8,6 +8,7 @@ import MyAnnouncementsList from "./MyAnnouncementsList";
 import AnnouncementsForm from "./AnnouncementsForm";
 import ApplyToAnnouncement from "./ApplyToAnnouncement";
 import PetisForm from "./PetisForm";
+import ApplicationsList from "../components/ApplicationsList";
 
 type Props = {};
 
@@ -42,6 +43,7 @@ export default class MainComponent extends Component<Props, State> {
                         component={ApplyToAnnouncement}
                     />
                     <Route exact path="/petis_form" component={PetisForm} />
+                    <Route exact path="/my_applications" component={ApplicationsList} />
                     <Redirect to="/" />
                 </Switch>
             </>
