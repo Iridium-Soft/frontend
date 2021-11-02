@@ -41,15 +41,15 @@ export default class AnnouncementsList extends Component<Props, State> {
 
   retrieveAnnouncements() {
     AnnouncementDataService.getAll()
-      .then((response) => {
-        this.setState({
-          announcements: response.data,
+        .then((response) => {
+          this.setState({
+            announcements: response.data,
+          });
+          console.log(response.data);
+        })
+        .catch((e) => {
+          console.log(e);
         });
-        console.log(response.data);
-      })
-      .catch((e) => {
-        console.log(e);
-      });
   }
 
   refreshList() {
@@ -63,82 +63,82 @@ export default class AnnouncementsList extends Component<Props, State> {
     const modalId: string = "modalAplicar";
 
     return (
-      <>
-        <AnnouncementDetails
-          announcement={this.state.currentAnnouncement}
-          modalId={modalId}
-        />
-        <div className="container p-3 position-relative">
-          <div className="row">
-            <div className="col-8">
-              <h3>Convocatorias Publicas</h3>
+        <>
+          <AnnouncementDetails
+              announcement={this.state.currentAnnouncement}
+              modalId={modalId}
+          />
+          <div className="container p-3 position-relative">
+            <div className="row">
+              <div className="col-8">
+                <h3>Convocatorias Publicas</h3>
+              </div>
+              <div className="col-4">
+                <p className="text-secondary pb-0">
+                  <strong>Consultor: {consultor}</strong>
+                </p>
+              </div>
             </div>
-            <div className="col-4">
-              <p className="text-secondary pb-0">
-                <strong>Consultor: {consultor}</strong>
-              </p>
-            </div>
-          </div>
-          {announcements &&
+            {announcements &&
             announcements.map((announcement: AnnouncementData) => (
-              <>
-                <div className="row mx-0 mb-2">
-                  <button
-                    className="btn btn-info col-9 btn-md announcement"
-                    data-bs-toggle="modal"
-                    data-bs-target={`#${modalId}`}
-                    onClick={() =>
-                      this.setState({ currentAnnouncement: announcement })
-                    }
-                  >
-                    <div className="row">
-                      <div className="col-xs-12 col-md-6 col-lg-8">
-                        {announcement.titulo}
-                      </div>
-                      <div className="col-md-6 col-lg-4">
-                        {announcement.codigo}
-                      </div>
-                    </div>
-                  </button>
-
-                  <div className="dropdown col-3">
+                <>
+                  <div className="row mx-0 mb-2">
                     <button
-                      className="btn btn-info dropdown-toggle announcement"
-                      type="button"
-                      id="dropdownMenuButton1"
-                      data-bs-toggle="dropdown"
-                      aria-expanded="false"
+                        className="btn btn-info col-9 btn-md announcement"
+                        data-bs-toggle="modal"
+                        data-bs-target={`#${modalId}`}
+                        onClick={() =>
+                            this.setState({ currentAnnouncement: announcement })
+                        }
                     >
-                      Archivos
+                      <div className="row">
+                        <div className="col-xs-12 col-md-6 col-lg-8">
+                          {announcement.titulo}
+                        </div>
+                        <div className="col-md-6 col-lg-4">
+                          {announcement.codigo}
+                        </div>
+                      </div>
                     </button>
-                    <ul
-                      className="dropdown-menu"
-                      aria-labelledby="dropdownMenuButton1"
-                    >
-                      <li>
-                        <a
-                          className="dropdown-item"
-                          href={this.state.currentAnnouncement.documento}
-                        >
-                          Descargar Convocatoria
-                        </a>
-                      </li>
-                      {() =>
-                        this.state.currentAnnouncement.pliego !== "" && (
-                          <li>
-                            <a className="dropdown-item" href="#">
-                              Descargar Pliego de Especificacion
-                            </a>
-                          </li>
-                        )
-                      }
-                    </ul>
+
+                    <div className="dropdown col-3">
+                      <button
+                          className="btn btn-info dropdown-toggle announcement"
+                          type="button"
+                          id="dropdownMenuButton1"
+                          data-bs-toggle="dropdown"
+                          aria-expanded="false"
+                      >
+                        Archivos
+                      </button>
+                      <ul
+                          className="dropdown-menu"
+                          aria-labelledby="dropdownMenuButton1"
+                      >
+                        <li>
+                          <a
+                              className="dropdown-item"
+                              href={this.state.currentAnnouncement.documento}
+                          >
+                            Descargar Convocatoria
+                          </a>
+                        </li>
+                        {() =>
+                            this.state.currentAnnouncement.pliego !== "" && (
+                                <li>
+                                  <a className="dropdown-item" href="#">
+                                    Descargar Pliego de Especificacion
+                                  </a>
+                                </li>
+                            )
+                        }
+                      </ul>
+                    </div>
                   </div>
-                </div>
-              </>
+                </>
             ))}
-        </div>
-      </>
+          </div>
+        </>
     );
   }
 }

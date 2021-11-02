@@ -136,7 +136,7 @@ export default class UploadDocumentsPage extends Component<Props, State> {
                         <div className="modal-content">
                             <div className="modal-header">
                                 <h5 className="modal-title">
-                                    ¿Está seguro de cancelar la el registro de sus documentos?
+                                    ¿Está seguro de cancelar la el registro de su planificacion?
                                 </h5>
                                 <button
                                     type="button"
