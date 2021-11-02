@@ -84,7 +84,6 @@ export default class MyAnnouncementsList extends Component<Props, State> {
     const { announcements } = this.state;
     const modalIdAplicarPliego: string = "modalAplicarPliego";
     const modalIdAplicarConv: string = "modalAplicarConvocatoria";
-
     return (
       <>
         <PostSpecificationsTIS

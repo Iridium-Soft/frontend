@@ -68,7 +68,6 @@ export default function PostAnnouncement(props: Props): JSX.Element {
     );
     props.refresh();
   };
-
   const retrieveAnnouncementDoc = () => {
     documentsService
       .get(props.announcement.documento)
@@ -91,11 +90,11 @@ export default function PostAnnouncement(props: Props): JSX.Element {
       consultores.filter((consultor) => consultor.id === id)[0]
     );
   };
-
   return (
     <div
-      className="modal fade"
+      className="modal fade "
       id={props.modalId}
+      data-bs-backdrop="static"
       tabIndex={-1}
       aria-labelledby={`label${props.modalId}`}
       role="dialog"
@@ -112,6 +111,9 @@ export default function PostAnnouncement(props: Props): JSX.Element {
               className="btn-close"
               data-bs-dismiss="modal"
               aria-label="Close"
+              onClick={() => {
+                window.location.reload();
+              }}
             ></button>
           </div>
           <div className="modal-body">
@@ -214,7 +216,9 @@ export default function PostAnnouncement(props: Props): JSX.Element {
             <button
               type="button"
               className="btn btn-info text-white"
-              onClick={publishAnnouncement}
+              onClick={async () => {
+                await publishAnnouncement();
+              }}
             >
               Publicar convocatoria
             </button>
