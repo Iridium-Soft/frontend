@@ -59,12 +59,7 @@ export default class AnnouncementsList extends Component<Props, State> {
                 <div className="container p-3 position-relative">
                     <div className="row">
                         <div className="col-8">
-                            <h3>Convocatorias Publicas</h3>
-                        </div>
-                        <div className="col-4">
-                            <p className="text-secondary pb-0">
-                                <strong>Consultor: {}</strong>
-                            </p>
+                            <h3>Postulaciones</h3>
                         </div>
                     </div>
                     {applications &&
@@ -72,7 +67,7 @@ export default class AnnouncementsList extends Component<Props, State> {
                         <>
                             <div className="row mx-0 mb-2">
                                 <button
-                                    className="btn btn-info col-9 btn-md announcement"
+                                    className="btn btn-info col-12 btn-md announcement"
                                     data-bs-toggle="modal"
                                     data-bs-target={`#${modalId}`}
                                     onClick={() =>
@@ -80,48 +75,20 @@ export default class AnnouncementsList extends Component<Props, State> {
                                     }
                                 >
                                     <div className="row">
-                                        <div className="col-xs-12 col-md-6 col-lg-8">
-                                            {application.titulo}
+                                        <div className="col-xs-12 col-md-3">
+                                            {application.nombreGrupoEmp}
                                         </div>
-                                        <div className="col-md-6 col-lg-4">
-                                            {application.codigo}
+                                        <div className="col-md-3">
+                                            {application.tituloConv}
+                                        </div>
+                                        <div className="col-md-3">
+                                            {application.codigoConv}
+                                        </div>
+                                        <div className="col-md-3">
+                                            {application.estadoEd}
                                         </div>
                                     </div>
                                 </button>
-
-                                <div className="dropdown col-3">
-                                    <button
-                                        className="btn btn-info dropdown-toggle announcement"
-                                        type="button"
-                                        id="dropdownMenuButton1"
-                                        data-bs-toggle="dropdown"
-                                        aria-expanded="false"
-                                    >
-                                        Archivos
-                                    </button>
-                                    <ul
-                                        className="dropdown-menu"
-                                        aria-labelledby="dropdownMenuButton1"
-                                    >
-                                        <li>
-                                            <a
-                                                className="dropdown-item"
-                                                href={this.state.currentApplication.documento}
-                                            >
-                                                Descargar Convocatoria
-                                            </a>
-                                        </li>
-                                        {() =>
-                                            this.state.currentApplication.pliego !== "" && (
-                                                <li>
-                                                    <a className="dropdown-item" href="#">
-                                                        Descargar Pliego de Especificacion
-                                                    </a>
-                                                </li>
-                                            )
-                                        }
-                                    </ul>
-                                </div>
                             </div>
                         </>
                     ))}
