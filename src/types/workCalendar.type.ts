@@ -1,10 +1,10 @@
 export default interface WorkCalendarData {
     id?: any | null,
-    hito: {
+    hitos: Array<{
         nombre: string,
         fechaIni: string,
         fechaFin: string,
         porcentajeCobro: number,
-        entregables: [string],
-    }
+        entregables: string,
+    }>
 }

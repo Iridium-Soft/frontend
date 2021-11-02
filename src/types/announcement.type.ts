@@ -8,5 +8,6 @@ export default interface AnnouncementData {
   fechaIniDur: string,
   fechaFinDur: string,
   documento: string,
-  publica: boolean
+  publica: boolean,
+  pliego: string,
 }

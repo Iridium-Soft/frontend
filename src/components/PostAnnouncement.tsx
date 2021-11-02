@@ -19,7 +19,7 @@ export default function PostAnnouncement(props: Props): JSX.Element {
             fechaLimRec,
             fechaIniDur,
             fechaFinDur,
-            documento} = props.announcement;
+            documento, pliego} = props.announcement;
             AnnouncementDataService.update({
                     id: id,
                     titulo: titulo,
@@ -31,6 +31,7 @@ export default function PostAnnouncement(props: Props): JSX.Element {
                     fechaFinDur: fechaFinDur,
                     documento: documento,
                     publica: true,
+                    pliego: pliego,
                  },
                 id);
             setToggle(!toggle);
