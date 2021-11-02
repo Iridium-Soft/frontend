@@ -68,8 +68,6 @@ export default class AnnouncementsList extends Component<Props, State> {
                             <div className="row mx-0 mb-2">
                                 <button
                                     className="btn btn-info col-12 btn-md announcement"
-                                    data-bs-toggle="modal"
-                                    data-bs-target={`#${modalId}`}
                                     onClick={() =>
                                         this.setState({ currentApplication: application })
                                     }
