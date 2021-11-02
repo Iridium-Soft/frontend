@@ -2,15 +2,42 @@ import React, { useState } from "react";
 import AnnouncementData from "../types/announcement.type";
 import AnnouncementDataService from "../services/announcement.service";
 import documentsService from "../services/documents.service";
+import Stack from "@mui/material/Stack";
+import Chip from "@mui/material/Chip";
 
 type Props = {
   announcement: AnnouncementData;
   refresh: any;
   modalId: string;
 };
+type Consultant = {
+  id: number;
+  nombre: string;
+};
 
 export default function PostAnnouncement(props: Props): JSX.Element {
+  const consultores: Array<Consultant> = [
+    {
+      id: 1,
+      nombre: "Leticia Blanco",
+    },
+    {
+      id: 2,
+      nombre: "Vladimir Costas",
+    },
+    {
+      id: 3,
+      nombre: "Patricia Gonzales",
+    },
+  ];
+
   const [documento, setDocumento] = useState("");
+  const [consultantsAvailables, setConsultantsAvailables] =
+    useState(consultores);
+  const [consultantsSelected, setConsultantsSelected] = useState(
+    [] as Consultant[]
+  );
+
   const publishAnnouncement = () => {
     const {
       id,
@@ -41,8 +68,10 @@ export default function PostAnnouncement(props: Props): JSX.Element {
     );
     props.refresh();
   };
+
   const retrieveAnnouncementDoc = () => {
-    documentsService.get(props.announcement.documento)
+    documentsService
+      .get(props.announcement.documento)
       .then((response) => {
         setDocumento(response.data);
       })
@@ -50,6 +79,19 @@ export default function PostAnnouncement(props: Props): JSX.Element {
         console.log(e);
       });
   };
+
+  const handleDelete = (id: number) => {
+    let consultantsSelectedAux = consultantsSelected.filter(
+      (consultant) => id !== consultant.id
+    );
+    setConsultantsSelected(consultantsSelectedAux);
+
+    let consultantsAvailablesAux = consultantsAvailables;
+    consultantsAvailablesAux.push(
+      consultores.filter((consultor) => consultor.id === id)[0]
+    );
+  };
+
   return (
     <div
       className="modal fade"
@@ -73,8 +115,67 @@ export default function PostAnnouncement(props: Props): JSX.Element {
             ></button>
           </div>
           <div className="modal-body">
+            <div className="row mt-1">
+              <p className="col-12 text-secondary">
+                Título: {props.announcement.titulo}
+              </p>
+            </div>
+            <div className="row">
+              <p className="col-12 text-secondary">
+                Código: {props.announcement.codigo}
+              </p>
+            </div>
+            <div className="row">
+              <h6 className="col-12">
+                Seleccionar consultores TIS para los cuales publicar
+              </h6>
+            </div>
+            <div className="row">
+              <div className="dropdown col-md-6">
+                <button
+                  className="btn btn-secondary dropdown-toggle"
+                  type="button"
+                  id="dropdownConsultores"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  Seleccione consultor
+                </button>
+                <ul
+                  className="dropdown-menu"
+                  aria-labelledby="dropdownConsultores"
+                >
+                  {consultantsAvailables.map((consultor) => (
+                    <li key={consultor.id}>
+                      <button
+                        className="dropdown-item"
+                        onClick={() => {
+                          let consultantsSelectedAux = consultantsSelected;
+                          consultantsSelectedAux.push(consultor);
+                          setConsultantsSelected(consultantsSelectedAux);
+                          setConsultantsAvailables(
+                            consultantsAvailables.filter(
+                              (consultant) => consultant !== consultor
+                            )
+                          );
+                        }}
+                      >
+                        {consultor.nombre}
+                      </button>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
             <div className="row mt-3">
-              <h6 className="col-12">Convocatoria registrada:</h6>
+              <Stack direction="row" spacing={1}>
+                {consultantsSelected.map((consultant) => (
+                  <Chip
+                    label={consultant.nombre}
+                    onDelete={() => handleDelete(consultant.id)}
+                  />
+                ))}
+              </Stack>
             </div>
             <div className="row mt-3">
               <div className="d-grid gap-2 col-6">
