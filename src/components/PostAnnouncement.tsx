@@ -4,6 +4,7 @@ import AnnouncementDataService from "../services/announcement.service";
 
 type Props = {
   announcement: AnnouncementData;
+  refresh: any;
   modalId: string;
 };
 
@@ -36,6 +37,7 @@ export default function PostAnnouncement(props: Props): JSX.Element {
       },
       id
     );
+    props.refresh();
   };
 
   return (

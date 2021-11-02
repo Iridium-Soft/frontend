@@ -82,38 +82,28 @@ export default class MyAnnouncementsList extends Component<Props, State> {
 
   render() {
     const { announcements } = this.state;
-    const modalId: string = "modalAplicar";
+    const modalIdAplicarPliego: string = "modalAplicarPliego";
+    const modalIdAplicarConv: string = "modalAplicarConvocatoria";
 
     return (
       <>
         <PostSpecificationsTIS
           petis={this.state.currentPetis}
-          modalId={modalId}
+          modalId={modalIdAplicarPliego}
           tituloConv={this.state.currentAnnouncement.titulo}
         />
-        {/* <PostAnnouncement
+        <PostAnnouncement
           announcement={this.state.currentAnnouncement}
-          modalId={modalId}
-        /> */}
+          refresh={this.refreshList}
+          modalId={modalIdAplicarConv}
+        />
         <div className="container p-3 position-relative">
-          <h2 className="row justify-content-center">Mis convocatorias</h2>
+          <h2 className="row"> Mis convocatorias</h2>
           {announcements &&
             announcements.map((announcement: AnnouncementData) => (
               <>
                 <div className="row mx-0 mb-2">
-                  <button
-                    className="btn btn-info col-12 btn-md announcement"
-                    data-bs-toggle="modal"
-                    data-bs-target={`#${modalId}`}
-                    onClick={async () => {
-                      await this.setState({
-                        currentAnnouncement: announcement,
-                      });
-                      await this.retrievePetis(
-                        this.state.currentAnnouncement.id
-                      );
-                    }}
-                  >
+                  <button className="btn btn-info col-8 btn-md announcement">
                     <div className="row">
                       <div className="col-xs-12 col-md-6 col-lg-4">
                         {announcement.titulo}
@@ -121,11 +111,64 @@ export default class MyAnnouncementsList extends Component<Props, State> {
                       <div className="col-md-2 col-lg-4 d-none d-lg-block text-end">
                         {announcement.codigo}
                       </div>
-                      <div className="col-md-4 col-lg-4 d-none d-md-block text-end">
-                        {announcement.consultorEnc}
-                      </div>
+                      {announcement.publica ? (
+                        <div className="col-md-2 col-lg-4 d-none d-lg-block text-end">
+                          {`Publicado `}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                          <i className="fa fa-circle text-success pl-1"> </i>
+                        </div>
+                      ) : (
+                        <div className="col-md-2 col-lg-4 d-none d-lg-block text-end">
+                          {`No publicado `}
+                          <i className="fa fa-circle text-danger"></i>
+                        </div>
+                      )}
                     </div>
                   </button>
+                  <div className="dropdown col-3">
+                    <button
+                      className="btn btn-info dropdown-toggle announcement"
+                      type="button"
+                      id="dropdownMenuButton1"
+                      data-bs-toggle="dropdown"
+                      aria-expanded="false"
+                    >
+                      Opciones
+                    </button>
+                    <ul
+                      className="dropdown-menu"
+                      aria-labelledby="dropdownMenuButton1"
+                    >
+                      <li>
+                        <button
+                          className="btn col-8 btn-md "
+                          data-bs-toggle="modal"
+                          data-bs-target={`#${modalIdAplicarConv}`}
+                          onClick={() => {
+                            this.setState({
+                              currentAnnouncement: announcement,
+                            });
+                          }}
+                        >
+                          Publicar convocatoria
+                        </button>
+                        <button
+                          className="btn col-8 btn-md text-start"
+                          data-bs-toggle="modal"
+                          data-bs-target={`#${modalIdAplicarPliego}`}
+                          onClick={async () => {
+                            await this.setState({
+                              currentAnnouncement: announcement,
+                            });
+                            await this.retrievePetis(
+                              this.state.currentAnnouncement.id
+                            );
+                          }}
+                        >
+                          Publicar pliego
+                        </button>
+                      </li>
+                    </ul>
+                  </div>
                 </div>
               </>
             ))}
