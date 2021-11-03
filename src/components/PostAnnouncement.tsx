@@ -223,16 +223,6 @@ export default function PostAnnouncement(props: Props): JSX.Element {
                   </a>
                 </div>
               </div>
-              <div className="row mt-2">
-                <p
-                  className={`${
-                    props.announcement.publica ? "text-success" : "text-danger"
-                  }`}
-                >
-                  Estado:{" "}
-                  {props.announcement.publica ? "Publicada" : "No publicada"}
-                </p>
-              </div>
             </div>
             <div className="modal-footer">
               <button

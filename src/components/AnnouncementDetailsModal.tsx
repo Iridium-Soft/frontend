@@ -19,6 +19,9 @@ export default function AnnouncementDetails(props: Props): JSX.Element {
         console.log(e);
       });
   };
+
+  retrieveAnnouncementDoc();
+
   return (
     <>
       <div
@@ -69,7 +72,7 @@ export default function AnnouncementDetails(props: Props): JSX.Element {
                     download={`${props.announcement.titulo}.pdf`}
                     className="btn btn-primary"
                     type="button"
-                    href={props.announcement.documento}
+                    href={documento}
                     onClick={async () => {
                       await retrieveAnnouncementDoc();
                     }}
