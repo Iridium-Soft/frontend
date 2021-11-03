@@ -5,13 +5,16 @@ class AnnouncementDataService {
   getAll() {
     return http.get("/convocatoria");
   }
+  getAllSinPliego() {
+    return http.get("/convocatoria/sinpliego");
+  }
 
   get(id: string) {
     return http.get(`/convocatoria/${id}`);
   }
 
   getAnnouncementsPub() {
-    return http.get(`/api/convocatoria/publica`);
+    return http.get(`/convocatoria/publica`);
   }
 
   create(data: AnnouncementData) {

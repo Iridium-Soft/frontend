@@ -44,7 +44,7 @@ export default class AnnouncementsList extends Component<Props, State> {
   }
 
   retrieveAnnouncements() {
-    AnnouncementDataService.getAll()
+    AnnouncementDataService.getAnnouncementsPub()
       .then((response) => {
         this.setState({
           announcements: response.data,
