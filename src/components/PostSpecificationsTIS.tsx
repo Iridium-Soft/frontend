@@ -15,20 +15,14 @@ export default function PostSpecificationsTIS(props: Props): JSX.Element {
   const [open, setOpen] = useState(false);
   const [message, setMessage] = useState("");
   const publishPetis = () => {
-    const {
-      id,
-      titulo,
-      codigoPliego,
-      codigoConvocatoria,
-      documentoPliego,
-      publica,
-    } = props.petis;
+    const { id, titulo, codigo, convocatoria_id, documento, publica } =
+      props.petis;
     PetisDataService.update(
       {
         titulo: titulo,
-        codigoPliego: codigoPliego,
-        codigoConvocatoria: codigoConvocatoria,
-        documentoPliego: documentoPliego,
+        codigo: codigo,
+        convocatoria_id: convocatoria_id,
+        documento: documento,
         publica: publica,
       },
       id
@@ -36,7 +30,7 @@ export default function PostSpecificationsTIS(props: Props): JSX.Element {
   };
 
   const retrievePetisDoc = () => {
-    PetisDataService.get(props.petis.documentoPliego)
+    PetisDataService.get(props.petis.documento)
       .then((response) => {
         setDocumento(response.data);
       })
@@ -96,7 +90,7 @@ export default function PostSpecificationsTIS(props: Props): JSX.Element {
                 <h6 className="col-12">{`${props.petis.titulo}`}</h6>
               </div>
               <div className="row mt-3">
-                <h6 className="col-12">{`${props.petis.codigoPliego}`}</h6>
+                <h6 className="col-12">{`${props.petis.codigo}`}</h6>
               </div>
               <div className="row mt-3">
                 <div className="d-grid gap-2 col-6">

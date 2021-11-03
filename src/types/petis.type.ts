@@ -1,9 +1,8 @@
 export default interface PetisData {
   id?: any | null;
   titulo: string;
-  codigoPliego: string;
-  codigoConvocatoria: string;
-  documentoPliego: string;
+  codigo: string;
+  convocatoria_id: string;
+  documento: string;
   publica: boolean;
 }
-

@@ -39,9 +39,9 @@ export default class MyAnnouncementsList extends Component<Props, State> {
       currentPetis: {
         id: "",
         titulo: "",
-        codigoPliego: "",
-        codigoConvocatoria: "",
-        documentoPliego: "",
+        codigo: "",
+        convocatoria_id: "",
+        documento: "",
         publica: false,
       },
     };

@@ -142,20 +142,11 @@ export default class PetisForm extends Component<Props, State> {
     }
     PetisDataService.create({
       titulo: this.state.titulo,
-      codigoPliego: this.state.codigoPliego,
-      codigoConvocatoria: this.state.codigoConvocatoria,
-      documentoPliego: this.state.documentoPliego,
+      codigo: this.state.codigoPliego,
+      convocatoria_id: this.state.codigoConvocatoria,
+      documento: this.state.documentoPliego,
       publica: false,
     });
-    // @ts-ignore
-    let announcementAux: AnnouncementData = AnnouncementDataService.get(
-      this.state.codigoConvocatoria
-    );
-    announcementAux.pliego = this.state.documentoPliego;
-    AnnouncementDataService.update(
-      announcementAux,
-      this.state.codigoConvocatoria
-    );
     this.setState({
       message: "Registro de Pliego de Especificación exitoso",
       open: true,
@@ -283,14 +274,11 @@ export default class PetisForm extends Component<Props, State> {
                     Seleccione la convocatoria
                   </option>
                   {this.state.announcements.map(
-                    (announcement: AnnouncementData) =>
-                      announcement.pliego === "" ? (
-                        <option value={announcement.codigo}>
-                          {announcement.titulo}
-                        </option>
-                      ) : (
-                        <></>
-                      )
+                    (announcement: AnnouncementData) => (
+                      <option value={announcement.codigo}>
+                        {announcement.titulo}
+                      </option>
+                    )
                   )}
                 </select>
               </div>
