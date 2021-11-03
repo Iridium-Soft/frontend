@@ -3,31 +3,35 @@ import AnnouncementData from "../types/announcement.type";
 
 class AnnouncementDataService {
   getAll() {
-    return http.get("/convocatorias");
+    return http.get("/convocatoria");
   }
 
   get(id: string) {
-    return http.get(`/convocatorias/${id}`);
+    return http.get(`/convocatoria/${id}`);
+  }
+
+  getAnnouncementsPub() {
+    return http.get(`/api/convocatoria/publica`);
   }
 
   create(data: AnnouncementData) {
-    return http.post("/convocatorias", data);
+    return http.post("/convocatoria", data);
   }
 
   update(data: AnnouncementData, id: any) {
-    return http.put(`/convocatorias/${id}`, data);
+    return http.put(`/convocatoria/${id}`, data);
   }
 
   delete(id: any) {
-    return http.delete(`/convocatorias/${id}`);
+    return http.delete(`/convocatoria/${id}`);
   }
 
   deleteAll() {
-    return http.delete(`/convocatorias`);
+    return http.delete(`/convocatoria`);
   }
 
   findByTitle(title: string) {
-    return http.get(`/convocatorias?title=${title}`);
+    return http.get(`/convocatoria?title=${title}`);
   }
 }
 

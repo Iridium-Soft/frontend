@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import AnnouncementData from "../types/announcement.type";
+import DocumentsDataService from "../services/documents.service";
 
 type Props = {
   announcement: AnnouncementData;
@@ -7,6 +8,17 @@ type Props = {
 };
 
 export default function AnnouncementDetails(props: Props): JSX.Element {
+  const [documento, setDocumento] = useState("");
+  const retrieveAnnouncementDoc = () => {
+    DocumentsDataService.getAnnouncement(props.announcement.documento)
+      .then((response) => {
+        console.log(response.data);
+        setDocumento(response.data);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  };
   return (
     <>
       <div
@@ -58,6 +70,9 @@ export default function AnnouncementDetails(props: Props): JSX.Element {
                     className="btn btn-primary"
                     type="button"
                     href={props.announcement.documento}
+                    onClick={async () => {
+                      await retrieveAnnouncementDoc();
+                    }}
                   >
                     Descargar archivo adjunto
                   </a>

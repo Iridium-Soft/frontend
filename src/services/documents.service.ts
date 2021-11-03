@@ -3,7 +3,7 @@ import DocumentData from "../types/documents.type";
 
 class DocumentsDataService {
   getAll() {
-    return http.get("/documentos");
+    return http.get("/documento");
   }
 
   get(id: string) {
@@ -11,27 +11,30 @@ class DocumentsDataService {
   }
 
   getPEtis(id: string) {
-    return http.get(`/documento/pliego/${id}`);
+    return http.get(`/documento/pliegoespecificacion/${id}`);
+  }
+  getAnnouncement(id: string) {
+    return http.get(`/documento/convocatoria/${id}`);
   }
 
   create(data: DocumentData) {
-    return http.post("/documentos", data);
+    return http.post("/documento", data);
   }
 
   update(data: DocumentData, id: any) {
-    return http.put(`/documentos/${id}`, data);
+    return http.put(`/documento/${id}`, data);
   }
 
   delete(id: any) {
-    return http.delete(`/documentos/${id}`);
+    return http.delete(`/documento/${id}`);
   }
 
   deleteAll() {
-    return http.delete(`/documentos`);
+    return http.delete(`/documento`);
   }
 
   findByTitle(title: string) {
-    return http.get(`/documentos?title=${title}`);
+    return http.get(`/documento?title=${title}`);
   }
 }
 
