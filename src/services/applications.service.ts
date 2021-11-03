@@ -2,33 +2,33 @@ import http from "../http-common";
 import ApplicationsData from "../types/applications.type";
 
 class ApplicationsDataService {
-    getAll() {
-        return http.get("/postulaciones");
-    }
+  getAll() {
+    return http.get("/postulacion");
+  }
 
-    get(id: string) {
-        return http.get(`/postulaciones/${id}`);
-    }
+  get(id: string) {
+    return http.get(`/postulacion/${id}`);
+  }
 
-    create(data: ApplicationsData) {
-        return http.post("/postulaciones", data);
-    }
+  create(data: ApplicationsData) {
+    return http.post("/postulacion", data);
+  }
 
-    update(data: ApplicationsData, id: any) {
-        return http.put(`/postulaciones/${id}`, data);
-    }
+  update(data: ApplicationsData, id: any) {
+    return http.put(`/postulacion/${id}`, data);
+  }
 
-    delete(id: any) {
-        return http.delete(`/postulaciones/${id}`);
-    }
+  delete(id: any) {
+    return http.delete(`/postulacion/${id}`);
+  }
 
-    deleteAll() {
-        return http.delete(`/postulaciones`);
-    }
+  deleteAll() {
+    return http.delete(`/postulacion`);
+  }
 
-    findByTitle(title: string) {
-        return http.get(`/postulaciones?title=${title}`);
-    }
+  findByTitle(title: string) {
+    return http.get(`/postulacion?title=${title}`);
+  }
 }
 
 export default new ApplicationsDataService();

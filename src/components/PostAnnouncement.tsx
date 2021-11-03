@@ -117,6 +117,7 @@ export default function PostAnnouncement(props: Props): JSX.Element {
     </IconButton>
   );
 
+  retrieveAnnouncementDoc();
   return (
     <>
       <div
@@ -126,6 +127,7 @@ export default function PostAnnouncement(props: Props): JSX.Element {
         aria-labelledby={`label${props.modalId}`}
         role="dialog"
         aria-hidden={true}
+        data-bs-backdrop="static"
       >
         <div className="modal-dialog">
           <div className="modal-content">
@@ -138,6 +140,9 @@ export default function PostAnnouncement(props: Props): JSX.Element {
                 className="btn-close"
                 data-bs-dismiss="modal"
                 aria-label="Close"
+                onClick={() => {
+                  window.location.reload();
+                }}
               ></button>
             </div>
             <div className="modal-body">
@@ -247,6 +252,9 @@ export default function PostAnnouncement(props: Props): JSX.Element {
                       "Convocatoria correctamente publicada para el/los consultores seleccionados"
                     );
                     setOpen(true);
+                    setTimeout(() => {
+                      window.location.reload();
+                    }, 6000);
                   } else {
                     setMessage("No existen consultores seleccionados");
                     setOpen(true);
