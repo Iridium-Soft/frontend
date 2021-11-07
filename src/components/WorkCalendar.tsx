@@ -49,7 +49,9 @@ export default class WorkCalendar extends Component<Props, State> {
         this.handleFechaIni = this.handleFechaIni.bind(this);
         this.handlePorcentaje = this.handlePorcentaje.bind(this);
         this.handleEntregables = this.handleEntregables.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleAdd = this.handleAdd.bind(this);
+        this.sendWorkCalendar = this.sendWorkCalendar.bind(this);
+        this.deleteMilestone = this.deleteMilestone.bind(this);
     }
 
     handleNombre(event: ChangeElement) {
@@ -82,8 +84,7 @@ export default class WorkCalendar extends Component<Props, State> {
         });
     }
 
-    handleSubmit(e: any){
-        e.preventDefault();
+    handleAdd(){
         if (!/[a-zA-Z]+/.test(this.state.nombre)) {
             this.setState({
                 message: "Llene correctamente los campos. Título incorrecto",
@@ -100,7 +101,7 @@ export default class WorkCalendar extends Component<Props, State> {
                 open: true,
             });
             return;
-        } else if((this.state.porcentajeCobro + this.state.sum) > 100) {
+        } else if((this.state.porcentajeCobro + this.state.sum) > 100 || this.state.sum == 100) {
             this.setState({
                 message: "Llene correctamente los campos. Sumatoria de porcentaje sobrepasa 100%",
                 open: true,
@@ -121,54 +122,28 @@ export default class WorkCalendar extends Component<Props, State> {
             milestones: variable,
             sum: this.state.sum + this.state.porcentajeCobro,
         });
-        console.log(this.state.milestones);
-        this.setState({ message: "Registro de convocatoria exitoso", open: true });
     }
 
-    sendWorkCalendar(e: any) {
-        e.preventDefault();
-        if (!/[a-zA-Z]+/.test(this.state.nombre)) {
-            this.setState({
-                message: "Llene correctamente los campos. Título incorrecto",
-                open: true,
-            });
-            return;
-        } else if (
-            this.state.fechaFin === "" ||
-            this.state.fechaIni === "" ||
-            new Date(this.state.fechaIni) > new Date(this.state.fechaFin)
-        ) {
-            this.setState({
-                message: "Llene correctamente los campos. Fechas incorrectas",
-                open: true,
-            });
-            return;
-        } else if((this.state.porcentajeCobro + this.state.sum) > 100) {
-            this.setState({
-                message: "Llene correctamente los campos. Sumatoria de porcentaje sobrepasa 100%",
-                open: true,
-            });
-            return;
-        }
+    deleteMilestone() {
         let variable = this.state.milestones;
-        variable.hitos.push(
-            {
-                nombre: this.state.nombre,
-                fechaIni: this.state.fechaIni,
-                fechaFin: this.state.fechaFin,
-                porcentajeCobro: this.state.porcentajeCobro,
-                entregables: this.state.entregables,
-            }
-        );
-        this.setState({
+        let elem = variable.hitos.pop();
+        elem && this.setState({
             milestones: variable,
-            sum: this.state.sum + this.state.porcentajeCobro,
+            sum: this.state.sum - elem.porcentajeCobro,
         });
-        WorkCalendarDataService.create({
-            id: this.state.milestones.id,
-            hitos: this.state.milestones.hitos,
-        });
+    }
 
+    sendWorkCalendar() {
+        let mens:string = "Registro de calendario de trabajo exitoso";
+        if(this.state.sum === 100) {
+            WorkCalendarDataService.create({
+                id: this.state.milestones.id,
+                hitos: this.state.milestones.hitos,
+            });
+        } else {
+            mens = "Debe ingresar una cantidad de hitos que sume exactamente 100%";
+        }
+        this.setState({message: mens, open: true});
     }
 
     render() {
@@ -238,18 +213,17 @@ export default class WorkCalendar extends Component<Props, State> {
                 <div className="container p-3 position-relative">
                     <h3 className="row">Planificacion</h3>
                     <div className="row">
-                        <div className="col col-8">
+                        <div className="col col-12">
                             <table className="table table-bordered">
-                                <thead>
-                                <tr>
-                                    <th scope="col">Nombre Hito</th>
-                                    <th scope="col">Fecha Inicial</th>
-                                    <th scope="col">Fecha Final</th>
-                                    <th scope="col">Porcentaje % de Cobro</th>
-                                    <th scope="col">Entregables</th>
-                                </tr>
-                                </thead>
                                 <tbody>
+                                <tr>
+                                    <td className="fs-5 p-3 text-center">Nombre Hito</td>
+                                    <td className="fs-5 p-3 text-center">Fecha Inicial</td>
+                                    <td className="fs-5 p-3 text-center">Fecha Final</td>
+                                    <td className="fs-5 p-3 text-center">Porcentaje % de Cobro</td>
+                                    <td className="fs-5 p-3 text-center">Entregables</td>
+                                    <td className="borderless-cell"></td>
+                                </tr>
                                 {milestones && milestones.hitos.map((hi: any) => (
                                     <>
                                         <tr>
@@ -268,13 +242,14 @@ export default class WorkCalendar extends Component<Props, State> {
                                             <td>
                                                 {hi.entregables}
                                             </td>
+                                            <td className="borderless-cell"></td>
                                         </tr>
                                     </>
                                 ))}
                                 <tr>
                                     <td><input
                                         type="text"
-                                        className="input"
+                                        className="input col-12"
                                         id="nombre"
                                         name="nombre"
                                         required
@@ -283,7 +258,7 @@ export default class WorkCalendar extends Component<Props, State> {
                                     <td>
                                         <input
                                             type="date"
-                                            className="input"
+                                            className="input col-12"
                                             id="fechaIni"
                                             name="fechaIni"
                                             required
@@ -293,7 +268,7 @@ export default class WorkCalendar extends Component<Props, State> {
                                     <td>
                                         <input
                                             type="date"
-                                            className="input"
+                                            className="input col-12"
                                             id="fechaFin"
                                             name="fechaFin"
                                             onChange={this.handleFechaFin}
@@ -302,8 +277,8 @@ export default class WorkCalendar extends Component<Props, State> {
                                     </td>
                                     <td>
                                         <input
-                                            type="text"
-                                            className="input"
+                                            type="number"
+                                            className="input col-12"
                                             id="porcentaje"
                                             name="porcentaje"
                                             onChange={this.handlePorcentaje}
@@ -313,13 +288,14 @@ export default class WorkCalendar extends Component<Props, State> {
                                     <td>
                                         <input
                                             type="text"
-                                            className="input"
+                                            className="input col-12"
                                             id="entregables"
                                             name="entregables"
                                             onChange={this.handleEntregables}
                                             required
                                         />
                                     </td>
+                                    <td className="borderless-cell"></td>
                                 </tr>
                                 <tr>
                                     <td className="borderless-cell"></td>
@@ -331,12 +307,18 @@ export default class WorkCalendar extends Component<Props, State> {
                                         {this.state.sum} %
                                     </div></td>
                                     <td className="borderless-cell">
-                                        <button className="btn btn-lg btn-success bg-success addButton" onClick={this.handleSubmit}>Agregar Hito</button>
+                                        <button className="btn btn-lg btn-success bg-success addButton" onClick={this.handleAdd}>Agregar Hito</button>
+                                    </td>
+                                    <td className="borderless-cell">
+                                        <button className="btn btn-secondary" title="Borrar hito" onClick={this.deleteMilestone}>
+                                            <i className="fa fa-trash fs-3"></i>
+                                        </button>
                                     </td>
                                 </tr>
                                 </tbody>
                             </table>
                         </div>
+
                     </div>
                     <div className="row mx-0 mb-2 mt-4">
                         <div className="row fixed-bottom">

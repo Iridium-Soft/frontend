@@ -7,6 +7,7 @@ import UploadDocumentsPage from "./UploadDocumentsPage";
 import MyAnnouncementsList from "./MyAnnouncementsList";
 import AnnouncementsForm from "./AnnouncementsForm";
 import ApplyToAnnouncement from "./ApplyToAnnouncement";
+import WorkCalendar from "./WorkCalendar";
 import PetisForm from "./PetisForm";
 import ApplicationsList from "../components/ApplicationsList";
 
@@ -41,6 +42,11 @@ export default class MainComponent extends Component<Props, State> {
             exact
             path="/apply_to_announcement"
             component={ApplyToAnnouncement}
+          />
+          <Route
+            exact
+            path="/my_work_calendar"
+            component={WorkCalendar}
           />
           <Route exact path="/petis_form" component={PetisForm} />
           <Route exact path="/my_applications" component={ApplicationsList} />
