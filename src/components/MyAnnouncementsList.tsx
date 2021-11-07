@@ -3,6 +3,7 @@ import AnnouncementDataService from "../services/announcement.service";
 import "./AnnouncementsList.css";
 import AnnouncementData from "../types/announcement.type";
 import PostAnnouncement from "../components/PostAnnouncement";
+import PostSimpleAnnouncement from "../components/PostSimpleAnnouncement";
 import PostSpecificationsTIS from "./PostSpecificationsTIS";
 import PetisData from "../types/petis.type";
 import PetisDataService from "../services/petis.service";
@@ -91,7 +92,7 @@ export default class MyAnnouncementsList extends Component<Props, State> {
           modalId={modalIdAplicarPliego}
           tituloConv={this.state.currentAnnouncement.titulo}
         />
-        <PostAnnouncement
+        <PostSimpleAnnouncement
           announcement={this.state.currentAnnouncement}
           refresh={this.refreshList}
           modalId={modalIdAplicarConv}
