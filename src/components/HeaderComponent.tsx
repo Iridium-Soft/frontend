@@ -24,8 +24,11 @@ export default class HeaderComponent extends Component<Props, State> {
       <div>
         <nav className="navbar bg-black navbar-expand-lg fixed-top">
           <div className="align-middle">
-            <Link className="nav-link py-0 px-5 saetis" to="/home">
-              <strong >S A E T I S</strong>
+            <Link
+              className="nav-link py-0 px-5 saetis"
+              to="/announcements_list"
+            >
+              <strong>S A E T I S</strong>
             </Link>
           </div>
         </nav>

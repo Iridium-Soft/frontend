@@ -54,7 +54,7 @@ export default class PetisForm extends Component<Props, State> {
   }
 
   retrieveAnnouncements() {
-    AnnouncementDataService.getAll()
+    AnnouncementDataService.getAllSinPliego()
       .then((response) => {
         this.setState({
           announcements: response.data,
@@ -150,6 +150,12 @@ export default class PetisForm extends Component<Props, State> {
     this.setState({
       message: "Registro de Pliego de Especificación exitoso",
       open: true,
+    });
+    this.setState({
+      titulo: "",
+      codigoPliego: "",
+      codigoConvocatoria: "",
+      documentoPliego: "",
     });
   }
 

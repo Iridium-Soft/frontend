@@ -43,14 +43,10 @@ export default class MainComponent extends Component<Props, State> {
             path="/apply_to_announcement"
             component={ApplyToAnnouncement}
           />
-          <Route
-            exact
-            path="/my_work_calendar"
-            component={WorkCalendar}
-          />
+          <Route exact path="/my_work_calendar" component={WorkCalendar} />
           <Route exact path="/petis_form" component={PetisForm} />
           <Route exact path="/my_applications" component={ApplicationsList} />
-          <Redirect to="/" />
+          <Redirect to="/announcements_list" />
         </Switch>
       </>
     );

@@ -150,12 +150,14 @@ export default class AnnouncementsList extends Component<Props, State> {
                         </a>
                       </li>
                       {() =>
-                        this.state.currentAnnouncement.pliego !== "" && (
+                        this.state.currentAnnouncement.pliego !== "" ? (
                           <li>
                             <a className="dropdown-item" href="">
                               Descargar Pliego de Especificacion
                             </a>
                           </li>
+                        ) : (
+                          <></>
                         )
                       }
                     </ul>
