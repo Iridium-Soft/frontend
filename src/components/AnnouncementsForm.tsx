@@ -67,7 +67,6 @@ export default class AnnouncementsForm extends Component<Props, State> {
 
   handleCodigo(event: ChangeElement) {
     this.setState({
-      id: event.target.value,
       codigo: event.target.value,
     });
   }

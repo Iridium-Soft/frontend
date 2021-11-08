@@ -9,7 +9,7 @@ type Props = {};
 type State = {
   titulo: string;
   codigoPliego: string;
-  codigoConvocatoria: string;
+  idConvocatoria: string;
   documentoPliego: string;
 
   announcements: Array<AnnouncementData>;
@@ -31,7 +31,7 @@ export default class PetisForm extends Component<Props, State> {
     this.state = {
       titulo: "",
       codigoPliego: "",
-      codigoConvocatoria: "",
+      idConvocatoria: "",
       documentoPliego: "",
 
       announcements: [],
@@ -127,7 +127,7 @@ export default class PetisForm extends Component<Props, State> {
         open: true,
       });
       return;
-    } else if (this.state.codigoConvocatoria === "") {
+    } else if (this.state.idConvocatoria === "") {
       this.setState({
         message: "Llene correctamente los campos. Elija una convocatoria.",
         open: true,
@@ -143,7 +143,7 @@ export default class PetisForm extends Component<Props, State> {
     PetisDataService.create({
       titulo: this.state.titulo,
       codigo: this.state.codigoPliego,
-      convocatoria_id: this.state.codigoConvocatoria,
+      convocatoria_id: this.state.idConvocatoria,
       documento: this.state.documentoPliego,
       publica: false,
     });
@@ -154,7 +154,7 @@ export default class PetisForm extends Component<Props, State> {
     this.setState({
       titulo: "",
       codigoPliego: "",
-      codigoConvocatoria: "",
+      idConvocatoria: "",
       documentoPliego: "",
     });
   }
@@ -269,9 +269,9 @@ export default class PetisForm extends Component<Props, State> {
               <div className="col-md-10">
                 <select
                   className="form-select form-select-lg"
-                  value={this.state.codigoConvocatoria}
+                  value={this.state.idConvocatoria}
                   onChange={(e) => {
-                    this.setState({ codigoConvocatoria: e.target.value });
+                    this.setState({ idConvocatoria: e.target.value });
                   }}
                   id="codigoConvocatoria"
                   name="codigoConvocatoria"
@@ -281,7 +281,7 @@ export default class PetisForm extends Component<Props, State> {
                   </option>
                   {this.state.announcements.map(
                     (announcement: AnnouncementData) => (
-                      <option value={announcement.codigo}>
+                      <option value={announcement.id}>
                         {announcement.titulo}
                       </option>
                     )
