@@ -151,12 +151,7 @@ export default class PetisForm extends Component<Props, State> {
       message: "Registro de Pliego de Especificación exitoso",
       open: true,
     });
-    this.setState({
-      titulo: "",
-      codigoPliego: "",
-      idConvocatoria: "",
-      documentoPliego: "",
-    });
+    window.location.reload();
   }
 
   render() {
