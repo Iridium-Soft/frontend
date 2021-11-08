@@ -3,9 +3,11 @@ import AnnouncementDataService from "../services/announcement.service";
 import "./AnnouncementsList.css";
 import AnnouncementData from "../types/announcement.type";
 import PostAnnouncement from "../components/PostAnnouncement";
+import PostSimpleAnnouncement from "../components/PostSimpleAnnouncement";
 import PostSpecificationsTIS from "./PostSpecificationsTIS";
 import PetisData from "../types/petis.type";
 import PetisDataService from "../services/petis.service";
+import PetisDetailModal from "./PetisDetailModal";
 type Props = {};
 
 type State = {
@@ -84,6 +86,7 @@ export default class MyAnnouncementsList extends Component<Props, State> {
     const { announcements } = this.state;
     const modalIdAplicarPliego: string = "modalAplicarPliego";
     const modalIdAplicarConv: string = "modalAplicarConvocatoria";
+    const modalIdPliego: string = "modalPliego";
     return (
       <>
         <PostSpecificationsTIS
@@ -91,10 +94,15 @@ export default class MyAnnouncementsList extends Component<Props, State> {
           modalId={modalIdAplicarPliego}
           tituloConv={this.state.currentAnnouncement.titulo}
         />
-        <PostAnnouncement
+        <PostSimpleAnnouncement
           announcement={this.state.currentAnnouncement}
           refresh={this.refreshList}
           modalId={modalIdAplicarConv}
+        />
+        <PetisDetailModal
+          petis={this.state.currentPetis}
+          announcement={this.state.currentAnnouncement.titulo}
+          modalId={modalIdPliego}
         />
         <div className="container p-3 position-relative">
           <h2 className="row"> Mis convocatorias</h2>
@@ -102,7 +110,14 @@ export default class MyAnnouncementsList extends Component<Props, State> {
             announcements.map((announcement: AnnouncementData) => (
               <>
                 <div className="row mx-0 mb-2">
-                  <button className="btn btn-info col-8 btn-md announcement">
+                  <button
+                    className="btn btn-info col-8 btn-md announcement"
+                    data-bs-toggle="modal"
+                    data-bs-target={`#${modalIdPliego}`}
+                    onClick={() =>
+                      this.setState({ currentAnnouncement: announcement })
+                    }
+                  >
                     <div className="row">
                       <div className="col-xs-12 col-md-6 col-lg-4">
                         {announcement.titulo}
