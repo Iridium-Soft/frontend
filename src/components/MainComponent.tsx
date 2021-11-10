@@ -10,6 +10,7 @@ import ApplyToAnnouncement from "./ApplyToAnnouncement";
 import WorkCalendar from "./WorkCalendar";
 import PetisForm from "./PetisForm";
 import ApplicationsList from "../components/ApplicationsList";
+import ChangeOrderPage from "./ChangeOrderPage";
 
 type Props = {};
 
@@ -46,6 +47,7 @@ export default class MainComponent extends Component<Props, State> {
           <Route exact path="/my_work_calendar" component={WorkCalendar} />
           <Route exact path="/petis_form" component={PetisForm} />
           <Route exact path="/my_applications" component={ApplicationsList} />
+          <Route exact path="/change_order" component={ChangeOrderPage} />
           <Redirect to="/announcements_list" />
         </Switch>
       </>
