@@ -3,19 +3,26 @@ import ChangeOrderData from "../types/changeOrder.type";
 import ChangeOrderDataService from '../services/changeOrder.service'
 import Snackbar from "@mui/material/Snackbar";
 import AnnouncementData from "../types/announcement.type";
+import ScoresTable from "./ScoresTable";
 
 type Props = {
 
 }
 
 type State = {
-
+    scoresObtained: Array<number>,
 }
 
 export default class ChangeOrderPage extends Component<Props, State> {
     constructor(props: Props) {
         super(props);
 
+    }
+
+    handleScores = (childData: Array<number>) => {
+        this.setState(
+            {scoresObtained: childData}
+        )
     }
 
     render() {
@@ -71,134 +78,7 @@ export default class ChangeOrderPage extends Component<Props, State> {
                         </div>
                     </div>
                     <div className="form-group row m-3">
-                        <table className="table table-bordered">
-                            <tbody>
-                            <tr>
-                                <td className="col-8 fs-5 p-2"><strong>Descripcion</strong></td>
-                                <td className="col-2 fs-5 p-2"><strong>Puntaje Referencial</strong></td>
-                                <td className="col-2 fs-5 p-2"><strong>Puntaje Obtenido</strong></td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    Cumplimiento de especificaciones del proponente
-                                </td>
-                                <td align="center">
-                                    15 puntos
-                                </td>
-                                <td>
-                                    <input
-                                        type="number"
-                                        className="input col-12"
-                                        id="fechaFin"
-                                        name="fechaFin"
-                                        required
-                                    />
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    Claridad en la organización de la empresa proponente
-                                </td>
-                                <td align="center">
-                                    10 puntos
-                                </td>
-                                <td>
-                                    <input
-                                        type="number"
-                                        className="input col-12"
-                                        id="fechaFin"
-                                        name="fechaFin"
-                                        required
-                                    />
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    Cumplimiento de especificaciones técnicas
-                                </td>
-                                <td align="center">
-                                    30 puntos
-                                </td>
-                                <td>
-                                    <input
-                                        type="number"
-                                        className="input col-12"
-                                        id="fechaFin"
-                                        name="fechaFin"
-                                        required
-                                    />
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    Claridad en el proceso de desarrollo
-                                </td>
-                                <td align="center">
-                                    10 puntos
-                                </td>
-                                <td>
-                                    <input
-                                        type="number"
-                                        className="input col-12"
-                                        id="fechaFin"
-                                        name="fechaFin"
-                                        required
-                                    />
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    Plazo de ejecución
-                                </td>
-                                <td align="center">
-                                    10 puntos
-                                </td>
-                                <td>
-                                    <input
-                                        type="number"
-                                        className="input col-12"
-                                        id="fechaFin"
-                                        name="fechaFin"
-                                        required
-                                    />
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    Precio total
-                                </td>
-                                <td align="center">
-                                    15 puntos
-                                </td>
-                                <td>
-                                    <input
-                                        type="number"
-                                        className="input col-12"
-                                        id="fechaFin"
-                                        name="fechaFin"
-                                        required
-                                    />
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    Uso de herramientas en el proceso de desarrollo
-                                </td>
-                                <td align="center">
-                                    10 puntos
-                                </td>
-                                <td>
-                                    <input
-                                        type="number"
-                                        className="input col-12"
-                                        id="fechaFin"
-                                        name="fechaFin"
-                                        required
-                                    />
-                                </td>
-                            </tr>
-                            </tbody>
-                        </table>
+                        <ScoresTable parentCallback={this.handleScores}/>
                     </div>
                     <div className="form-group row m-3">
                         Observaciones de contrato
