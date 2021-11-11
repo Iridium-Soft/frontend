@@ -50,7 +50,7 @@ export default class Addendum extends Component<Props, State> {
                     </div>
                     <div className="form-group row m-3">
                         <label htmlFor="codigoPliego" className="col-md-4 col-form-label">
-                            Código orden de cambio
+                            Código Adenda
                         </label>
                         <div className="col-md-8">
                             <input

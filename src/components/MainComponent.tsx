@@ -13,6 +13,7 @@ import ApplicationsList from "../components/ApplicationsList";
 import ChangeOrderPage from "./ChangeOrderPage";
 import ComplianceNotification from "./ComplianceNotification";
 import Addendum from "./Addendum";
+import ProvisionContract from "./ProvisionContract";
 
 type Props = {};
 
@@ -52,6 +53,7 @@ export default class MainComponent extends Component<Props, State> {
           <Route exact path="/change_order" component={ChangeOrderPage} />
           <Route exact path="/compliance_notification" component={ComplianceNotification}/>
           <Route exact path="/addendum" component={Addendum} />
+          <Route exact path="/provision_contract" component={ProvisionContract} />
           <Redirect to="/announcements_list" />
         </Switch>
       </>
