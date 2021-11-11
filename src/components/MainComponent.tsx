@@ -12,6 +12,7 @@ import PetisForm from "./PetisForm";
 import ApplicationsList from "../components/ApplicationsList";
 import ChangeOrderPage from "./ChangeOrderPage";
 import ComplianceNotification from "./ComplianceNotification";
+import Addendum from "./Addendum";
 
 type Props = {};
 
@@ -50,6 +51,7 @@ export default class MainComponent extends Component<Props, State> {
           <Route exact path="/my_applications" component={ApplicationsList} />
           <Route exact path="/change_order" component={ChangeOrderPage} />
           <Route exact path="/compliance_notification" component={ComplianceNotification}/>
+          <Route exact path="/addendum" component={Addendum} />
           <Redirect to="/announcements_list" />
         </Switch>
       </>
