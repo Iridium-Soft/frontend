@@ -94,7 +94,7 @@ export default class ComplianceNotification extends Component<Props, State> {
                     </div>
                     <div className="form-group row m-3">
                         <label htmlFor="codigoPliego" className="col-md-4 col-form-label">
-                            Código orden de cambio
+                            Lugar de reunion
                         </label>
                         <div className="col-md-6">
                             <input

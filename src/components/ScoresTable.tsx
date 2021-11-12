@@ -62,7 +62,7 @@ export default class ScoresTable extends Component<Props, State> {
                             name="value1"
                             onChange={this.changeScore}
                             min="1"
-                            max={refScores[0]}
+                            max={refScores[1]}
                             required
                         />
                     </td>

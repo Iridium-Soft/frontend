@@ -5,18 +5,40 @@ import Snackbar from "@mui/material/Snackbar";
 import AnnouncementData from "../types/announcement.type";
 import ScoresTable from "./ScoresTable";
 
+type ChangeElement = React.ChangeEvent<HTMLInputElement>;
+
 type Props = {
 
 }
 
 type State = {
     scoresObtained: Array<number>,
+    observations: Array<{
+        document: string,
+        section: string,
+        description: string
+    }>
+    document: string,
+    section: string,
+    description: string,
 }
 
 export default class ChangeOrderPage extends Component<Props, State> {
     constructor(props: Props) {
         super(props);
 
+        this.state = {
+            scoresObtained: [],
+            observations: [],
+            document: "",
+            section: "",
+            description: "",
+        }
+
+        this.addObservation = this.addObservation.bind(this);
+        this.deleteObservation = this.deleteObservation.bind(this);
+        this.handleSection = this.handleSection.bind(this);
+        this.handleDescription = this.handleDescription.bind(this);
     }
 
     handleScores = (childData: Array<number>) => {
@@ -25,7 +47,41 @@ export default class ChangeOrderPage extends Component<Props, State> {
         )
     }
 
+    handleSection(event: ChangeElement) {
+        this.setState({
+            section: event.target.value
+        })
+    }
+
+    handleDescription(event: ChangeElement) {
+        this.setState({
+            description: event.target.value
+        })
+    }
+
+    addObservation() {
+        const ob: any = {
+            document: this.state.document,
+            section: this.state.section,
+            description: this.state.description,
+        }
+        let variable: any = this.state.observations;
+        variable.push(ob);
+        this.setState({
+            observations: variable,
+        });
+    }
+
+    deleteObservation() {
+        let variable: any = this.state.observations;
+        variable.pop();
+        this.setState({
+            observations: variable,
+        });
+    }
+
     render() {
+        const { observations } = this.state;
         return (
             <>
                 <div className="container p-3 position-relative">
@@ -90,14 +146,41 @@ export default class ChangeOrderPage extends Component<Props, State> {
                                 <td className="col-8 fs-5 p-2"><strong>Descripcion de la observacion</strong></td>
                                 <td className="borderless-cell"></td>
                             </tr>
+                            {observations &&
+                            observations.map((obs: any) => (
+                                <>
+                                    <tr>
+                                        <td>{obs.document}</td>
+                                        <td>{obs.section}</td>
+                                        <td>{obs.description}</td>
+                                        <td className="borderless-cell"></td>
+                                    </tr>
+                                </>
+                            ))}
                             <tr>
                                 <td>
                                     <select
                                         className="form-select form-select-sm"
                                         id="codigoConvocatoria"
                                         name="codigoConvocatoria"
+                                        onChange={(e) => {
+                                            this.setState({ document: e.target.value });
+                                        }}
                                     >
-                                        <option value="" selected>
+                                        <option value="Parte A" selected>
+                                            Parte A
+                                        </option>
+                                        <option value="Boleta de garantia">
+                                            Boleta de garantia
+                                        </option>
+                                        <option value="Carta de presentacion">
+                                            Carta de presentacion
+                                        </option>
+                                        <option value="Constitucion">
+                                            Constitucion
+                                        </option>
+                                        <option value="Parte B">
+                                            Parte B
                                         </option>
                                     </select>
                                 </td>
@@ -109,6 +192,7 @@ export default class ChangeOrderPage extends Component<Props, State> {
                                         className="input col-12"
                                         id="porcentaje"
                                         name="porcentaje"
+                                        onChange={this.handleSection}
                                         required
                                     />
                                 </td>
@@ -118,6 +202,7 @@ export default class ChangeOrderPage extends Component<Props, State> {
                                         className="input col-12"
                                         id="entregables"
                                         name="entregables"
+                                        onChange={this.handleDescription}
                                         required
                                     />
                                 </td>
@@ -129,6 +214,7 @@ export default class ChangeOrderPage extends Component<Props, State> {
                                     <div className="col-4 offset-8">
                                         <button
                                             className="btn btn-lg btn-success bg-success addButton"
+                                            onClick={this.addObservation}
                                         >
                                             Agregar Observacion
                                         </button>
@@ -138,6 +224,7 @@ export default class ChangeOrderPage extends Component<Props, State> {
                                     <button
                                         className="btn btn-secondary"
                                         title="Borrar hito"
+                                        onClick={this.deleteObservation}
                                     >
                                         <i className="fa fa-trash fs-3"></i>
                                     </button>
@@ -145,6 +232,49 @@ export default class ChangeOrderPage extends Component<Props, State> {
                             </tr>
                             </tbody>
                         </table>
+                    </div>
+                    <div className="form-group row m-3">
+                        <h5><strong>Informacion de entrega de correcion</strong></h5>
+                    </div>
+                    <div className="form-group row m-3">
+                        <label htmlFor="fechaContrato" className="col-md-4 col-form-label">
+                            Fecha de entrega de correcion
+                        </label>
+                        <div className="col-md-2">
+                            <input
+                                type="date"
+                                className="form-control"
+                                id="fechaContrato"
+                                name="fechaContrato"
+                                required
+                            />
+                        </div>
+                        <label htmlFor="fechaContrato" className="col-md-1 offset-1 col-form-label">
+                            a horas
+                        </label>
+                        <div className="col-md-2">
+                            <input
+                                type="time"
+                                className="form-control"
+                                id="fechaContrato"
+                                name="fechaContrato"
+                                required
+                            />
+                        </div>
+                    </div>
+                    <div className="form-group row m-3">
+                        <label htmlFor="codigoPliego" className="col-md-4 col-form-label">
+                            Lugar de entrega
+                        </label>
+                        <div className="col-md-6">
+                            <input
+                                type="text"
+                                className="form-control"
+                                id="codigoPliego"
+                                name="codigoPliego"
+                                required
+                            />
+                        </div>
                     </div>
                     <div className="form-group row m-3 d-flex justify-content-end">
                         <div className="col-2">
