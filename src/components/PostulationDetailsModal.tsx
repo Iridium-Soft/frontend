@@ -1,8 +1,19 @@
 import React from "react";
+import WorkCalendarData from "../types/workCalendar.type";
 
-export const PostulationDetails = ({ modalId, milestones }) => {
+type Props = {
+  modalId: string;
+  milestones: WorkCalendarData;
+};
+
+export const PostulationDetails = (props: Props) => {
   return (
-    <div className="modal fade" id={modalId} tabIndex={-1} aria-hidden={true}>
+    <div
+      className="modal fade"
+      id={props.modalId}
+      tabIndex={-1}
+      aria-hidden={true}
+    >
       <div className="modal-dialog modal-xl">
         <div className="modal-content">
           <div className="modal-header">
@@ -47,7 +58,7 @@ export const PostulationDetails = ({ modalId, milestones }) => {
                   </td>
                   <td className="fs-5 p-3 text-center">Entregables</td>
                 </tr>
-                {milestones.map((milestone) => (
+                {props.milestones.hitos.map((milestone) => (
                   <tr>
                     <td className="fs-5 p-3 text-center">{milestone.nombre}</td>
                     <td className="fs-5 p-3 text-center">

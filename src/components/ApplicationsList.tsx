@@ -52,12 +52,24 @@ export default class AnnouncementsList extends Component<Props, State> {
   }
 
   render() {
-    const { applications } = this.state;
+    //const { applications } = this.state;
+    const applications = [
+      {
+        id: "",
+        nombreGrupoEmp: "Nombre",
+        tituloConv: "Titulo",
+        codigoConv: "Cod",
+        estadoEd: "Estado",
+      },
+    ];
     const modalId: string = "modalPostulacion";
 
     return (
       <>
-        <PostulationDetails modalId={modalId} milestones={[]} />
+        <PostulationDetails
+          modalId={modalId}
+          milestones={{ id: "", hitos: [] }}
+        />
         <div className="container p-3 position-relative">
           <div className="row">
             <div className="col-8">
