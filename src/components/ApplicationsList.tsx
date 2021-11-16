@@ -3,12 +3,19 @@ import ApplicationsDataService from "../services/applications.service";
 import "./AnnouncementsList.css";
 import ApplicationsData from "../types/applications.type";
 import { PostulationDetails } from "./PostulationDetailsModal";
+import { PostModal } from "./PostModal";
 
 type Props = {};
 
 type State = {
   applications: Array<ApplicationsData>;
   currentApplication: ApplicationsData;
+  modalTitle: string;
+  messageTrue: string;
+  messageFalse: string;
+  titleDoc: string;
+  typeDoc: string;
+  downloadHref: string;
 };
 
 export default class AnnouncementsList extends Component<Props, State> {
@@ -24,8 +31,14 @@ export default class AnnouncementsList extends Component<Props, State> {
         nombreGrupoEmp: "",
         tituloConv: "",
         codigoConv: "",
-        estadoEd: "",
       },
+
+      modalTitle: "",
+      messageTrue: "",
+      messageFalse: "",
+      titleDoc: "",
+      typeDoc: "",
+      downloadHref: "",
     };
   }
 
@@ -55,20 +68,34 @@ export default class AnnouncementsList extends Component<Props, State> {
     //const { applications } = this.state;
     const applications = [
       {
-        id: "",
-        nombreGrupoEmp: "Nombre",
-        tituloConv: "Titulo",
+        nombreGrupoEmp: "Hola",
+        tituloConv: "C",
         codigoConv: "Cod",
-        estadoEd: "Estado",
       },
     ];
+
+    const postModalId = "postModal";
     const modalId: string = "modalPostulacion";
+
+    const publicar = () => {
+      return true;
+    };
 
     return (
       <>
         <PostulationDetails
           modalId={modalId}
           milestones={{ id: "", hitos: [] }}
+        />
+        <PostModal
+          modalId={postModalId}
+          modalTitle={this.state.modalTitle}
+          functionPublicar={publicar}
+          messageTrue={this.state.messageTrue}
+          messageFalse={this.state.messageFalse}
+          titleDoc={this.state.titleDoc}
+          typeDoc={this.state.typeDoc}
+          downloadHref={this.state.downloadHref}
         />
         <div className="container p-3 position-relative">
           <div className="row">
@@ -81,7 +108,7 @@ export default class AnnouncementsList extends Component<Props, State> {
               <>
                 <div className="row mx-0 mb-2">
                   <button
-                    className="btn btn-info col-12 btn-md announcement"
+                    className="btn btn-info col-8 btn-md announcement"
                     data-bs-toggle="modal"
                     data-bs-target={`#${modalId}`}
                     onClick={() =>
@@ -94,9 +121,94 @@ export default class AnnouncementsList extends Component<Props, State> {
                       </div>
                       <div className="col-md-3">{application.tituloConv}</div>
                       <div className="col-md-3">{application.codigoConv}</div>
-                      <div className="col-md-3">{application.estadoEd}</div>
                     </div>
                   </button>
+                  <div className="dropdown col-3">
+                    <a
+                      className="btn btn-info dropdown-toggle announcement"
+                      href="#"
+                      role="button"
+                      id={`dropdown${application.id}`}
+                      data-bs-toggle="dropdown"
+                      aria-expanded={false}
+                    >
+                      Opciones
+                    </a>
+
+                    <ul
+                      className="dropdown-menu"
+                      aria-labelledby={`dropdown${application.id}`}
+                    >
+                      <li>
+                        <a
+                          className="dropdown-item"
+                          href="#"
+                          data-bs-toggle="modal"
+                          data-bs-target={`#${postModalId}`}
+                          onClick={() => {
+                            this.setState({
+                              currentApplication: application,
+                              modalTitle: "Publicar orden de cambio",
+                              messageTrue:
+                                "Orden de cambio correctamente publicada",
+                              messageFalse:
+                                "La orden de cambio ya está publicada",
+                              titleDoc: "Titulo de la convocatoria registrada",
+                              typeDoc: "Orden de cambio",
+                              downloadHref: "#",
+                            });
+                          }}
+                        >
+                          Publicar orden de cambio
+                        </a>
+                      </li>
+                      <li>
+                        <a
+                          className="dropdown-item"
+                          href="#"
+                          data-bs-toggle="modal"
+                          data-bs-target={`#${postModalId}`}
+                          onClick={() => {
+                            this.setState({
+                              currentApplication: application,
+                              modalTitle:
+                                "Publicar notificación de conformidad",
+                              messageTrue:
+                                "Notificación de conformidad correctamente publicada",
+                              messageFalse:
+                                "La notificación de conformidad ya está publicada",
+                              titleDoc: "Titulo de la convocatoria registrada",
+                              typeDoc: "Notificación de conformidad",
+                              downloadHref: "#",
+                            });
+                          }}
+                        >
+                          Publicar notificación de aceptación
+                        </a>
+                      </li>
+                      <li>
+                        <a
+                          className="dropdown-item"
+                          href="#"
+                          data-bs-toggle="modal"
+                          data-bs-target={`#${postModalId}`}
+                          onClick={() => {
+                            this.setState({
+                              currentApplication: application,
+                              modalTitle: "Publicar adenda",
+                              messageTrue: "Adenda correctamente publicada",
+                              messageFalse: "La adenda ya está publicada",
+                              titleDoc: "Titulo de la convocatoria registrada",
+                              typeDoc: "Adenda",
+                              downloadHref: "#",
+                            });
+                          }}
+                        >
+                          Publicar adenda
+                        </a>
+                      </li>
+                    </ul>
+                  </div>
                 </div>
               </>
             ))}

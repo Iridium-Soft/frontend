@@ -157,7 +157,6 @@ export default class ApplyToAnnouncement extends Component<Props, State> {
                         nombreGrupoEmp: "GRUPOEMPRESA",
                         tituloConv: this.state.currentAnnouncement.titulo,
                         codigoConv: this.state.currentAnnouncement.codigo,
-                        estadoEd: "ESTADO",
                       });
                       this.setState({
                         message:
