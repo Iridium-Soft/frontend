@@ -291,7 +291,7 @@ export default class ChangeOrderPage extends Component<Props, State> {
     }
 
     render() {
-        const { observations } = this.state;
+        const { observations, companyGroups } = this.state;
         const closeSnackbar = (
             event: React.SyntheticEvent | React.MouseEvent,
             reason?: string
@@ -326,12 +326,15 @@ export default class ChangeOrderPage extends Component<Props, State> {
                         <div className="col-md-8">
                             <select
                                 className="form-select form-select-lg"
-                                id="codigoConvocatoria"
-                                name="codigoConvocatoria"
                             >
-                                <option value="" selected>
-                                    Seleccione la Grupo Empresa
+                                <option value="default" disabled selected>
+                                    Seleccione una grupo empresa
                                 </option>
+                            {companyGroups && companyGroups.map((cg: any) => (
+                                <option value="">
+                                        {cg.nombre}
+                                </option>
+                            ))}
                             </select>
                         </div>
                     </div>
