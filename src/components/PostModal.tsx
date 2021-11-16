@@ -4,6 +4,7 @@ import IconButton from "@mui/material/IconButton";
 
 type Props = {
   modalTitle: string;
+  nameCompany: string;
   functionPublicar: () => boolean;
   messageTrue: string;
   messageFalse: string;
@@ -67,12 +68,12 @@ export const PostModal = (props: Props) => {
               ></button>
             </div>
             <div className="modal-body">
-              <p>Nombre de la grupo-empresa: GRUPOEMPRESA</p>
+              <p>Nombre de la grupo-empresa: {props.nameCompany}</p>
               <p>Titulo: {props.titleDoc}</p>
-              <button
-                type="button"
+              <a
+                href={props.downloadHref}
                 className="btn btn-primary"
-              >{`Descargar ${props.typeDoc}`}</button>
+              >{`Descargar ${props.typeDoc}`}</a>
             </div>
             <div className="modal-footer">
               <button

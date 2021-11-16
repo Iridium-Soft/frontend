@@ -4,6 +4,9 @@ import WorkCalendarData from "../types/workCalendar.type";
 type Props = {
   modalId: string;
   milestones: WorkCalendarData;
+  nameAnnouncement: string;
+  nameCompany: string;
+  codeAnnouncement: string;
 };
 
 export const PostulationDetails = (props: Props) => {
@@ -28,10 +31,10 @@ export const PostulationDetails = (props: Props) => {
           <div className="modal-body">
             <div className="row">
               <div className="col-6">
-                <h6>Nombre convocatoria</h6>
+                <h6>{props.nameAnnouncement}</h6>
               </div>
               <div className="col-6">
-                <h6>Nombre de la Grupo-Empresa</h6>
+                <h6>{props.nameCompany}</h6>
               </div>
             </div>
             <div className="row">
@@ -40,7 +43,7 @@ export const PostulationDetails = (props: Props) => {
             </div>
             <div className="row">
               <div className="col-6">Código de la convocatoria registrada:</div>
-              <div className="col-6">CÓDIGO</div>
+              <div className="col-6">{props.codeAnnouncement}</div>
             </div>
             <div className="row mt-3">
               <div className="col-auto">

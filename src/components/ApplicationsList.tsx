@@ -80,14 +80,18 @@ export default class AnnouncementsList extends Component<Props, State> {
         <PostulationDetails
           modalId={modalId}
           milestones={{ id: "", hitos: [] }}
+          nameAnnouncement={this.state.currentApplication.tituloConvocatoria}
+          nameCompany={this.state.currentApplication.nombreGrupoEmpresa}
+          codeAnnouncement={this.state.currentApplication.codigoConvocatoria}
         />
         <PostModal
           modalId={postModalId}
+          nameCompany={this.state.currentApplication.nombreGrupoEmpresa}
           modalTitle={this.state.modalTitle}
           functionPublicar={publicar}
           messageTrue={this.state.messageTrue}
           messageFalse={this.state.messageFalse}
-          titleDoc={this.state.titleDoc}
+          titleDoc={this.state.currentApplication.tituloConvocatoria}
           typeDoc={this.state.typeDoc}
           downloadHref={this.state.downloadHref}
         />
@@ -99,116 +103,113 @@ export default class AnnouncementsList extends Component<Props, State> {
           </div>
           {applications &&
             applications.map((application: ApplicationsData) => (
-              <>
-                <div className="row mx-0 mb-2">
-                  <button
-                    className="btn btn-info col-8 btn-md announcement"
-                    data-bs-toggle="modal"
-                    data-bs-target={`#${modalId}`}
-                    onClick={() =>
-                      this.setState({ currentApplication: application })
-                    }
-                  >
-                    <div className="row">
-                      <div className="col-xs-12 col-md-3">
-                        {application.nombreGrupoEmpresa}
-                      </div>
-                      <div className="col-md-3">
-                        {application.tituloConvocatoria}
-                      </div>
-                      <div className="col-md-3">
-                        {application.codigoConvocatoria}
-                      </div>
+              <div key={application.idGrupoEmpresa} className="row mx-0 mb-2">
+                <button
+                  className="btn btn-info col-8 btn-md announcement"
+                  data-bs-toggle="modal"
+                  data-bs-target={`#${modalId}`}
+                  onClick={() =>
+                    this.setState({ currentApplication: application })
+                  }
+                >
+                  <div className="row">
+                    <div className="col-xs-12 col-md-3">
+                      {application.nombreGrupoEmpresa}
                     </div>
-                  </button>
-                  <div className="dropdown col-3">
-                    <a
-                      className="btn btn-info dropdown-toggle announcement"
-                      href="#"
-                      role="button"
-                      id={`dropdown${application.idGrupoEmpresa}`}
-                      data-bs-toggle="dropdown"
-                      aria-expanded={false}
-                    >
-                      Opciones
-                    </a>
-
-                    <ul
-                      className="dropdown-menu"
-                      aria-labelledby={`dropdown${application.idGrupoEmpresa}`}
-                    >
-                      <li>
-                        <a
-                          className="dropdown-item"
-                          href="#"
-                          data-bs-toggle="modal"
-                          data-bs-target={`#${postModalId}`}
-                          onClick={() => {
-                            this.setState({
-                              currentApplication: application,
-                              modalTitle: "Publicar orden de cambio",
-                              messageTrue:
-                                "Orden de cambio correctamente publicada",
-                              messageFalse:
-                                "La orden de cambio ya está publicada",
-                              titleDoc: "Titulo de la convocatoria registrada",
-                              typeDoc: "Orden de cambio",
-                              downloadHref: "#",
-                            });
-                          }}
-                        >
-                          Publicar orden de cambio
-                        </a>
-                      </li>
-                      <li>
-                        <a
-                          className="dropdown-item"
-                          href="#"
-                          data-bs-toggle="modal"
-                          data-bs-target={`#${postModalId}`}
-                          onClick={() => {
-                            this.setState({
-                              currentApplication: application,
-                              modalTitle:
-                                "Publicar notificación de conformidad",
-                              messageTrue:
-                                "Notificación de conformidad correctamente publicada",
-                              messageFalse:
-                                "La notificación de conformidad ya está publicada",
-                              titleDoc: "Titulo de la convocatoria registrada",
-                              typeDoc: "Notificación de conformidad",
-                              downloadHref: "#",
-                            });
-                          }}
-                        >
-                          Publicar notificación de aceptación
-                        </a>
-                      </li>
-                      <li>
-                        <a
-                          className="dropdown-item"
-                          href="#"
-                          data-bs-toggle="modal"
-                          data-bs-target={`#${postModalId}`}
-                          onClick={() => {
-                            this.setState({
-                              currentApplication: application,
-                              modalTitle: "Publicar adenda",
-                              messageTrue: "Adenda correctamente publicada",
-                              messageFalse: "La adenda ya está publicada",
-                              titleDoc: "Titulo de la convocatoria registrada",
-                              typeDoc: "Adenda",
-                              downloadHref: "#",
-                            });
-                          }}
-                        >
-                          Publicar adenda
-                        </a>
-                      </li>
-                    </ul>
+                    <div className="col-md-3">
+                      {application.tituloConvocatoria}
+                    </div>
+                    <div className="col-md-3">
+                      {application.codigoConvocatoria}
+                    </div>
                   </div>
+                </button>
+                <div className="dropdown col-3">
+                  <a
+                    className="btn btn-info dropdown-toggle announcement"
+                    href="#"
+                    role="button"
+                    id={`dropdown${application.idGrupoEmpresa}`}
+                    data-bs-toggle="dropdown"
+                    aria-expanded={false}
+                  >
+                    Opciones
+                  </a>
+
+                  <ul
+                    className="dropdown-menu"
+                    aria-labelledby={`dropdown${application.idGrupoEmpresa}`}
+                  >
+                    <li>
+                      <a
+                        className="dropdown-item"
+                        href="#"
+                        data-bs-toggle="modal"
+                        data-bs-target={`#${postModalId}`}
+                        onClick={() => {
+                          this.setState({
+                            currentApplication: application,
+                            modalTitle: "Publicar orden de cambio",
+                            messageTrue:
+                              "Orden de cambio correctamente publicada",
+                            messageFalse:
+                              "La orden de cambio ya está publicada",
+                            titleDoc: "Titulo de la convocatoria registrada",
+                            typeDoc: "Orden de cambio",
+                            downloadHref: "#",
+                          });
+                        }}
+                      >
+                        Publicar orden de cambio
+                      </a>
+                    </li>
+                    <li>
+                      <a
+                        className="dropdown-item"
+                        href="#"
+                        data-bs-toggle="modal"
+                        data-bs-target={`#${postModalId}`}
+                        onClick={() => {
+                          this.setState({
+                            currentApplication: application,
+                            modalTitle: "Publicar notificación de conformidad",
+                            messageTrue:
+                              "Notificación de conformidad correctamente publicada",
+                            messageFalse:
+                              "La notificación de conformidad ya está publicada",
+                            titleDoc: "Titulo de la convocatoria registrada",
+                            typeDoc: "Notificación de conformidad",
+                            downloadHref: "#",
+                          });
+                        }}
+                      >
+                        Publicar notificación de aceptación
+                      </a>
+                    </li>
+                    <li>
+                      <a
+                        className="dropdown-item"
+                        href="#"
+                        data-bs-toggle="modal"
+                        data-bs-target={`#${postModalId}`}
+                        onClick={() => {
+                          this.setState({
+                            currentApplication: application,
+                            modalTitle: "Publicar adenda",
+                            messageTrue: "Adenda correctamente publicada",
+                            messageFalse: "La adenda ya está publicada",
+                            titleDoc: "Titulo de la convocatoria registrada",
+                            typeDoc: "Adenda",
+                            downloadHref: "#",
+                          });
+                        }}
+                      >
+                        Publicar adenda
+                      </a>
+                    </li>
+                  </ul>
                 </div>
-              </>
+              </div>
             ))}
         </div>
       </>
