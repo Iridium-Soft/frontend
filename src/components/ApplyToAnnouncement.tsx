@@ -152,12 +152,6 @@ export default class ApplyToAnnouncement extends Component<Props, State> {
                         open: true,
                       });
                     } else {
-                      ApplicationsDataService.create({
-                        id: "",
-                        nombreGrupoEmp: "GRUPOEMPRESA",
-                        tituloConv: this.state.currentAnnouncement.titulo,
-                        codigoConv: this.state.currentAnnouncement.codigo,
-                      });
                       this.setState({
                         message:
                           "Usted GRUPOEMPRESA ha aplicado correctamente, puede proceder a llenar los documentos de la postulación.",

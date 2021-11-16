@@ -27,10 +27,11 @@ export default class AnnouncementsList extends Component<Props, State> {
     this.state = {
       applications: [],
       currentApplication: {
-        id: "",
-        nombreGrupoEmp: "",
-        tituloConv: "",
-        codigoConv: "",
+        nombreGrupoEmpresa: "",
+        idGrupoEmpresa: -1,
+        idConvocatoria: -1,
+        codigoConvocatoria: "",
+        tituloConvocatoria: "",
       },
 
       modalTitle: "",
@@ -47,7 +48,7 @@ export default class AnnouncementsList extends Component<Props, State> {
   }
 
   retrieveApplications() {
-    ApplicationsDataService.getAll()
+    ApplicationsDataService.get("1")
       .then((response) => {
         this.setState({
           applications: response.data,
@@ -65,14 +66,7 @@ export default class AnnouncementsList extends Component<Props, State> {
   }
 
   render() {
-    //const { applications } = this.state;
-    const applications = [
-      {
-        nombreGrupoEmp: "Hola",
-        tituloConv: "C",
-        codigoConv: "Cod",
-      },
-    ];
+    const { applications } = this.state;
 
     const postModalId = "postModal";
     const modalId: string = "modalPostulacion";
@@ -117,10 +111,14 @@ export default class AnnouncementsList extends Component<Props, State> {
                   >
                     <div className="row">
                       <div className="col-xs-12 col-md-3">
-                        {application.nombreGrupoEmp}
+                        {application.nombreGrupoEmpresa}
                       </div>
-                      <div className="col-md-3">{application.tituloConv}</div>
-                      <div className="col-md-3">{application.codigoConv}</div>
+                      <div className="col-md-3">
+                        {application.tituloConvocatoria}
+                      </div>
+                      <div className="col-md-3">
+                        {application.codigoConvocatoria}
+                      </div>
                     </div>
                   </button>
                   <div className="dropdown col-3">
@@ -128,7 +126,7 @@ export default class AnnouncementsList extends Component<Props, State> {
                       className="btn btn-info dropdown-toggle announcement"
                       href="#"
                       role="button"
-                      id={`dropdown${application.id}`}
+                      id={`dropdown${application.idGrupoEmpresa}`}
                       data-bs-toggle="dropdown"
                       aria-expanded={false}
                     >
@@ -137,7 +135,7 @@ export default class AnnouncementsList extends Component<Props, State> {
 
                     <ul
                       className="dropdown-menu"
-                      aria-labelledby={`dropdown${application.id}`}
+                      aria-labelledby={`dropdown${application.idGrupoEmpresa}`}
                     >
                       <li>
                         <a
