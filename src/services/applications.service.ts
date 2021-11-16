@@ -1,3 +1,4 @@
+import axios from "axios";
 import http from "../http-common";
 import ApplicationsData from "../types/applications.type";
 
@@ -7,7 +8,7 @@ class ApplicationsDataService {
   }
 
   get(id: string) {
-    return http.get(`/postulacion/${id}`);
+    return http.get(`/postulacion/propias/${id}`);
   }
 
   create(data: ApplicationsData) {

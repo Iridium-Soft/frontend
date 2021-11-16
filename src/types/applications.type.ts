@@ -1,6 +1,7 @@
 export default interface ApplicationsData {
-  id?: any | null;
-  nombreGrupoEmp: string;
-  tituloConv: string;
-  codigoConv: string;
+  nombreGrupoEmpresa: string;
+  idGrupoEmpresa: number;
+  idConvocatoria: number;
+  codigoConvocatoria: string;
+  tituloConvocatoria: string;
 }
