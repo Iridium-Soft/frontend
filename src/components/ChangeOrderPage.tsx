@@ -95,7 +95,7 @@ export default class ChangeOrderPage extends Component<Props, State> {
     }
 
     retrieveChangeOrderData() {
-        ChangeOrderDataService.getPostulaciones({id: "1"})
+        ChangeOrderDataService.get("1")
             .then((response) => {
                 this.setState({
                     companyGroups: response.data.grupoEmpresas,
