@@ -1,8 +1,10 @@
 import React, { Component } from "react";
 import AnnouncementDataService from "../services/announcement.service";
+import ApplicationsDataService from "../services/applications.service";
 import AnnouncementData from "../types/announcement.type";
 import Snackbar from "@mui/material/Snackbar";
 import IconButton from "@mui/material/IconButton";
+import { stat } from "fs";
 
 type Props = {};
 type State = {
@@ -62,7 +64,7 @@ export default class ApplyToAnnouncement extends Component<Props, State> {
       });
   }
 
-  handleSubmit(e: FormElement) {
+  async handleSubmit(e: FormElement) {
     e.preventDefault();
     if (this.state.announcementSelected === "") {
       this.setState({
@@ -71,11 +73,12 @@ export default class ApplyToAnnouncement extends Component<Props, State> {
       });
       return;
     }
+    const selectAnnouncement = await this.state.announcements.filter(
+      (announcement: AnnouncementData) =>
+        announcement.id == this.state.announcementSelected
+    )[0];
     this.setState({
-      currentAnnouncement: this.state.announcements.filter(
-        (announcement: AnnouncementData) =>
-          announcement.id == this.state.announcementSelected
-      )[0],
+      currentAnnouncement: selectAnnouncement,
     });
   }
 
@@ -149,6 +152,13 @@ export default class ApplyToAnnouncement extends Component<Props, State> {
                         open: true,
                       });
                     } else {
+                      ApplicationsDataService.create({
+                        id: "",
+                        nombreGrupoEmp: "GRUPOEMPRESA",
+                        tituloConv: this.state.currentAnnouncement.titulo,
+                        codigoConv: this.state.currentAnnouncement.codigo,
+                        estadoEd: "ESTADO",
+                      });
                       this.setState({
                         message:
                           "Usted GRUPOEMPRESA ha aplicado correctamente, puede proceder a llenar los documentos de la postulación.",
@@ -188,7 +198,13 @@ export default class ApplyToAnnouncement extends Component<Props, State> {
             </div>
             <div className="form-group row mt-5 d-flex justify-content-end">
               <div className="col-auto">
-                <button type="button" className="btn btn-danger">
+                <button
+                  type="button"
+                  className="btn btn-danger"
+                  onClick={() => {
+                    window.location.reload();
+                  }}
+                >
                   Cancelar
                 </button>
                 <button
