@@ -2,19 +2,19 @@ import http from "../http-common";
 import ChangeOrderData from "../types/changeOrder.type";
 class ChangeOrderDataService {
     getAll() {
-        return http.get("/orden_de_cambio");
+        return http.get("/postulacion/ordencambio");
     }
 
     get(id: string) {
-        return http.get(`/orden_de_cambio/${id}`);
+        return http.get(`/postulacion/ordencambio/${id}`);
     }
 
     create(data: ChangeOrderData) {
-        return http.post("/orden_de_cambio", data);
+        return http.post("/postulacion/ordencambio/", data);
     }
 
     update(data: ChangeOrderData, id: any) {
-        return http.put(`/orden_de_cambio/${id}`, data);
+        return http.put(`/ordencambio/${id}`, data);
     }
 
     delete(id: any) {
