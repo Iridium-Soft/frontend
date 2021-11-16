@@ -7,18 +7,44 @@ type Props = {
 }
 
 type State = {
-    scoresObtained: Array<number>,
+    companyGroups: Array<any>,
+    companyGroup: string,
+    companyGroupId: number,
+    scoresObtained: [{evaluacion_id: number, puntuacion: number}],
+    scoresMessage: string,
+
+    contractDeadline: string,
+    contractTime: string,
+    contractPlace: string,
+
+    message: string,
+    open: boolean,
 }
 
 export default class ComplianceNotification extends Component<Props, State> {
     constructor(props: Props) {
         super(props);
 
+        this.state = {
+            companyGroups: [],
+            companyGroup: "",
+            companyGroupId: 0,
+            scoresObtained: [{evaluacion_id: 0, puntuacion: 0}],
+            scoresMessage: "",
+
+            contractDeadline: "",
+            contractTime: "",
+            contractPlace: "",
+
+            message: "",
+            open: false,
+        }
     }
 
-    handleScores = (childData: Array<number>) => {
+    handleScores = (childData: any) => {
         this.setState(
-            {scoresObtained: childData}
+            {scoresObtained: childData.scores,
+            scoresMessage: childData.message}
         )
     }
 
