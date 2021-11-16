@@ -50,13 +50,44 @@ export default class ChangeOrderPage extends Component<Props, State> {
             companyGroupId: 0,
             changeOrderCode: "",
             dateOfIssue: "",
-            refScores: [],
+            refScores: [{
+                evaluacion_id: 0,
+                descripcion: "Cumplimiento de especificaciones del proponente",
+                puntajeReferencial: 15,
+            },{
+                evaluacion_id: 1,
+                descripcion: "Claridad en la organizacion de la empresa proponente",
+                puntajeReferencial: 10,
+            },{
+                evaluacion_id: 2,
+                descripcion: "Cumplimiento de especificaciones tecnicas",
+                puntajeReferencial: 30,
+            },{
+                evaluacion_id: 3,
+                descripcion: "Claridad de proceso de desarrollo",
+                puntajeReferencial: 10,
+            },{
+                evaluacion_id: 4,
+                descripcion: "Plazo de ejecucion",
+                puntajeReferencial: 10,
+            },{
+                evaluacion_id: 5,
+                descripcion: "Precio total",
+                puntajeReferencial: 15,
+            },{
+                evaluacion_id: 6,
+                descripcion: "Uso de herramientas en el proceso de desarrollo",
+                puntajeReferencial: 10,
+            }
+            ],
             scoresObtained: [{evaluacion_id: 0, puntuacion: 0}],
             scoresMessage: "",
             observations: [
-                {documento: "",
-                seccion: "",
-                descripcion: ""}
+                {
+                    documento: "",
+                    seccion: "",
+                    descripcion: ""
+                }
             ],
             document: "",
             section: "",
@@ -69,6 +100,14 @@ export default class ChangeOrderPage extends Component<Props, State> {
             message: "",
             open: false,
         }
+
+        let arreglito: any = this.state.observations;
+        arreglito.pop();
+        this.setState(
+            {
+                observations: arreglito,
+            }
+        )
 
         this.retrieveChangeOrderData = this.retrieveChangeOrderData.bind(this);
 
@@ -88,6 +127,7 @@ export default class ChangeOrderPage extends Component<Props, State> {
         this.handleSubmit = this.handleSubmit.bind(this);
 
         this.postChangeOrder = this.postChangeOrder.bind(this);
+        this.checkScores = this.checkScores.bind(this);
     }
 
     componentDidMount() {
@@ -98,8 +138,7 @@ export default class ChangeOrderPage extends Component<Props, State> {
         ChangeOrderDataService.get("1")
             .then((response) => {
                 this.setState({
-                    companyGroups: response.data.grupoEmpresas,
-                    refScores: response.data.evaluacion,
+                    companyGroups: response.data,
                 });
                 console.log(response.data);
             })
@@ -140,9 +179,9 @@ export default class ChangeOrderPage extends Component<Props, State> {
         this.setState(
             {
                 scoresObtained: childData.scores,
-                scoresMessage: childData.message
             }
         )
+        this.checkScores();
     }
 
     handleCorrectionDeadline(event: ChangeElement) {
@@ -290,6 +329,20 @@ export default class ChangeOrderPage extends Component<Props, State> {
         });
     }
 
+    checkScores() {
+        for(let i = 0; i < this.state.refScores?.length; i++) {
+            if(this.state.scoresObtained[i].puntuacion > this.state.refScores[i]?.puntajeReferencial || !this.state.scoresObtained[i].puntuacion) {
+                this.setState({
+                    scoresMessage: "El siguiente campo debe ser correctamente llenado: Alguno de los puntajes es incorrecto"
+                })
+                return;
+            }
+        }
+        this.setState({
+            scoresMessage: ""
+        });
+    }
+
     render() {
         const { observations, companyGroups } = this.state;
         const closeSnackbar = (
@@ -332,7 +385,7 @@ export default class ChangeOrderPage extends Component<Props, State> {
                                 </option>
                             {companyGroups && companyGroups.map((cg: any) => (
                                 <option value="">
-                                        {cg.nombre}
+                                        {cg.nombreGrupoEmpresa}
                                 </option>
                             ))}
                             </select>

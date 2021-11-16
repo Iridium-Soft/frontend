@@ -16,54 +16,78 @@ export default class ScoresTable extends Component<Props, State> {
         super(props);
 
         this.state = {
-            scores: [],
-            message: "",
+            scores: [
+                {
+                    evaluacion_id: 0,
+                    puntuacion: NaN,
+                },
+                {
+                    evaluacion_id: 1,
+                    puntuacion: NaN,
+                },
+                {
+                    evaluacion_id: 2,
+                    puntuacion: NaN,
+                },
+                {
+                    evaluacion_id: 3,
+                    puntuacion: NaN,
+                },
+                {
+                    evaluacion_id: 4,
+                    puntuacion: NaN,
+                },
+                {
+                    evaluacion_id: 5,
+                    puntuacion: NaN,
+                },
+                {
+                    evaluacion_id: 6,
+                    puntuacion: NaN,
+                }
+            ],
+            message: "El siguiente campo debe ser correctamente llenado: Alguno de los puntajes es incorrecto",
         }
 
         this.onTrigger = this.onTrigger.bind(this);
         this.changeScore = this.changeScore.bind(this);
-        this.checkScores = this.checkScores.bind(this);
     }
 
     onTrigger() {
         this.props.parentCallback({
             scores: this.state.scores,
-            message: this.state.message,
         });
     }
 
-    checkScores() {
-        let ans: boolean = false;
-
-        for(let i = 0; i < this.props.refScores?.length; i++) {
-            if(this.state.scores[i].puntuacion > this.props.refScores[i]?.puntajeReferencial || this.state.scores[i] === null) {
-                ans = true;
-                this.setState({
-                    message: "El siguiente campo debe ser correctamente llenado: Alguno de los puntajes es incorrecto"
-                })
-                return;
-            }
-        }
-        this.setState({
-            message: ""
-        });
-    }
+    // checkScores() {
+    //     for(let i = 0; i < this.props.refScores?.length; i++) {
+    //         if(this.state.scores[i].puntuacion > this.props.refScores[i]?.puntajeReferencial || !this.state.scores[i].puntuacion) {
+    //             this.setState({
+    //                 message: "El siguiente campo debe ser correctamente llenado: Alguno de los puntajes es incorrecto"
+    //             })
+    //             this.onTrigger();
+    //             return;
+    //         }
+    //     }
+    //     this.setState({
+    //         message: ""
+    //     });
+    // }
 
     changeScore(event: ChangeElement) {
         let copy: Array<any> = this.state.scores;
         let valueName: string = event.target.id;
         let index: number = parseInt(valueName.charAt(valueName.length - 1)) - 1;
-        copy[index].punt = parseInt(event.target.value);
+        copy[index].puntuacion = parseInt(event.target.value);
         this.setState({
            scores: copy,
         });
-        this.checkScores();
         this.onTrigger();
     }
 
     render() {
         const { refScores } = this.props;
-        let fields: number = 1;
+        let fields: number = 0;
         return(
             <table className="table table-bordered">
                 <tbody>
@@ -72,7 +96,9 @@ export default class ScoresTable extends Component<Props, State> {
                     <td className="col-2 fs-5 p-2"><strong>Puntaje Referencial</strong></td>
                     <td className="col-2 fs-5 p-2"><strong>Puntaje Obtenido</strong></td>
                 </tr>
-                {refScores && refScores.map((evaluacion: any) => (
+                {refScores && refScores.map((evaluacion: any) => {
+                    fields++;
+                    return(
                     <tr>
                         <td>
                             {evaluacion.descripcion}
@@ -91,8 +117,8 @@ export default class ScoresTable extends Component<Props, State> {
                                 required
                             />
                         </td>
-                    </tr>
-                    ) && fields++)}
+                    </tr>)
+                    })}
                 </tbody>
             </table>
         );
