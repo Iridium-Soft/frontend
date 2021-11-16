@@ -61,7 +61,7 @@ export default class ComplianceNotification extends Component<Props, State> {
                         </div>
                     </div>
                     <div className="form-group row m-3">
-                        <ScoresTable parentCallback={this.handleScores}/>
+                        <ScoresTable parentCallback={this.handleScores} refScores={[]}/>
                     </div>
                     <div className="form-group row m-3">
                         <h5><strong>Informacion de firma de contrato</strong></h5>
