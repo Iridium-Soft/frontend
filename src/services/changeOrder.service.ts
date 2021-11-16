@@ -6,7 +6,7 @@ class ChangeOrderDataService {
     }
 
     get(id: string) {
-        return http.get(`/postulacion/ordencambio/${id}`);
+        return http.get(`/postulacion/propias/${id}`);
     }
 
     create(data: ChangeOrderData) {

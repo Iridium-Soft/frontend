@@ -95,7 +95,7 @@ export default class ChangeOrderPage extends Component<Props, State> {
     }
 
     retrieveChangeOrderData() {
-        ChangeOrderDataService.getAll()
+        ChangeOrderDataService.get("1")
             .then((response) => {
                 this.setState({
                     companyGroups: response.data.grupoEmpresas,
