@@ -259,6 +259,10 @@ export default class ChangeOrderPage extends Component<Props, State> {
             });
             return false;
         }
+        this.setState({
+            message: "Registro de orden de cambio realizada exitosamente",
+            open: true,
+        });
         this.postChangeOrder();
     }
 
@@ -282,18 +286,16 @@ export default class ChangeOrderPage extends Component<Props, State> {
             observacion: this.state.observations,
         };
 
-        console.log(elem);
         let aidi: number = 0;
 
         ChangeOrderDataService.create(elem)
             .then((response) => {
                 aidi = response.data.id;
+                ChangeOrderDataService.generar(aidi + "");
             })
             .catch((e) => {
                 console.log(e);
             });
-
-        ChangeOrderDataService.generar(aidi + "");
     }
 
     deleteObservation() {

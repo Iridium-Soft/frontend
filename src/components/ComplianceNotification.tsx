@@ -1,8 +1,11 @@
 import React, { Component } from "react";
 import Snackbar from "@mui/material/Snackbar";
 import ScoresTable from "./ScoresTable";
-import ChangeOrderDataService from "../services/changeOrder.service";
+import ComplianceNotificationData from "../types/complianceNotification.type";
+import ComplianceNotificationDataService from "../services/complianceNotification.service";
 import IconButton from "@mui/material/IconButton";
+import ChangeOrderData from "../types/changeOrder.type";
+import ChangeOrderDataService from "../services/changeOrder.service";
 
 type ChangeElement = React.ChangeEvent<HTMLInputElement>;
 
@@ -32,32 +35,7 @@ export default class ComplianceNotification extends Component<Props, State> {
         super(props);
 
         this.state = {
-            companyGroups: [
-                {
-                    "nombreGrupoEmpresa": "Iridium",
-                    "idGrupoEmpresa": 1,
-                    "idConvocatoria": 1,
-                    "codigoConvocatoria": "2020convo-2",
-                    "tituloConvocatoria": "Convocatoria primera",
-                    "id": 1
-                },
-                {
-                    "nombreGrupoEmpresa": "Pacha",
-                    "idGrupoEmpresa": 2,
-                    "idConvocatoria": 1,
-                    "codigoConvocatoria": "2020convo-2",
-                    "tituloConvocatoria": "Convocatoria primera",
-                    "id": 2
-                },
-                {
-                    "nombreGrupoEmpresa": "AlgoSoft",
-                    "idGrupoEmpresa": 3,
-                    "idConvocatoria": 1,
-                    "codigoConvocatoria": "2020convo-2",
-                    "tituloConvocatoria": "Convocatoria primera",
-                    "id": 3
-                }
-            ],
+            companyGroups: [],
             companyGroup: "",
             companyGroupId: 0,
             dateOfIssue: "",
@@ -112,6 +90,8 @@ export default class ComplianceNotification extends Component<Props, State> {
 
         this.checkScores = this.checkScores.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+
+        this.postComplianceNotification = this.postComplianceNotification.bind(this);
     }
 
     componentDidMount() {
@@ -119,7 +99,7 @@ export default class ComplianceNotification extends Component<Props, State> {
     }
 
     retrieveComplianceNotification() {
-        ChangeOrderDataService.get("1")
+        ComplianceNotificationDataService.get("1")
             .then((response) => {
                 this.setState({
                     companyGroups: response.data,
@@ -230,6 +210,41 @@ export default class ComplianceNotification extends Component<Props, State> {
             });
             return false;
         }
+        this.setState({
+            message: "Registro de notificacion de conformidad realizada exitosamente",
+            open: true,
+        });
+    }
+
+    postComplianceNotification() {
+        let ans: number = 0;
+        for(let i = 0; i < this.state.companyGroups.length; i++) {
+            if(this.state.companyGroupId === this.state.companyGroups[i]) {
+                ans = i;
+            }
+        }
+
+        const elem: ComplianceNotificationData = {
+            grupoempresa_id: this.state.companyGroupId,
+            postulacion_id: this.state.companyGroups[ans].id,
+            convocatoria_id: this.state.companyGroups[ans].idConvocatoria,
+            nombre: this.state.companyGroup,
+            fechaFirma: this.state.contractDeadline,
+            lugar: this.state.contractPlace,
+            fecha_emision: this.state.dateOfIssue,
+            evaluacion: this.state.scoresObtained,
+        };
+
+        let aidi: number = 0;
+
+        ComplianceNotificationDataService.create(elem)
+            .then((response) => {
+                aidi = response.data.id;
+                ComplianceNotificationDataService.generar(aidi + "");
+            })
+            .catch((e) => {
+                console.log(e);
+            });
     }
 
     render() {
