@@ -11,6 +11,10 @@ class ApplicationsDataService {
     return http.get(`/postulacion/propias/${id}`);
   }
 
+  getApplicationMilestones(id: any) {
+    return http.get(`postulacion/hitos/${id}`);
+  }
+
   create(data: ApplicationsData) {
     return http.post("/postulacion", data);
   }

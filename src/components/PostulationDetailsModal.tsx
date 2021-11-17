@@ -14,6 +14,7 @@ type Props = {
   warrantyHref: string;
   presentationHref: string;
   constitutionHref: string;
+  fechaReg: string;
 };
 
 export const PostulationDetails = (props: Props) => {
@@ -71,7 +72,9 @@ export const PostulationDetails = (props: Props) => {
               </div>
               <div className="row">
                 <div className="col-6">Fecha de registro:</div>
-                <div className="col-6">FECHA</div>
+                <div className="col-6">
+                  {props.fechaReg.substr(0, props.fechaReg.indexOf("T"))}
+                </div>
               </div>
               <div className="row">
                 <div className="col-6">

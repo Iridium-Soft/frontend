@@ -31,10 +31,14 @@ export default class AnnouncementsList extends Component<Props, State> {
     this.state = {
       applications: [],
       currentApplication: {
-        nombreGrupoEmpresa: "",
-        idGrupoEmpresa: -1,
-        idConvocatoria: -1,
         codigoConvocatoria: "",
+        fechaRegistro: "",
+        idConvocatoria: -1,
+        idGrupoEmpresa: -1,
+        idNotiConf: -1,
+        idOrdenCambio: -1,
+        idPostulacion: -1,
+        nombreGrupoEmpresa: "",
         tituloConvocatoria: "",
       },
 
@@ -89,6 +93,7 @@ export default class AnnouncementsList extends Component<Props, State> {
           warrantyHref=""
           presentationHref=""
           constitutionHref=""
+          fechaReg={this.state.currentApplication.fechaRegistro}
         />
         <PostModal
           modalId={postModalId}
@@ -112,9 +117,14 @@ export default class AnnouncementsList extends Component<Props, State> {
                   className="btn btn-info col-8 btn-md announcement"
                   data-bs-toggle="modal"
                   data-bs-target={`#${modalId}`}
-                  onClick={() =>
-                    this.setState({ currentApplication: application })
-                  }
+                  onClick={() => {
+                    this.setState({ currentApplication: application });
+                    ApplicationsDataService.getApplicationMilestones(
+                      application.idPostulacion
+                    ).then((response) => {
+                      this.setState({ milestones: { hitos: response.data } });
+                    });
+                  }}
                 >
                   <div className="row">
                     <div className="col-xs-12 col-md-3">
@@ -160,7 +170,7 @@ export default class AnnouncementsList extends Component<Props, State> {
                             functionPublicar: async () => {
                               let res = "";
                               await ChangeOrderDataService.updatePostOrder(
-                                1
+                                this.state.currentApplication.idPostulacion
                               ).then((response) => {
                                 res = response.data.mensaje;
                               });
