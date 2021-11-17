@@ -152,7 +152,7 @@ export default class ApplyToAnnouncement extends Component<Props, State> {
                       });
                     } else {
                       ApplicationDataService.createApply({
-                        id: this.state.currentAnnouncement.id,
+                        convocatoria_id: this.state.currentAnnouncement.id,
                       });
                       this.setState({
                         message:

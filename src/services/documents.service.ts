@@ -23,7 +23,7 @@ class DocumentsDataService {
   }
 
   create(data: DocumentData) {
-    return http.post("/postulacion/documentos/", data);
+    return http.post("/postulacion/documentos/6", data);
   }
 
   update(data: DocumentData, id: any) {
