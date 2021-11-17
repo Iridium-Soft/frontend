@@ -1,9 +1,13 @@
 import { Component } from "react";
 import ApplicationsDataService from "../services/applications.service";
+import ChangeOrderDataService from "../services/changeOrder.service";
+import ConformityNotificationDataService from "../services/conformityNotification.service";
+import AddendumDataService from "../services/addendum.service";
 import "./AnnouncementsList.css";
 import ApplicationsData from "../types/applications.type";
 import { PostulationDetails } from "./PostulationDetailsModal";
 import { PostModal } from "./PostModal";
+import WorkCalendarData from "../types/workCalendar.type";
 
 type Props = {};
 
@@ -11,11 +15,11 @@ type State = {
   applications: Array<ApplicationsData>;
   currentApplication: ApplicationsData;
   modalTitle: string;
-  messageTrue: string;
-  messageFalse: string;
   titleDoc: string;
   typeDoc: string;
   downloadHref: string;
+  milestones: WorkCalendarData;
+  functionPublicar: any;
 };
 
 export default class AnnouncementsList extends Component<Props, State> {
@@ -34,12 +38,13 @@ export default class AnnouncementsList extends Component<Props, State> {
         tituloConvocatoria: "",
       },
 
+      milestones: { id: "", hitos: [] },
+
       modalTitle: "",
-      messageTrue: "",
-      messageFalse: "",
       titleDoc: "",
       typeDoc: "",
       downloadHref: "",
+      functionPublicar: () => "",
     };
   }
 
@@ -71,26 +76,25 @@ export default class AnnouncementsList extends Component<Props, State> {
     const postModalId = "postModal";
     const modalId: string = "modalPostulacion";
 
-    const publicar = () => {
-      return true;
-    };
-
     return (
       <>
         <PostulationDetails
           modalId={modalId}
-          milestones={{ id: "", hitos: [] }}
+          milestones={this.state.milestones}
           nameAnnouncement={this.state.currentApplication.tituloConvocatoria}
           nameCompany={this.state.currentApplication.nombreGrupoEmpresa}
           codeAnnouncement={this.state.currentApplication.codigoConvocatoria}
+          partAHref=""
+          partBHref=""
+          warrantyHref=""
+          presentationHref=""
+          constitutionHref=""
         />
         <PostModal
           modalId={postModalId}
           nameCompany={this.state.currentApplication.nombreGrupoEmpresa}
           modalTitle={this.state.modalTitle}
-          functionPublicar={publicar}
-          messageTrue={this.state.messageTrue}
-          messageFalse={this.state.messageFalse}
+          functionPublicar={this.state.functionPublicar}
           titleDoc={this.state.currentApplication.tituloConvocatoria}
           typeDoc={this.state.typeDoc}
           downloadHref={this.state.downloadHref}
@@ -150,13 +154,18 @@ export default class AnnouncementsList extends Component<Props, State> {
                           this.setState({
                             currentApplication: application,
                             modalTitle: "Publicar orden de cambio",
-                            messageTrue:
-                              "Orden de cambio correctamente publicada",
-                            messageFalse:
-                              "La orden de cambio ya está publicada",
                             titleDoc: "Titulo de la convocatoria registrada",
                             typeDoc: "Orden de cambio",
                             downloadHref: "#",
+                            functionPublicar: async () => {
+                              let res = "";
+                              await ChangeOrderDataService.updatePostOrder(
+                                1
+                              ).then((response) => {
+                                res = response.data.mensaje;
+                              });
+                              return res;
+                            },
                           });
                         }}
                       >
@@ -173,13 +182,18 @@ export default class AnnouncementsList extends Component<Props, State> {
                           this.setState({
                             currentApplication: application,
                             modalTitle: "Publicar notificación de conformidad",
-                            messageTrue:
-                              "Notificación de conformidad correctamente publicada",
-                            messageFalse:
-                              "La notificación de conformidad ya está publicada",
                             titleDoc: "Titulo de la convocatoria registrada",
                             typeDoc: "Notificación de conformidad",
                             downloadHref: "#",
+                            functionPublicar: async () => {
+                              let res = "";
+                              await ConformityNotificationDataService.updatePostNotification(
+                                1
+                              ).then((response) => {
+                                res = response.data.mensaje;
+                              });
+                              return res;
+                            },
                           });
                         }}
                       >
@@ -196,11 +210,18 @@ export default class AnnouncementsList extends Component<Props, State> {
                           this.setState({
                             currentApplication: application,
                             modalTitle: "Publicar adenda",
-                            messageTrue: "Adenda correctamente publicada",
-                            messageFalse: "La adenda ya está publicada",
                             titleDoc: "Titulo de la convocatoria registrada",
                             typeDoc: "Adenda",
                             downloadHref: "#",
+                            functionPublicar: async () => {
+                              let res = "";
+                              await AddendumDataService.updatePostAddendum(
+                                1
+                              ).then((response) => {
+                                res = response.data.mensaje;
+                              });
+                              return res;
+                            },
                           });
                         }}
                       >

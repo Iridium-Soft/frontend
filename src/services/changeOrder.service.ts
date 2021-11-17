@@ -1,33 +1,37 @@
 import http from "../http-common";
 import ChangeOrderData from "../types/changeOrder.type";
 class ChangeOrderDataService {
-    getAll() {
-        return http.get("/postulacion/ordencambio");
-    }
+  getAll() {
+    return http.get("/postulacion/ordencambio");
+  }
 
-    get(id: string) {
-        return http.get(`/postulacion/${id}`);
-    }
+  get(id: string) {
+    return http.get(`/postulacion/${id}`);
+  }
 
-    create(data: ChangeOrderData) {
-        return http.post("/postulacion/ordencambio/", data);
-    }
+  create(data: ChangeOrderData) {
+    return http.post("/postulacion/ordencambio/", data);
+  }
 
-    update(data: ChangeOrderData, id: any) {
-        return http.put(`/ordencambio/${id}`, data);
-    }
+  update(data: ChangeOrderData, id: any) {
+    return http.put(`/ordencambio/${id}`, data);
+  }
 
-    delete(id: any) {
-        return http.delete(`/orden_de_cambio/${id}`);
-    }
+  updatePostOrder(id: any) {
+    return http.put(`/ordencambio/${id}`);
+  }
 
-    deleteAll() {
-        return http.delete(`/orden_de_cambio`);
-    }
+  delete(id: any) {
+    return http.delete(`/orden_de_cambio/${id}`);
+  }
 
-    findByTitle(title: string) {
-        return http.get(`/orden_de_cambio?title=${title}`);
-    }
+  deleteAll() {
+    return http.delete(`/orden_de_cambio`);
+  }
+
+  findByTitle(title: string) {
+    return http.get(`/orden_de_cambio?title=${title}`);
+  }
 }
 
 export default new ChangeOrderDataService();

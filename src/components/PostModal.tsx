@@ -5,9 +5,7 @@ import IconButton from "@mui/material/IconButton";
 type Props = {
   modalTitle: string;
   nameCompany: string;
-  functionPublicar: () => boolean;
-  messageTrue: string;
-  messageFalse: string;
+  functionPublicar: any;
   titleDoc: string;
   typeDoc: string;
   downloadHref: string;
@@ -39,12 +37,9 @@ export const PostModal = (props: Props) => {
     </IconButton>
   );
 
-  const handlePost = () => {
-    if (props.functionPublicar()) {
-      setMessage(props.messageTrue);
-    } else {
-      setMessage(props.messageFalse);
-    }
+  const handlePost = async () => {
+    const functionRes = await props.functionPublicar();
+    setMessage("La " + props.typeDoc + " " + functionRes);
     setOpen(true);
   };
 
