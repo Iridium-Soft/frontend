@@ -283,8 +283,17 @@ export default class ChangeOrderPage extends Component<Props, State> {
         };
 
         console.log(elem);
+        let aidi: number = 0;
 
-        ChangeOrderDataService.create(elem);
+        ChangeOrderDataService.create(elem)
+            .then((response) => {
+                aidi = response.data.id;
+            })
+            .catch((e) => {
+                console.log(e);
+            });
+
+        ChangeOrderDataService.generar(aidi + "");
     }
 
     deleteObservation() {

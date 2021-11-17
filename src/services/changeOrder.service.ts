@@ -9,6 +9,10 @@ class ChangeOrderDataService {
         return http.get(`/postulacion/propias/${id}`);
     }
 
+    generar(id: string) {
+        return http.get(`/generar/ordencambio/${id}`);
+    }
+
     create(data: ChangeOrderData) {
         return http.post("/postulacion/ordencambio/", data);
     }
