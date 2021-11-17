@@ -50,13 +50,44 @@ export default class ChangeOrderPage extends Component<Props, State> {
             companyGroupId: 0,
             changeOrderCode: "",
             dateOfIssue: "",
-            refScores: [],
-            scoresObtained: [{evaluacion_id: 0, puntuacion: 0}],
-            scoresMessage: "",
+            refScores: [{
+                evaluacion_id: 1,
+                descripcion: "Cumplimiento de especificaciones del proponente",
+                puntajeReferencial: 15,
+            },{
+                evaluacion_id: 2,
+                descripcion: "Claridad en la organizacion de la empresa proponente",
+                puntajeReferencial: 10,
+            },{
+                evaluacion_id: 3,
+                descripcion: "Cumplimiento de especificaciones tecnicas",
+                puntajeReferencial: 30,
+            },{
+                evaluacion_id: 4,
+                descripcion: "Claridad de proceso de desarrollo",
+                puntajeReferencial: 10,
+            },{
+                evaluacion_id: 5,
+                descripcion: "Plazo de ejecucion",
+                puntajeReferencial: 10,
+            },{
+                evaluacion_id: 6,
+                descripcion: "Precio total",
+                puntajeReferencial: 15,
+            },{
+                evaluacion_id: 7,
+                descripcion: "Uso de herramientas en el proceso de desarrollo",
+                puntajeReferencial: 10,
+            }
+            ],
+            scoresObtained: [{evaluacion_id: 0, puntuacion: NaN}],
+            scoresMessage: "Tabla de puntajes: Alguno de los puntajes es incorrecto",
             observations: [
-                {documento: "",
-                seccion: "",
-                descripcion: ""}
+                {
+                    documento: "",
+                    seccion: "",
+                    descripcion: ""
+                }
             ],
             document: "",
             section: "",
@@ -69,6 +100,14 @@ export default class ChangeOrderPage extends Component<Props, State> {
             message: "",
             open: false,
         }
+
+        let arreglito: any = this.state.observations;
+        arreglito.pop();
+        this.setState(
+            {
+                observations: arreglito,
+            }
+        )
 
         this.retrieveChangeOrderData = this.retrieveChangeOrderData.bind(this);
 
@@ -88,6 +127,7 @@ export default class ChangeOrderPage extends Component<Props, State> {
         this.handleSubmit = this.handleSubmit.bind(this);
 
         this.postChangeOrder = this.postChangeOrder.bind(this);
+        this.checkScores = this.checkScores.bind(this);
     }
 
     componentDidMount() {
@@ -98,8 +138,7 @@ export default class ChangeOrderPage extends Component<Props, State> {
         ChangeOrderDataService.get("1")
             .then((response) => {
                 this.setState({
-                    companyGroups: response.data.grupoEmpresas,
-                    refScores: response.data.evaluacion,
+                    companyGroups: response.data,
                 });
                 console.log(response.data);
             })
@@ -108,18 +147,16 @@ export default class ChangeOrderPage extends Component<Props, State> {
             });
     }
 
-    handleCompanyGroup(event: ChangeElement) {
+    handleCompanyGroup() {
         const cgps: any = this.state.companyGroups;
-        const cg: string = event.target.value;
         let cgId: number = 0;
 
         for(let i = 0; i < cgps.length; i++) {
-            if(cgps[i].nombre === cg) {
+            if(cgps[i].nombre === this.state.companyGroup) {
                 cgId = cgps[i].id;
             }
         }
         this.setState({
-            companyGroup: cg,
             companyGroupId: cgId,
         })
     }
@@ -140,9 +177,9 @@ export default class ChangeOrderPage extends Component<Props, State> {
         this.setState(
             {
                 scoresObtained: childData.scores,
-                scoresMessage: childData.message
             }
         )
+        this.checkScores();
     }
 
     handleCorrectionDeadline(event: ChangeElement) {
@@ -176,21 +213,16 @@ export default class ChangeOrderPage extends Component<Props, State> {
     }
 
     handleSubmit() {
-        if(this.state.companyGroup !== "") {
+        this.checkScores();
+        if(this.state.companyGroup === "") {
             this.setState({
-                message: "El siguiente campo debe ser correctamente llenado: No selecciono niguna Grupo Empresa",
-                open: true,
-            })
-            return false;
-        } else if(!/[a-zA-Z]+/.test(this.state.changeOrderCode)) {
-            this.setState({
-                message: "El siguiente campo debe ser correctamente llenado: El codigo de orden de cambio no es correcto",
+                message: "No selecciono niguna Grupo Empresa",
                 open: true,
             })
             return false;
         } else if(this.state.dateOfIssue === "") {
             this.setState({
-                message: "El siguiente campo debe ser correctamente llenado: No selecciono ninguna fecha de contrato",
+                message: "No selecciono ninguna fecha de contrato",
                 open: true,
             });
             return false;
@@ -204,25 +236,25 @@ export default class ChangeOrderPage extends Component<Props, State> {
 
         } else if(this.state.observations.length < 1){
                 this.setState({
-                    message: "El siguiente campo debe ser correctamente llenado: No registro ninguna observacion",
+                    message: "No registro ninguna observacion",
                     open: true,
                 });
                 return false;
         } else if(this.state.correctionDeadline === ""){
             this.setState({
-                message: "El siguiente campo debe ser correctamente llenado: No selecciono ninguna fecha de entrega de correccion",
+                message: "No selecciono ninguna fecha de entrega de correccion",
                 open: true,
             });
             return false;
         } else if(this.state.correctionTime === ""){
             this.setState({
-                message: "El siguiente campo debe ser correctamente llenado: No selecciono ninguna hora de entrega de correccion",
+                message: "No selecciono ninguna hora de entrega de correccion",
                 open: true,
             });
             return false;
         } else if(!/[a-zA-Z]+/.test(this.state.correctionPlace)){
             this.setState({
-                message: "El siguiente campo debe ser correctamente llenado: Lugar de entrega no valido",
+                message: "Lugar de entrega no valido",
                 open: true,
             });
             return false;
@@ -231,12 +263,18 @@ export default class ChangeOrderPage extends Component<Props, State> {
     }
 
     postChangeOrder() {
+        let ans: number = 0;
+        for(let i = 0; i < this.state.companyGroups.length; i++) {
+            if(this.state.companyGroupId === this.state.companyGroups[i]) {
+                ans = i;
+            }
+        }
         const elem: ChangeOrderData = {
             grupoempresa_id: this.state.companyGroupId,
-            postulacion_id: 0,
-            convocatoria_id: 0,
+            postulacion_id: this.state.companyGroups[ans].id,
+            convocatoria_id: this.state.companyGroups[ans].idConvocatoria,
             nombre: this.state.companyGroup,
-            cod_orden_cambio: this.state.changeOrderCode,
+            cod_orden_cambio: "j",
             fecha_entrega: this.state.correctionDeadline,
             lugar_entrega: this.state.correctionPlace,
             fecha_emision: this.state.dateOfIssue,
@@ -244,7 +282,18 @@ export default class ChangeOrderPage extends Component<Props, State> {
             observacion: this.state.observations,
         };
 
-        ChangeOrderDataService.create(elem);
+        console.log(elem);
+        let aidi: number = 0;
+
+        ChangeOrderDataService.create(elem)
+            .then((response) => {
+                aidi = response.data.id;
+            })
+            .catch((e) => {
+                console.log(e);
+            });
+
+        ChangeOrderDataService.generar(aidi + "");
     }
 
     deleteObservation() {
@@ -259,34 +308,48 @@ export default class ChangeOrderPage extends Component<Props, State> {
         if(this.state.document === "") {
             this.setState({
                 message:
-                    "El siguiente campo debe ser correctamente llenado: No selecciono nigun documento",
+                    "Tabla de observaciones: No selecciono nigun documento",
                 open: true,
             });
             return false;
         } else if(!/^[.0-9]+$/.test(this.state.section)) {
             this.setState({
                 message:
-                    "El siguiente campo debe ser correctamente llenado: Seccion incorrecta",
+                    "Tabla de observaciones: Seccion incorrecta",
                 open: true,
             });
             return false;
         } else if(!/[a-zA-Z]+/.test(this.state.description)) {
             this.setState({
                 message:
-                    "El siguiente campo debe ser correctamente llenado: Descripcion incorrecta",
+                    "Tabla de observaciones: Descripcion incorrecta",
                 open: true,
             });
             return false;
         }
         const ob: any = {
-            document: this.state.document,
-            section: this.state.section,
-            description: this.state.description,
+            documento: this.state.document,
+            seccion: this.state.section,
+            descripcion: this.state.description,
         }
         let variable: any = this.state.observations;
         variable.push(ob);
         this.setState({
             observations: variable,
+        });
+    }
+
+    checkScores() {
+        for(let i = 0; i < this.state.refScores?.length; i++) {
+            if(this.state.scoresObtained[i].puntuacion > this.state.refScores[i]?.puntajeReferencial || !this.state.scoresObtained[i].puntuacion) {
+                this.setState({
+                    scoresMessage: "Tabla de puntajes: Alguno de los puntajes es incorrecto"
+                })
+                return;
+            }
+        }
+        this.setState({
+            scoresMessage: ""
         });
     }
 
@@ -314,6 +377,46 @@ export default class ChangeOrderPage extends Component<Props, State> {
         );
         return (
             <>
+                <div
+                    className="modal fade"
+                    id="asd"
+                    tabIndex={-1}
+                    aria-labelledby={`labelasd`}
+                    role="dialog"
+                    aria-hidden={true}
+                >
+                    <div className="modal-dialog">
+                        <div className="modal-content">
+                            <div className="modal-header">
+                                <h5 className="modal-title">
+                                    ¿Está seguro de cancelar la el registro de su orden de cambio?
+                                </h5>
+                                <button
+                                    type="button"
+                                    className="btn-close"
+                                    data-bs-dismiss="modal"
+                                    aria-label="Close"
+                                ></button>
+                            </div>
+                            <div className="modal-footer">
+                                <button
+                                    type="button"
+                                    className="btn btn-secondary text-white"
+                                    data-bs-dismiss="modal"
+                                >
+                                    Cancelar
+                                </button>
+                                <button
+                                    type="button"
+                                    className="btn btn-info text-white"
+                                    onClick={() => {window.location.reload()}}
+                                >
+                                    Confirmar
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <div className="container p-3 position-relative">
                     <h3 className="row"><strong>Orden de cambio</strong></h3>
                     <div className="form-group row m-3">
@@ -326,29 +429,21 @@ export default class ChangeOrderPage extends Component<Props, State> {
                         <div className="col-md-8">
                             <select
                                 className="form-select form-select-lg"
+                                value={this.state.companyGroup}
+                                onChange={(e) => {
+                                    this.setState({ companyGroup: e.target.value });
+                                    this.handleCompanyGroup();
+                                }}
                             >
-                                <option value="default" disabled selected>
+                                <option value="" disabled selected>
                                     Seleccione una grupo empresa
                                 </option>
                             {companyGroups && companyGroups.map((cg: any) => (
-                                <option value="">
-                                        {cg.nombre}
+                                <option value={cg.nombreGrupoEmpresa}>
+                                        {cg.nombreGrupoEmpresa}
                                 </option>
                             ))}
                             </select>
-                        </div>
-                    </div>
-                    <div className="form-group row m-3">
-                        <label htmlFor="codigoPliego" className="col-md-4 col-form-label">
-                            Código orden de cambio
-                        </label>
-                        <div className="col-md-8">
-                            <input
-                                type="text"
-                                className="form-control"
-                                onChange={this.handleChangeOrderCode}
-                                required
-                            />
                         </div>
                     </div>
                     <div className="form-group row m-3">
@@ -381,9 +476,9 @@ export default class ChangeOrderPage extends Component<Props, State> {
                             observations.map((obs: any) => (
                                 <>
                                     <tr>
-                                        <td>{obs.document}</td>
-                                        <td>{obs.section}</td>
-                                        <td>{obs.description}</td>
+                                        <td>{obs.documento}</td>
+                                        <td>{obs.seccion}</td>
+                                        <td>{obs.descripcion}</td>
                                         <td className="borderless-cell"></td>
                                     </tr>
                                 </>
@@ -519,7 +614,7 @@ export default class ChangeOrderPage extends Component<Props, State> {
                                 type="button"
                                 className="btn btn-lg btn-danger text-white"
                                 data-bs-toggle="modal"
-                                data-bs-target="#popupCancelModalPetis"
+                                data-bs-target={`#asd`}
                             >
                                 Cancelar
                             </button>
