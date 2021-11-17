@@ -45,32 +45,7 @@ export default class ChangeOrderPage extends Component<Props, State> {
         super(props);
 
         this.state = {
-            companyGroups: [
-                {
-                    "nombreGrupoEmpresa": "Iridium",
-                    "idGrupoEmpresa": 1,
-                    "idConvocatoria": 1,
-                    "codigoConvocatoria": "2020convo-2",
-                    "tituloConvocatoria": "Convocatoria primera",
-                    "id": 1
-                },
-                {
-                    "nombreGrupoEmpresa": "Pacha",
-                    "idGrupoEmpresa": 2,
-                    "idConvocatoria": 1,
-                    "codigoConvocatoria": "2020convo-2",
-                    "tituloConvocatoria": "Convocatoria primera",
-                    "id": 2
-                },
-                {
-                    "nombreGrupoEmpresa": "AlgoSoft",
-                    "idGrupoEmpresa": 3,
-                    "idConvocatoria": 1,
-                    "codigoConvocatoria": "2020convo-2",
-                    "tituloConvocatoria": "Convocatoria primera",
-                    "id": 3
-                }
-            ],
+            companyGroups: [],
             companyGroup: "",
             companyGroupId: 0,
             changeOrderCode: "",
