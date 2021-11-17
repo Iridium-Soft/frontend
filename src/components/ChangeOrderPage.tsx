@@ -51,31 +51,31 @@ export default class ChangeOrderPage extends Component<Props, State> {
             changeOrderCode: "",
             dateOfIssue: "",
             refScores: [{
-                evaluacion_id: 0,
+                evaluacion_id: 1,
                 descripcion: "Cumplimiento de especificaciones del proponente",
                 puntajeReferencial: 15,
             },{
-                evaluacion_id: 1,
+                evaluacion_id: 2,
                 descripcion: "Claridad en la organizacion de la empresa proponente",
                 puntajeReferencial: 10,
             },{
-                evaluacion_id: 2,
+                evaluacion_id: 3,
                 descripcion: "Cumplimiento de especificaciones tecnicas",
                 puntajeReferencial: 30,
             },{
-                evaluacion_id: 3,
+                evaluacion_id: 4,
                 descripcion: "Claridad de proceso de desarrollo",
                 puntajeReferencial: 10,
             },{
-                evaluacion_id: 4,
+                evaluacion_id: 5,
                 descripcion: "Plazo de ejecucion",
                 puntajeReferencial: 10,
             },{
-                evaluacion_id: 5,
+                evaluacion_id: 6,
                 descripcion: "Precio total",
                 puntajeReferencial: 15,
             },{
-                evaluacion_id: 6,
+                evaluacion_id: 7,
                 descripcion: "Uso de herramientas en el proceso de desarrollo",
                 puntajeReferencial: 10,
             }
@@ -318,9 +318,9 @@ export default class ChangeOrderPage extends Component<Props, State> {
             return false;
         }
         const ob: any = {
-            document: this.state.document,
-            section: this.state.section,
-            description: this.state.description,
+            documento: this.state.document,
+            seccion: this.state.section,
+            descripcion: this.state.description,
         }
         let variable: any = this.state.observations;
         variable.push(ob);

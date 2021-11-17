@@ -18,10 +18,6 @@ export default class ScoresTable extends Component<Props, State> {
         this.state = {
             scores: [
                 {
-                    evaluacion_id: 0,
-                    puntuacion: NaN,
-                },
-                {
                     evaluacion_id: 1,
                     puntuacion: NaN,
                 },
@@ -43,6 +39,10 @@ export default class ScoresTable extends Component<Props, State> {
                 },
                 {
                     evaluacion_id: 6,
+                    puntuacion: NaN,
+                },
+                {
+                    evaluacion_id: 7,
                     puntuacion: NaN,
                 }
             ],
