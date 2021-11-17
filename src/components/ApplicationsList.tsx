@@ -43,8 +43,8 @@ export default class AnnouncementsList extends Component<Props, State> {
         idConvocatoria: -1,
         idGrupoEmpresa: -1,
         idNotiConf: -1,
-        idOrdenCambio: -1,
-        idPostulacion: -1,
+        idOrdenCambio: 2,
+        idPostulacion: 2,
         nombreGrupoEmpresa: "",
         tituloConvocatoria: "",
       },
@@ -190,10 +190,12 @@ export default class AnnouncementsList extends Component<Props, State> {
                             modalTitle: "Publicar orden de cambio",
                             titleDoc: "Titulo de la convocatoria registrada",
                             typeDoc: "Orden de cambio",
+                          });
+                          this.setState({
                             functionPublicar: async () => {
                               let res = "";
                               await ChangeOrderDataService.updatePostOrder(
-                                this.state.currentApplication.idPostulacion
+                                this.state.currentApplication.idOrdenCambio
                               ).then((response) => {
                                 res = response.data.mensaje;
                               });
