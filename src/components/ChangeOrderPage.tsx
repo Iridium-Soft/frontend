@@ -368,6 +368,46 @@ export default class ChangeOrderPage extends Component<Props, State> {
         );
         return (
             <>
+                <div
+                    className="modal fade"
+                    id="asd"
+                    tabIndex={-1}
+                    aria-labelledby={`labelasd`}
+                    role="dialog"
+                    aria-hidden={true}
+                >
+                    <div className="modal-dialog">
+                        <div className="modal-content">
+                            <div className="modal-header">
+                                <h5 className="modal-title">
+                                    ¿Está seguro de cancelar la el registro de su orden de cambio?
+                                </h5>
+                                <button
+                                    type="button"
+                                    className="btn-close"
+                                    data-bs-dismiss="modal"
+                                    aria-label="Close"
+                                ></button>
+                            </div>
+                            <div className="modal-footer">
+                                <button
+                                    type="button"
+                                    className="btn btn-secondary text-white"
+                                    data-bs-dismiss="modal"
+                                >
+                                    Cancelar
+                                </button>
+                                <button
+                                    type="button"
+                                    className="btn btn-info text-white"
+                                    onClick={() => {window.location.reload()}}
+                                >
+                                    Confirmar
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <div className="container p-3 position-relative">
                     <h3 className="row"><strong>Orden de cambio</strong></h3>
                     <div className="form-group row m-3">
@@ -565,7 +605,7 @@ export default class ChangeOrderPage extends Component<Props, State> {
                                 type="button"
                                 className="btn btn-lg btn-danger text-white"
                                 data-bs-toggle="modal"
-                                data-bs-target="#popupCancelModalPetis"
+                                data-bs-target={`#asd`}
                             >
                                 Cancelar
                             </button>
