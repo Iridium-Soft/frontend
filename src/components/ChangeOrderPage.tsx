@@ -271,8 +271,8 @@ export default class ChangeOrderPage extends Component<Props, State> {
         }
         const elem: ChangeOrderData = {
             grupoempresa_id: this.state.companyGroupId,
-            postulacion_id: this.state.companyGroups[ans].postulacion_id,
-            convocatoria_id: this.state.companyGroups[ans].convocatoria_id,
+            postulacion_id: this.state.companyGroups[ans].id,
+            convocatoria_id: this.state.companyGroups[ans].idConvocatoria,
             nombre: this.state.companyGroup,
             cod_orden_cambio: "j",
             fecha_entrega: this.state.correctionDeadline,
@@ -281,6 +281,8 @@ export default class ChangeOrderPage extends Component<Props, State> {
             evaluacion: this.state.scoresObtained,
             observacion: this.state.observations,
         };
+
+        console.log(elem);
 
         ChangeOrderDataService.create(elem);
     }
