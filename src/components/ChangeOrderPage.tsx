@@ -80,8 +80,8 @@ export default class ChangeOrderPage extends Component<Props, State> {
                 puntajeReferencial: 10,
             }
             ],
-            scoresObtained: [{evaluacion_id: 0, puntuacion: 0}],
-            scoresMessage: "",
+            scoresObtained: [{evaluacion_id: 0, puntuacion: NaN}],
+            scoresMessage: "Tabla de puntajes: Alguno de los puntajes es incorrecto",
             observations: [
                 {
                     documento: "",
@@ -149,16 +149,14 @@ export default class ChangeOrderPage extends Component<Props, State> {
 
     handleCompanyGroup() {
         const cgps: any = this.state.companyGroups;
-        const cg: string = this.state.companyGroup;
         let cgId: number = 0;
 
         for(let i = 0; i < cgps.length; i++) {
-            if(cgps[i].nombre === cg) {
+            if(cgps[i].nombre === this.state.companyGroup) {
                 cgId = cgps[i].id;
             }
         }
         this.setState({
-            companyGroup: cg,
             companyGroupId: cgId,
         })
     }
@@ -215,15 +213,10 @@ export default class ChangeOrderPage extends Component<Props, State> {
     }
 
     handleSubmit() {
+        this.checkScores();
         if(this.state.companyGroup === "") {
             this.setState({
                 message: "No selecciono niguna Grupo Empresa",
-                open: true,
-            })
-            return false;
-        } else if(!/[a-zA-Z]+/.test(this.state.changeOrderCode)) {
-            this.setState({
-                message: "El codigo de orden de cambio no es correcto",
                 open: true,
             })
             return false;
@@ -275,7 +268,7 @@ export default class ChangeOrderPage extends Component<Props, State> {
             postulacion_id: 0,
             convocatoria_id: 0,
             nombre: this.state.companyGroup,
-            cod_orden_cambio: this.state.changeOrderCode,
+            cod_orden_cambio: "j",
             fecha_entrega: this.state.correctionDeadline,
             lugar_entrega: this.state.correctionPlace,
             fecha_emision: this.state.dateOfIssue,
@@ -394,19 +387,6 @@ export default class ChangeOrderPage extends Component<Props, State> {
                                 </option>
                             ))}
                             </select>
-                        </div>
-                    </div>
-                    <div className="form-group row m-3">
-                        <label htmlFor="codigoPliego" className="col-md-4 col-form-label">
-                            Código orden de cambio
-                        </label>
-                        <div className="col-md-8">
-                            <input
-                                type="text"
-                                className="form-control"
-                                onChange={this.handleChangeOrderCode}
-                                required
-                            />
                         </div>
                     </div>
                     <div className="form-group row m-3">
