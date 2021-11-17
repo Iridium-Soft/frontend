@@ -214,6 +214,7 @@ export default class ComplianceNotification extends Component<Props, State> {
             message: "Registro de notificacion de conformidad realizada exitosamente",
             open: true,
         });
+        this.postComplianceNotification()
     }
 
     postComplianceNotification() {
