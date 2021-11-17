@@ -263,10 +263,16 @@ export default class ChangeOrderPage extends Component<Props, State> {
     }
 
     postChangeOrder() {
+        let ans: number = 0;
+        for(let i = 0; i < this.state.companyGroups.length; i++) {
+            if(this.state.companyGroupId === this.state.companyGroups[i]) {
+                ans = i;
+            }
+        }
         const elem: ChangeOrderData = {
             grupoempresa_id: this.state.companyGroupId,
-            postulacion_id: 0,
-            convocatoria_id: 0,
+            postulacion_id: this.state.companyGroups[ans].postulacion_id,
+            convocatoria_id: this.state.companyGroups[ans].convocatoria_id,
             nombre: this.state.companyGroup,
             cod_orden_cambio: "j",
             fecha_entrega: this.state.correctionDeadline,
