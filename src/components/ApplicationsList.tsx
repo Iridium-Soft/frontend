@@ -8,6 +8,7 @@ import ApplicationsData from "../types/applications.type";
 import { PostulationDetails } from "./PostulationDetailsModal";
 import { PostModal } from "./PostModal";
 import WorkCalendarData from "../types/workCalendar.type";
+import DocumentsDataService from "../services/documents.service";
 
 type Props = {};
 
@@ -20,6 +21,12 @@ type State = {
   downloadHref: string;
   milestones: WorkCalendarData;
   functionPublicar: any;
+
+  partAHref: string;
+  partBHref: string;
+  warrantyHref: string;
+  presentationHref: string;
+  constitutionHref: string;
 };
 
 export default class AnnouncementsList extends Component<Props, State> {
@@ -49,6 +56,12 @@ export default class AnnouncementsList extends Component<Props, State> {
       typeDoc: "",
       downloadHref: "",
       functionPublicar: () => "",
+
+      partAHref: "",
+      partBHref: "",
+      warrantyHref: "",
+      presentationHref: "",
+      constitutionHref: "",
     };
   }
 
@@ -88,11 +101,11 @@ export default class AnnouncementsList extends Component<Props, State> {
           nameAnnouncement={this.state.currentApplication.tituloConvocatoria}
           nameCompany={this.state.currentApplication.nombreGrupoEmpresa}
           codeAnnouncement={this.state.currentApplication.codigoConvocatoria}
-          partAHref=""
-          partBHref=""
-          warrantyHref=""
-          presentationHref=""
-          constitutionHref=""
+          partAHref={this.state.partAHref}
+          partBHref={this.state.partBHref}
+          warrantyHref={this.state.warrantyHref}
+          presentationHref={this.state.presentationHref}
+          constitutionHref={this.state.constitutionHref}
           fechaReg={this.state.currentApplication.fechaRegistro}
         />
         <PostModal
@@ -119,6 +132,17 @@ export default class AnnouncementsList extends Component<Props, State> {
                   data-bs-target={`#${modalId}`}
                   onClick={() => {
                     this.setState({ currentApplication: application });
+                    DocumentsDataService.getPostulationDocs(
+                      this.state.currentApplication.idPostulacion
+                    ).then((res) => {
+                      this.setState({
+                        partAHref: res.data.parteA,
+                        partBHref: res.data.parteB,
+                        warrantyHref: res.data.boletaDeGarantia,
+                        presentationHref: res.data.cartaDePresentacion,
+                        constitutionHref: res.data.constitucion,
+                      });
+                    });
                     ApplicationsDataService.getApplicationMilestones(
                       application.idPostulacion
                     ).then((response) => {

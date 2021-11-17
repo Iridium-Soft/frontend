@@ -13,6 +13,11 @@ class DocumentsDataService {
   getPEtis(id: string) {
     return http.get(`/documento/pliegoespecificacion/${id}`);
   }
+
+  getPostulationDocs(id: any) {
+    return http.get(`postulacion/documentos/${id}`);
+  }
+
   getAnnouncement(id: string) {
     return http.get(`/documento/convocatoria/${id}`);
   }
