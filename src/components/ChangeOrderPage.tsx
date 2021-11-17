@@ -217,19 +217,19 @@ export default class ChangeOrderPage extends Component<Props, State> {
     handleSubmit() {
         if(this.state.companyGroup === "") {
             this.setState({
-                message: "El siguiente campo debe ser correctamente llenado: No selecciono niguna Grupo Empresa",
+                message: "No selecciono niguna Grupo Empresa",
                 open: true,
             })
             return false;
         } else if(!/[a-zA-Z]+/.test(this.state.changeOrderCode)) {
             this.setState({
-                message: "El siguiente campo debe ser correctamente llenado: El codigo de orden de cambio no es correcto",
+                message: "El codigo de orden de cambio no es correcto",
                 open: true,
             })
             return false;
         } else if(this.state.dateOfIssue === "") {
             this.setState({
-                message: "El siguiente campo debe ser correctamente llenado: No selecciono ninguna fecha de contrato",
+                message: "No selecciono ninguna fecha de contrato",
                 open: true,
             });
             return false;
@@ -243,25 +243,25 @@ export default class ChangeOrderPage extends Component<Props, State> {
 
         } else if(this.state.observations.length < 1){
                 this.setState({
-                    message: "El siguiente campo debe ser correctamente llenado: No registro ninguna observacion",
+                    message: "No registro ninguna observacion",
                     open: true,
                 });
                 return false;
         } else if(this.state.correctionDeadline === ""){
             this.setState({
-                message: "El siguiente campo debe ser correctamente llenado: No selecciono ninguna fecha de entrega de correccion",
+                message: "No selecciono ninguna fecha de entrega de correccion",
                 open: true,
             });
             return false;
         } else if(this.state.correctionTime === ""){
             this.setState({
-                message: "El siguiente campo debe ser correctamente llenado: No selecciono ninguna hora de entrega de correccion",
+                message: "No selecciono ninguna hora de entrega de correccion",
                 open: true,
             });
             return false;
         } else if(!/[a-zA-Z]+/.test(this.state.correctionPlace)){
             this.setState({
-                message: "El siguiente campo debe ser correctamente llenado: Lugar de entrega no valido",
+                message: "Lugar de entrega no valido",
                 open: true,
             });
             return false;
@@ -298,21 +298,21 @@ export default class ChangeOrderPage extends Component<Props, State> {
         if(this.state.document === "") {
             this.setState({
                 message:
-                    "El siguiente campo debe ser correctamente llenado: No selecciono nigun documento",
+                    "Tabla de observaciones: No selecciono nigun documento",
                 open: true,
             });
             return false;
         } else if(!/^[.0-9]+$/.test(this.state.section)) {
             this.setState({
                 message:
-                    "El siguiente campo debe ser correctamente llenado: Seccion incorrecta",
+                    "Tabla de observaciones: Seccion incorrecta",
                 open: true,
             });
             return false;
         } else if(!/[a-zA-Z]+/.test(this.state.description)) {
             this.setState({
                 message:
-                    "El siguiente campo debe ser correctamente llenado: Descripcion incorrecta",
+                    "Tabla de observaciones: Descripcion incorrecta",
                 open: true,
             });
             return false;
@@ -333,7 +333,7 @@ export default class ChangeOrderPage extends Component<Props, State> {
         for(let i = 0; i < this.state.refScores?.length; i++) {
             if(this.state.scoresObtained[i].puntuacion > this.state.refScores[i]?.puntajeReferencial || !this.state.scoresObtained[i].puntuacion) {
                 this.setState({
-                    scoresMessage: "El siguiente campo debe ser correctamente llenado: Alguno de los puntajes es incorrecto"
+                    scoresMessage: "Tabla de puntajes: Alguno de los puntajes es incorrecto"
                 })
                 return;
             }
@@ -379,6 +379,7 @@ export default class ChangeOrderPage extends Component<Props, State> {
                         <div className="col-md-8">
                             <select
                                 className="form-select form-select-lg"
+                                value={this.state.companyGroup}
                                 onChange={(e) => {
                                     this.setState({ companyGroup: e.target.value });
                                     this.handleCompanyGroup();
