@@ -1,4 +1,4 @@
-import React, { MouseEventHandler, useState } from "react";
+import React, { useState } from "react";
 import Snackbar from "@mui/material/Snackbar";
 import IconButton from "@mui/material/IconButton";
 
@@ -66,6 +66,7 @@ export const PostModal = (props: Props) => {
               <p>Nombre de la grupo-empresa: {props.nameCompany}</p>
               <p>Titulo: {props.titleDoc}</p>
               <a
+                download={`${props.titleDoc}.pdf`}
                 href={props.downloadHref}
                 className="btn btn-primary"
               >{`Descargar ${props.typeDoc}`}</a>

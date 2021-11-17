@@ -185,12 +185,20 @@ export default class AnnouncementsList extends Component<Props, State> {
                         data-bs-toggle="modal"
                         data-bs-target={`#${postModalId}`}
                         onClick={() => {
+                          ChangeOrderDataService.getOrderName(
+                            this.state.currentApplication.idOrdenCambio
+                          ).then((res1) => {
+                            ChangeOrderDataService.getOrderDownload(
+                              res1.data.documento
+                            ).then((res2) => {
+                              this.setState({ downloadHref: res2.data });
+                            });
+                          });
                           this.setState({
                             currentApplication: application,
                             modalTitle: "Publicar orden de cambio",
                             titleDoc: "Titulo de la convocatoria registrada",
                             typeDoc: "Orden de cambio",
-                            downloadHref: "#",
                             functionPublicar: async () => {
                               let res = "";
                               await ChangeOrderDataService.updatePostOrder(
@@ -213,12 +221,20 @@ export default class AnnouncementsList extends Component<Props, State> {
                         data-bs-toggle="modal"
                         data-bs-target={`#${postModalId}`}
                         onClick={() => {
+                          ConformityNotificationDataService.getNotifyName(
+                            this.state.currentApplication.idNotiConf
+                          ).then((res1) => {
+                            ConformityNotificationDataService.getNotifyDownload(
+                              res1.data.documento
+                            ).then((res2) => {
+                              this.setState({ downloadHref: res2.data });
+                            });
+                          });
                           this.setState({
                             currentApplication: application,
                             modalTitle: "Publicar notificación de conformidad",
                             titleDoc: "Titulo de la convocatoria registrada",
                             typeDoc: "Notificación de conformidad",
-                            downloadHref: "#",
                             functionPublicar: async () => {
                               let res = "";
                               await ConformityNotificationDataService.updatePostNotification(

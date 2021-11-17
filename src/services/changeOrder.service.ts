@@ -21,6 +21,14 @@ class ChangeOrderDataService {
     return http.put(`/ordencambio/${id}`, data);
   }
 
+  getOrderDownload(fileId: any) {
+    return http.get(`/documento/ordencambio/${fileId}`);
+  }
+
+  getOrderName(id: any) {
+    return http.get(`/planificacion/ordendeCambio/${id}`);
+  }
+
   updatePostOrder(id: any) {
     return http.put(`/ordencambio/${id}`);
   }
