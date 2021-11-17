@@ -147,9 +147,9 @@ export default class ChangeOrderPage extends Component<Props, State> {
             });
     }
 
-    handleCompanyGroup(event: ChangeElement) {
+    handleCompanyGroup() {
         const cgps: any = this.state.companyGroups;
-        const cg: string = event.target.value;
+        const cg: string = this.state.companyGroup;
         let cgId: number = 0;
 
         for(let i = 0; i < cgps.length; i++) {
@@ -215,7 +215,7 @@ export default class ChangeOrderPage extends Component<Props, State> {
     }
 
     handleSubmit() {
-        if(this.state.companyGroup !== "") {
+        if(this.state.companyGroup === "") {
             this.setState({
                 message: "El siguiente campo debe ser correctamente llenado: No selecciono niguna Grupo Empresa",
                 open: true,
@@ -379,12 +379,16 @@ export default class ChangeOrderPage extends Component<Props, State> {
                         <div className="col-md-8">
                             <select
                                 className="form-select form-select-lg"
+                                onChange={(e) => {
+                                    this.setState({ companyGroup: e.target.value });
+                                    this.handleCompanyGroup();
+                                }}
                             >
-                                <option value="default" disabled selected>
+                                <option value="" disabled selected>
                                     Seleccione una grupo empresa
                                 </option>
                             {companyGroups && companyGroups.map((cg: any) => (
-                                <option value="">
+                                <option value={cg.nombreGrupoEmpresa}>
                                         {cg.nombreGrupoEmpresa}
                                 </option>
                             ))}
@@ -434,9 +438,9 @@ export default class ChangeOrderPage extends Component<Props, State> {
                             observations.map((obs: any) => (
                                 <>
                                     <tr>
-                                        <td>{obs.document}</td>
-                                        <td>{obs.section}</td>
-                                        <td>{obs.description}</td>
+                                        <td>{obs.documento}</td>
+                                        <td>{obs.seccion}</td>
+                                        <td>{obs.descripcion}</td>
                                         <td className="borderless-cell"></td>
                                     </tr>
                                 </>
