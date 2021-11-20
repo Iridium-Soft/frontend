@@ -151,7 +151,9 @@ export default class PetisForm extends Component<Props, State> {
       message: "Registro de Pliego de Especificación exitoso",
       open: true,
     });
-    window.location.reload();
+    setTimeout(() => {
+      window.location.reload();
+    }, 2500);
   }
 
   render() {
