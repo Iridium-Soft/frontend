@@ -4,6 +4,7 @@ import "./AnnouncementsList.css";
 import AnnouncementData from "../types/announcement.type";
 import AnnouncementDetails from "./AnnouncementDetailsModal";
 import DocumentsDataService from "../services/documents.service";
+import PetisDataService from "../services/petis.service"
 
 type Props = {};
 
@@ -11,6 +12,7 @@ type State = {
   announcements: Array<AnnouncementData>;
   currentAnnouncement: AnnouncementData;
   currectDocument: string;
+  currentPetis: string;
 };
 
 export default class AnnouncementsList extends Component<Props, State> {
@@ -21,7 +23,35 @@ export default class AnnouncementsList extends Component<Props, State> {
     this.retrieveAnnouncementDoc = this.retrieveAnnouncementDoc.bind(this);
 
     this.state = {
-      announcements: [],
+      announcements: [
+        {
+          codigo: "codigo 1",
+          titulo: "titulo 1",
+          descripcion: "descripcion 1",
+          consultorEnc: "consultorEnc 1",
+          fechaLimRec: "1635567441",
+          fechaIniDur: "1635567441",
+          fechaFinDur: "1635567441",
+          documento: "documento 1",
+          publica: false,
+          pliego: "P1",
+          id: "1"
+        },
+        {
+          codigo: "codigo 1",
+          titulo: "titulo 1",
+          descripcion: "descripcion 1",
+          consultorEnc: "consultorEnc 1",
+          fechaLimRec: "1635567441",
+          fechaIniDur: "1635567441",
+          fechaFinDur: "1635567441",
+          documento: "documento 1",
+          publica: false,
+          pliego: "",
+          id: "2"
+        },
+
+      ],
       currentAnnouncement: {
         id: "",
         titulo: "",
@@ -36,6 +66,7 @@ export default class AnnouncementsList extends Component<Props, State> {
         pliego: "",
       },
       currectDocument: "",
+      currentPetis: "",
     };
   }
 
@@ -62,6 +93,15 @@ export default class AnnouncementsList extends Component<Props, State> {
         this.setState({
           currectDocument: response.data,
         });
+        if(this.state.currentAnnouncement.pliego !== "") {
+          DocumentsDataService.getPliegoByConvocatoria(this.state.currentAnnouncement.id).then((response) => {
+            this.setState({
+              currentPetis: response.data,
+            })
+          }).catch((e) => {
+            console.log(e);
+          });
+        }
       })
       .catch((e) => {
         console.log(e);
@@ -149,17 +189,13 @@ export default class AnnouncementsList extends Component<Props, State> {
                           Descargar Convocatoria
                         </a>
                       </li>
-                      {() =>
-                        this.state.currentAnnouncement.pliego !== "" ? (
-                          <li>
-                            <a className="dropdown-item" href="">
-                              Descargar Pliego de Especificacion
-                            </a>
-                          </li>
-                        ) : (
-                          <></>
-                        )
-                      }
+                      {this.state.currentAnnouncement.pliego && (
+                        <li>
+                          <a className="dropdown-item" href="">
+                            Descargar Pliego de Especificacion
+                          </a>
+                        </li>
+                        )}
                     </ul>
                   </div>
                 </div>

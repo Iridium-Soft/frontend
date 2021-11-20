@@ -35,7 +35,32 @@ export default class ComplianceNotification extends Component<Props, State> {
         super(props);
 
         this.state = {
-            companyGroups: [],
+            companyGroups: [
+                {
+                    "nombreGrupoEmpresa": "Iridium",
+                    "idGrupoEmpresa": 1,
+                    "idConvocatoria": 1,
+                    "codigoConvocatoria": "2020convo-2",
+                    "tituloConvocatoria": "Convocatoria primera",
+                    "id": 1
+                },
+                {
+                    "nombreGrupoEmpresa": "Pacha",
+                    "idGrupoEmpresa": 2,
+                    "idConvocatoria": 1,
+                    "codigoConvocatoria": "2020convo-2",
+                    "tituloConvocatoria": "Convocatoria primera",
+                    "id": 2
+                },
+                {
+                    "nombreGrupoEmpresa": "AlgoSoft",
+                    "idGrupoEmpresa": 3,
+                    "idConvocatoria": 1,
+                    "codigoConvocatoria": "2020convo-2",
+                    "tituloConvocatoria": "Convocatoria primera",
+                    "id": 3
+                }
+            ],
             companyGroup: "",
             companyGroupId: 0,
             dateOfIssue: "",
@@ -214,6 +239,8 @@ export default class ComplianceNotification extends Component<Props, State> {
             message: "Registro de notificacion de conformidad realizada exitosamente",
             open: true,
         });
+
+        this.postComplianceNotification();
     }
 
     postComplianceNotification() {
