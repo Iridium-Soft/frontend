@@ -23,35 +23,7 @@ export default class AnnouncementsList extends Component<Props, State> {
     this.retrieveAnnouncementDoc = this.retrieveAnnouncementDoc.bind(this);
 
     this.state = {
-      announcements: [
-        {
-          codigo: "codigo 1",
-          titulo: "titulo 1",
-          descripcion: "descripcion 1",
-          consultorEnc: "consultorEnc 1",
-          fechaLimRec: "1635567441",
-          fechaIniDur: "1635567441",
-          fechaFinDur: "1635567441",
-          documento: "documento 1",
-          publica: false,
-          pliego: "P1",
-          id: "1"
-        },
-        {
-          codigo: "codigo 1",
-          titulo: "titulo 1",
-          descripcion: "descripcion 1",
-          consultorEnc: "consultorEnc 1",
-          fechaLimRec: "1635567441",
-          fechaIniDur: "1635567441",
-          fechaFinDur: "1635567441",
-          documento: "documento 1",
-          publica: false,
-          pliego: "",
-          id: "2"
-        },
-
-      ],
+      announcements: [],
       currentAnnouncement: {
         id: "",
         titulo: "",
