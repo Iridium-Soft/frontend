@@ -70,6 +70,13 @@ export default function PostAnnouncement(props: Props): JSX.Element {
         pliego: "",
       },
       id
+    ).then((response) => {
+      setMessage(
+          response.data
+      );
+      setOpen(true);
+    }).catch((e) => {
+      console.log(e)}
     );
     props.refresh();
   };
@@ -238,10 +245,6 @@ export default function PostAnnouncement(props: Props): JSX.Element {
                 onClick={() => {
                   if (consultantsSelected.length > 0) {
                     publishAnnouncement();
-                    setMessage(
-                      "Convocatoria correctamente publicada para el/los consultores seleccionados"
-                    );
-                    setOpen(true);
                     setTimeout(() => {
                       window.location.reload();
                     }, 6000);
