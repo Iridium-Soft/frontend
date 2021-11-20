@@ -8,6 +8,7 @@ import ApplicationsData from "../types/applications.type";
 import { PostulationDetails } from "./PostulationDetailsModal";
 import { PostModal } from "./PostModal";
 import WorkCalendarData from "../types/workCalendar.type";
+import DocumentsDataService from "../services/documents.service";
 
 type Props = {};
 
@@ -20,6 +21,12 @@ type State = {
   downloadHref: string;
   milestones: WorkCalendarData;
   functionPublicar: any;
+
+  partAHref: string;
+  partBHref: string;
+  warrantyHref: string;
+  presentationHref: string;
+  constitutionHref: string;
 };
 
 export default class AnnouncementsList extends Component<Props, State> {
@@ -31,10 +38,14 @@ export default class AnnouncementsList extends Component<Props, State> {
     this.state = {
       applications: [],
       currentApplication: {
-        nombreGrupoEmpresa: "",
-        idGrupoEmpresa: -1,
-        idConvocatoria: -1,
         codigoConvocatoria: "",
+        fechaRegistro: "",
+        idConvocatoria: -1,
+        idGrupoEmpresa: -1,
+        idNotiConf: -1,
+        idOrdenCambio: 2,
+        idPostulacion: 2,
+        nombreGrupoEmpresa: "",
         tituloConvocatoria: "",
       },
 
@@ -45,6 +56,12 @@ export default class AnnouncementsList extends Component<Props, State> {
       typeDoc: "",
       downloadHref: "",
       functionPublicar: () => "",
+
+      partAHref: "",
+      partBHref: "",
+      warrantyHref: "",
+      presentationHref: "",
+      constitutionHref: "",
     };
   }
 
@@ -84,11 +101,12 @@ export default class AnnouncementsList extends Component<Props, State> {
           nameAnnouncement={this.state.currentApplication.tituloConvocatoria}
           nameCompany={this.state.currentApplication.nombreGrupoEmpresa}
           codeAnnouncement={this.state.currentApplication.codigoConvocatoria}
-          partAHref=""
-          partBHref=""
-          warrantyHref=""
-          presentationHref=""
-          constitutionHref=""
+          partAHref={this.state.partAHref}
+          partBHref={this.state.partBHref}
+          warrantyHref={this.state.warrantyHref}
+          presentationHref={this.state.presentationHref}
+          constitutionHref={this.state.constitutionHref}
+          fechaReg={this.state.currentApplication.fechaRegistro}
         />
         <PostModal
           modalId={postModalId}
@@ -112,9 +130,25 @@ export default class AnnouncementsList extends Component<Props, State> {
                   className="btn btn-info col-8 btn-md announcement"
                   data-bs-toggle="modal"
                   data-bs-target={`#${modalId}`}
-                  onClick={() =>
-                    this.setState({ currentApplication: application })
-                  }
+                  onClick={() => {
+                    this.setState({ currentApplication: application });
+                    DocumentsDataService.getPostulationDocs(
+                      this.state.currentApplication.idPostulacion
+                    ).then((res) => {
+                      this.setState({
+                        partAHref: res.data.parteA,
+                        partBHref: res.data.parteB,
+                        warrantyHref: res.data.boletaDeGarantia,
+                        presentationHref: res.data.cartaDePresentacion,
+                        constitutionHref: res.data.constitucion,
+                      });
+                    });
+                    ApplicationsDataService.getApplicationMilestones(
+                      application.idPostulacion
+                    ).then((response) => {
+                      this.setState({ milestones: { hitos: response.data } });
+                    });
+                  }}
                 >
                   <div className="row">
                     <div className="col-xs-12 col-md-3">
@@ -156,16 +190,26 @@ export default class AnnouncementsList extends Component<Props, State> {
                             modalTitle: "Publicar orden de cambio",
                             titleDoc: "Titulo de la convocatoria registrada",
                             typeDoc: "Orden de cambio",
-                            downloadHref: "#",
+                          });
+                          this.setState({
                             functionPublicar: async () => {
                               let res = "";
                               await ChangeOrderDataService.updatePostOrder(
-                                1
+                                this.state.currentApplication.idOrdenCambio
                               ).then((response) => {
                                 res = response.data.mensaje;
                               });
                               return res;
                             },
+                          });
+                          ChangeOrderDataService.getOrderName(
+                            this.state.currentApplication.idOrdenCambio
+                          ).then((res1) => {
+                            ChangeOrderDataService.getOrderDownload(
+                              res1.data.documento
+                            ).then((res2) => {
+                              this.setState({ downloadHref: res2.data });
+                            });
                           });
                         }}
                       >
@@ -184,7 +228,6 @@ export default class AnnouncementsList extends Component<Props, State> {
                             modalTitle: "Publicar notificación de conformidad",
                             titleDoc: "Titulo de la convocatoria registrada",
                             typeDoc: "Notificación de conformidad",
-                            downloadHref: "#",
                             functionPublicar: async () => {
                               let res = "";
                               await ConformityNotificationDataService.updatePostNotification(
@@ -194,6 +237,15 @@ export default class AnnouncementsList extends Component<Props, State> {
                               });
                               return res;
                             },
+                          });
+                          ConformityNotificationDataService.getNotifyName(
+                            this.state.currentApplication.idNotiConf
+                          ).then((res1) => {
+                            ConformityNotificationDataService.getNotifyDownload(
+                              res1.data.documento
+                            ).then((res2) => {
+                              this.setState({ downloadHref: res2.data });
+                            });
                           });
                         }}
                       >

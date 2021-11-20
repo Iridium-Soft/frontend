@@ -1,10 +1,9 @@
 import React, { Component } from "react";
 import AnnouncementDataService from "../services/announcement.service";
-import ApplicationsDataService from "../services/applications.service";
 import AnnouncementData from "../types/announcement.type";
 import Snackbar from "@mui/material/Snackbar";
 import IconButton from "@mui/material/IconButton";
-import { stat } from "fs";
+import ApplicationDataService from "../services/applications.service";
 
 type Props = {};
 type State = {
@@ -152,6 +151,9 @@ export default class ApplyToAnnouncement extends Component<Props, State> {
                         open: true,
                       });
                     } else {
+                      ApplicationDataService.createApply({
+                        convocatoria_id: this.state.currentAnnouncement.id,
+                      });
                       this.setState({
                         message:
                           "Usted GRUPOEMPRESA ha aplicado correctamente, puede proceder a llenar los documentos de la postulación.",

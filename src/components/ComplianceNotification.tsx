@@ -240,7 +240,7 @@ export default class ComplianceNotification extends Component<Props, State> {
             open: true,
         });
 
-        this.postComplianceNotification();
+        this.postComplianceNotification()
     }
 
     postComplianceNotification() {

@@ -1,7 +1,11 @@
 export default interface ApplicationsData {
-  nombreGrupoEmpresa: string;
-  idGrupoEmpresa: number;
-  idConvocatoria: number;
   codigoConvocatoria: string;
+  fechaRegistro: string;
+  idConvocatoria: number;
+  idGrupoEmpresa: number;
+  idNotiConf: number;
+  idOrdenCambio: number;
+  idPostulacion: number;
+  nombreGrupoEmpresa: string;
   tituloConvocatoria: string;
 }

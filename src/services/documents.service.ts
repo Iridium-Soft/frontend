@@ -14,8 +14,8 @@ class DocumentsDataService {
     return http.get(`/documento/pliegoespecificacion/${id}`);
   }
 
-  getPliegoByConvocatoria(id: string) {
-    return http.get(`/documento/pliegoespecificacion/convocatoria/${id}`);
+  getPostulationDocs(id: any) {
+    return http.get(`postulacion/documentos/${id}`);
   }
 
   getAnnouncement(id: string) {
@@ -23,7 +23,7 @@ class DocumentsDataService {
   }
 
   create(data: DocumentData) {
-    return http.post("/postulacion/documentos/", data);
+    return http.post("/postulacion/documentos/6", data);
   }
 
   update(data: DocumentData, id: any) {
@@ -41,6 +41,11 @@ class DocumentsDataService {
   findByTitle(title: string) {
     return http.get(`/documento?title=${title}`);
   }
+
+  getPliegoByConvocatoria(id: string) {
+    return http.get(`/documento/pliegoespecificacion/convocatoria/${id}`);
+  }
 }
+
 
 export default new DocumentsDataService();

@@ -14,6 +14,7 @@ type Props = {
   warrantyHref: string;
   presentationHref: string;
   constitutionHref: string;
+  fechaReg: string;
 };
 
 export const PostulationDetails = (props: Props) => {
@@ -71,7 +72,9 @@ export const PostulationDetails = (props: Props) => {
               </div>
               <div className="row">
                 <div className="col-6">Fecha de registro:</div>
-                <div className="col-6">FECHA</div>
+                <div className="col-6">
+                  {props.fechaReg.substr(0, props.fechaReg.indexOf("T"))}
+                </div>
               </div>
               <div className="row">
                 <div className="col-6">
@@ -126,10 +129,15 @@ export const PostulationDetails = (props: Props) => {
               <h6 className="mt-4">Documentos adjuntos</h6>
               <div className="row justify-content-center">
                 <a
-                  href={props.partAHref !== "" ? props.partAHref : "#"}
+                  download="Parte A.pdf"
+                  href={
+                    props.partAHref !== null || props.partAHref !== ""
+                      ? props.partAHref
+                      : "#"
+                  }
                   className="col-auto btn btn-primary me-3"
                   onClick={() => {
-                    if (props.partAHref === "") {
+                    if (props.partAHref !== null || props.partAHref === null) {
                       setMessage("El documento aun no fue registrado");
                       setOpen(true);
                     }
@@ -138,10 +146,15 @@ export const PostulationDetails = (props: Props) => {
                   Parte A
                 </a>
                 <a
-                  href={props.partBHref !== "" ? props.partBHref : "#"}
+                  download="Parte B.pdf"
+                  href={
+                    props.partBHref !== null || props.partBHref !== ""
+                      ? props.partBHref
+                      : "#"
+                  }
                   className="col-auto btn btn-primary me-3"
                   onClick={() => {
-                    if (props.partAHref === "") {
+                    if (props.partBHref !== null || props.partBHref === null) {
                       setMessage("El documento aun no fue registrado");
                       setOpen(true);
                     }
@@ -150,10 +163,18 @@ export const PostulationDetails = (props: Props) => {
                   Parte B
                 </a>
                 <a
-                  href={props.warrantyHref !== "" ? props.warrantyHref : "#"}
+                  download="Boleta de Garantia.pdf"
+                  href={
+                    props.warrantyHref !== null || props.warrantyHref !== ""
+                      ? props.warrantyHref
+                      : "#"
+                  }
                   className="col-auto btn btn-primary me-3"
                   onClick={() => {
-                    if (props.partAHref === "") {
+                    if (
+                      props.warrantyHref !== null ||
+                      props.warrantyHref === null
+                    ) {
                       setMessage("El documento aun no fue registrado");
                       setOpen(true);
                     }
@@ -162,12 +183,19 @@ export const PostulationDetails = (props: Props) => {
                   Boleta de garantía
                 </a>
                 <a
+                  download="Carta de presentacion.pdf"
                   href={
-                    props.presentationHref !== "" ? props.presentationHref : "#"
+                    props.presentationHref !== null ||
+                    props.presentationHref !== ""
+                      ? props.presentationHref
+                      : "#"
                   }
                   className="col-auto btn btn-primary me-3"
                   onClick={() => {
-                    if (props.partAHref === "") {
+                    if (
+                      props.presentationHref !== null ||
+                      props.presentationHref === null
+                    ) {
                       setMessage("El documento aun no fue registrado");
                       setOpen(true);
                     }
@@ -176,12 +204,19 @@ export const PostulationDetails = (props: Props) => {
                   Carta de presentación
                 </a>
                 <a
+                  download="Constitucion.pdf"
                   href={
-                    props.constitutionHref !== "" ? props.constitutionHref : "#"
+                    props.constitutionHref !== null ||
+                    props.constitutionHref !== ""
+                      ? props.constitutionHref
+                      : "#"
                   }
                   className="col-auto btn btn-primary me-3"
                   onClick={() => {
-                    if (props.partAHref === "") {
+                    if (
+                      props.constitutionHref !== null ||
+                      props.constitutionHref === null
+                    ) {
                       setMessage("El documento aun no fue registrado");
                       setOpen(true);
                     }

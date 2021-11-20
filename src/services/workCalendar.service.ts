@@ -11,7 +11,7 @@ class WorkCalendarDataService {
   }
 
   create(data: WorkCalendarData) {
-    return http.post("/Hitoplanificacion", data);
+    return http.post("/postulacion/planificacion", data);
   }
 
   update(data: WorkCalendarData, id: any) {
