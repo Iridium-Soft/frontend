@@ -163,7 +163,7 @@ export default class AnnouncementsList extends Component<Props, State> {
                       </li>
                       {this.state.currentAnnouncement.pliego && (
                         <li>
-                          <a className="dropdown-item" href="">
+                          <a className="dropdown-item" href={this.state.currentPetis} download={`Pliego.pdf`}>
                             Descargar Pliego de Especificacion
                           </a>
                         </li>
