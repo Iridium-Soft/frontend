@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import Snackbar from "@mui/material/Snackbar";
-import ScoresTable from "./ScoresTable";
+import ScoresTable from "../ScoresTable";
 
 type Props = {
 

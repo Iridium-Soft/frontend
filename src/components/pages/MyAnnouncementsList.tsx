@@ -1,13 +1,13 @@
 import { Component } from "react";
-import AnnouncementDataService from "../services/announcement.service";
+import AnnouncementDataService from "../../services/announcement.service";
 import "./AnnouncementsList.css";
-import AnnouncementData from "../types/announcement.type";
-import PostAnnouncement from "../components/PostAnnouncement";
-import PostSimpleAnnouncement from "../components/PostSimpleAnnouncement";
-import PostSpecificationsTIS from "./PostSpecificationsTIS";
-import PetisData from "../types/petis.type";
-import PetisDataService from "../services/petis.service";
-import PetisDetailModal from "./PetisDetailModal";
+import AnnouncementData from "../../types/announcement.type";
+import PostAnnouncement from "../modals/PostAnnouncement";
+import PostSimpleAnnouncement from "../modals/PostSimpleAnnouncement";
+import PostSpecificationsTIS from "../modals/PostSpecificationsTIS";
+import PetisData from "../../types/petis.type";
+import PetisDataService from "../../services/petis.service";
+import PetisDetailModal from "../modals/PetisDetailModal";
 type Props = {};
 
 type State = {

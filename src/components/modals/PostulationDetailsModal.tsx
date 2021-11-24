@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import WorkCalendarData from "../types/workCalendar.type";
+import WorkCalendarData from "../../types/workCalendar.type";
 import Snackbar from "@mui/material/Snackbar";
 import IconButton from "@mui/material/IconButton";
 

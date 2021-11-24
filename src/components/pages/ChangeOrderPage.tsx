@@ -1,8 +1,8 @@
 import React, { Component } from "react";
-import ChangeOrderData from "../types/changeOrder.type";
-import ChangeOrderDataService from '../services/changeOrder.service'
+import ChangeOrderData from "../../types/changeOrder.type";
+import ChangeOrderDataService from '../../services/changeOrder.service'
 import Snackbar from "@mui/material/Snackbar";
-import ScoresTable from "./ScoresTable";
+import ScoresTable from "../ScoresTable";
 import IconButton from "@mui/material/IconButton";
 
 type ChangeElement = React.ChangeEvent<HTMLInputElement>;

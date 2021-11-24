@@ -1,9 +1,9 @@
 import React, { Component } from "react";
-import AnnouncementDataService from "../services/announcement.service";
-import AnnouncementData from "../types/announcement.type";
+import AnnouncementDataService from "../../services/announcement.service";
+import AnnouncementData from "../../types/announcement.type";
 import Snackbar from "@mui/material/Snackbar";
 import IconButton from "@mui/material/IconButton";
-import ApplicationDataService from "../services/applications.service";
+import ApplicationDataService from "../../services/applications.service";
 
 type Props = {};
 type State = {

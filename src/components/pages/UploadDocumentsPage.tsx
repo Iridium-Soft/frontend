@@ -1,8 +1,8 @@
 import React, { Component } from "react";
-import UploadDocument from "./UploadDocument";
-import "./UploadDocument.css";
-import DocumentsDataService from "../services/documents.service";
-import DocumentData from "../types/documents.type";
+import UploadDocument from "../UploadDocument";
+import "../UploadDocument.css";
+import DocumentsDataService from "../../services/documents.service";
+import DocumentData from "../../types/documents.type";
 import Snackbar from "@mui/material/Snackbar";
 import IconButton from "@mui/material/IconButton";
 

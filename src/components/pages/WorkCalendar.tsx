@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import "./WorkCalendar.css";
-import WorkCalendarDataService from "../services/workCalendar.service";
-import WorkCalendarData from "../types/workCalendar.type";
+import WorkCalendarDataService from "../../services/workCalendar.service";
+import WorkCalendarData from "../../types/workCalendar.type";
 
 import Snackbar from "@mui/material/Snackbar";
 import IconButton from "@mui/material/IconButton";

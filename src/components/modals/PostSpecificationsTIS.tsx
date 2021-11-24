@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import PetisDataService from "../services/petis.service";
-import PetisData from "../types/petis.type";
+import PetisDataService from "../../services/petis.service";
+import PetisData from "../../types/petis.type";
 import Snackbar from "@mui/material/Snackbar";
 import IconButton from "@mui/material/IconButton";
 

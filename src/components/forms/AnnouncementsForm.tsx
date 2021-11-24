@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import AnnouncementDataService from "../services/announcement.service";
+import AnnouncementDataService from "../../services/announcement.service";
 import Snackbar from "@mui/material/Snackbar";
 import IconButton from "@mui/material/IconButton";
 

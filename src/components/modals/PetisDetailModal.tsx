@@ -1,16 +1,17 @@
 import React, { useState } from "react";
-import AnnouncementData from "../types/announcement.type";
-import DocumentsDataService from "../services/documents.service";
+import DocumentsDataService from "../../services/documents.service";
+import PetisData from "../../types/petis.type";
 
 type Props = {
-  announcement: AnnouncementData;
+  petis: PetisData;
   modalId: string;
+  announcement: string;
 };
 
-export default function AnnouncementDetails(props: Props): JSX.Element {
+export default function PetisDetailModal(props: Props): JSX.Element {
   const [documento, setDocumento] = useState("");
-  const retrieveAnnouncementDoc = () => {
-    DocumentsDataService.getAnnouncement(props.announcement.documento)
+  const retrievepetisDoc = () => {
+    DocumentsDataService.getPEtis(props.petis.documento)
       .then((response) => {
         console.log(response.data);
         setDocumento(response.data);
@@ -20,7 +21,7 @@ export default function AnnouncementDetails(props: Props): JSX.Element {
       });
   };
 
-  retrieveAnnouncementDoc();
+  retrievepetisDoc();
 
   return (
     <>
@@ -36,7 +37,7 @@ export default function AnnouncementDetails(props: Props): JSX.Element {
           <div className="modal-content">
             <div className="modal-header">
               <h5 className="modal-title" id={`label${props.modalId}`}>
-                {props.announcement.titulo}
+                {props.petis.titulo}
               </h5>
               <button
                 type="button"
@@ -48,33 +49,22 @@ export default function AnnouncementDetails(props: Props): JSX.Element {
             <div className="modal-body">
               <div className="row">
                 <div className="col-12">
-                  <h6>{props.announcement.codigo}</h6>
+                  <h6>{props.petis.codigo}</h6>
                 </div>
               </div>
               <div className="row mt-3">
-                <h5 className="col-12">Descripción</h5>
-                <p>{props.announcement.descripcion}</p>
-              </div>
-              <div className="row">
-                <h5 className="col-md-8">Fecha limite de recepción: </h5>
-                <p className="col-4">{props.announcement.fechaLimRec}</p>
-              </div>
-              <h5>Fechas de duración del contrato</h5>
-              <div className="row">
-                <h5 className="col-md-2">Inicio: </h5>
-                <p className="col-md-3">{props.announcement.fechaIniDur}</p>
-                <h5 className="offset-md-1 col-md-2">Fin: </h5>
-                <p className="col-md-3">{props.announcement.fechaFinDur}</p>
+                <h5 className="col-12">Convocatoria asociada</h5>
+                <p>{props.announcement}</p>
               </div>
               <div className="row mt-3">
                 <div className="d-grid gap-2 col-6 mx-auto">
                   <a
-                    download={`${props.announcement.titulo}.pdf`}
+                    download={`${props.petis.titulo}.pdf`}
                     className="btn btn-primary"
                     type="button"
                     href={documento}
                     onClick={async () => {
-                      await retrieveAnnouncementDoc();
+                      await retrievepetisDoc();
                     }}
                   >
                     Descargar archivo adjunto

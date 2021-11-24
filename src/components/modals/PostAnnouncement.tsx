@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import AnnouncementData from "../types/announcement.type";
-import AnnouncementDataService from "../services/announcement.service";
-import documentsService from "../services/documents.service";
+import AnnouncementData from "../../types/announcement.type";
+import AnnouncementDataService from "../../services/announcement.service";
+import documentsService from "../../services/documents.service";
 import Stack from "@mui/material/Stack";
 import Chip from "@mui/material/Chip";
 import Snackbar from "@mui/material/Snackbar";

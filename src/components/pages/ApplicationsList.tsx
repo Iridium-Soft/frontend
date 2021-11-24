@@ -1,14 +1,14 @@
 import { Component } from "react";
-import ApplicationsDataService from "../services/applications.service";
-import ChangeOrderDataService from "../services/changeOrder.service";
-import ConformityNotificationDataService from "../services/conformityNotification.service";
-import AddendumDataService from "../services/addendum.service";
+import ApplicationsDataService from "../../services/applications.service";
+import ChangeOrderDataService from "../../services/changeOrder.service";
+import ConformityNotificationDataService from "../../services/conformityNotification.service";
+import AddendumDataService from "../../services/addendum.service";
 import "./AnnouncementsList.css";
-import ApplicationsData from "../types/applications.type";
-import { PostulationDetails } from "./PostulationDetailsModal";
-import { PostModal } from "./PostModal";
-import WorkCalendarData from "../types/workCalendar.type";
-import DocumentsDataService from "../services/documents.service";
+import ApplicationsData from "../../types/applications.type";
+import { PostulationDetails } from "../modals/PostulationDetailsModal";
+import { PostModal } from "../modals/PostModal";
+import WorkCalendarData from "../../types/workCalendar.type";
+import DocumentsDataService from "../../services/documents.service";
 
 type Props = {};
 

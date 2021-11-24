@@ -1,19 +1,19 @@
 import React, { Component } from "react";
-import AnnouncementsList from "./AnnouncementsList";
+import AnnouncementsList from "./pages/AnnouncementsList";
 import { Redirect, Route, Switch } from "react-router-dom";
-import HeaderComponent from "./HeaderComponent";
-import SidebarComponent from "./SidebarComponent";
-import UploadDocumentsPage from "./UploadDocumentsPage";
-import MyAnnouncementsList from "./MyAnnouncementsList";
-import AnnouncementsForm from "./AnnouncementsForm";
-import ApplyToAnnouncement from "./ApplyToAnnouncement";
-import WorkCalendar from "./WorkCalendar";
-import PetisForm from "./PetisForm";
-import ApplicationsList from "../components/ApplicationsList";
-import ChangeOrderPage from "./ChangeOrderPage";
-import ComplianceNotification from "./ComplianceNotification";
-import Addendum from "./Addendum";
-import ProvisionContract from "./ProvisionContract";
+import HeaderComponent from "./frame/HeaderComponent";
+import SidebarComponent from "./frame/SidebarComponent";
+import UploadDocumentsPage from "./pages/UploadDocumentsPage";
+import MyAnnouncementsList from "./pages/MyAnnouncementsList";
+import AnnouncementsForm from "./forms/AnnouncementsForm";
+import ApplyToAnnouncement from "./forms/ApplyToAnnouncement";
+import WorkCalendar from "./pages/WorkCalendar";
+import PetisForm from "./forms/PetisForm";
+import ApplicationsList from "./pages/ApplicationsList";
+import ChangeOrderPage from "./pages/ChangeOrderPage";
+import ComplianceNotification from "./pages/ComplianceNotification";
+import Addendum from "./pages/Addendum";
+import ProvisionContract from "./pages/ProvisionContract";
 
 type Props = {};
 

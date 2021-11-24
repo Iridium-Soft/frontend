@@ -1,10 +1,10 @@
 import { Component } from "react";
-import AnnouncementDataService from "../services/announcement.service";
+import AnnouncementDataService from "../../services/announcement.service";
 import "./AnnouncementsList.css";
-import AnnouncementData from "../types/announcement.type";
-import AnnouncementDetails from "./AnnouncementDetailsModal";
-import DocumentsDataService from "../services/documents.service";
-import PetisDataService from "../services/petis.service"
+import AnnouncementData from "../../types/announcement.type";
+import AnnouncementDetails from "../modals/AnnouncementDetailsModal";
+import DocumentsDataService from "../../services/documents.service";
+import PetisDataService from "../../services/petis.service"
 
 type Props = {};
 

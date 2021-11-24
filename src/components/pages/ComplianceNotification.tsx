@@ -1,11 +1,11 @@
 import React, { Component } from "react";
 import Snackbar from "@mui/material/Snackbar";
-import ScoresTable from "./ScoresTable";
-import ComplianceNotificationData from "../types/complianceNotification.type";
-import ComplianceNotificationDataService from "../services/complianceNotification.service";
+import ScoresTable from "../ScoresTable";
+import ComplianceNotificationData from "../../types/complianceNotification.type";
+import ComplianceNotificationDataService from "../../services/complianceNotification.service";
 import IconButton from "@mui/material/IconButton";
-import ChangeOrderData from "../types/changeOrder.type";
-import ChangeOrderDataService from "../services/changeOrder.service";
+import ChangeOrderData from "../../types/changeOrder.type";
+import ChangeOrderDataService from "../../services/changeOrder.service";
 
 type ChangeElement = React.ChangeEvent<HTMLInputElement>;
 

@@ -1,7 +1,7 @@
 import React, { Component } from "react";
-import AnnouncementDataService from "../services/announcement.service";
-import PetisDataService from "../services/petis.service";
-import AnnouncementData from "../types/announcement.type";
+import AnnouncementDataService from "../../services/announcement.service";
+import PetisDataService from "../../services/petis.service";
+import AnnouncementData from "../../types/announcement.type";
 import Snackbar from "@mui/material/Snackbar";
 import IconButton from "@mui/material/IconButton";
 
