@@ -14,6 +14,7 @@ import ChangeOrderPage from "./pages/ChangeOrderPage";
 import ComplianceNotification from "./pages/ComplianceNotification";
 import Addendum from "./pages/Addendum";
 import ProvisionContract from "./pages/ProvisionContract";
+import ReviewApplicationPage from "./pages/review_pages/ReviewApplicationPage";
 
 type Props = {};
 
@@ -54,6 +55,7 @@ export default class MainComponent extends Component<Props, State> {
           <Route exact path="/compliance_notification" component={ComplianceNotification}/>
           <Route exact path="/addendum" component={Addendum} />
           <Route exact path="/provision_contract" component={ProvisionContract} />
+          <Route exact path="/application_review" component={ReviewApplicationPage}/>
           <Redirect to="/announcements_list" />
         </Switch>
       </>
