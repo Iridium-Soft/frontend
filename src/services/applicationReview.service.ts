@@ -6,7 +6,15 @@ class ApplicationReviewDataService {
     }
 
     get(id: string) {
-        return http.get(`/postulacion/propias/${id}`);
+        return http.get(`/revision/postulacion/${id}`);
+    }
+
+    registerObservation(data: any) {
+        return http.post(`/revision/observaciones/`, data);
+    }
+
+    deleteObservation(id: string) {
+        return http.post(`/eliminarObs/${id}`);
     }
 
     create(data: ApplicationReviewData) {
@@ -16,11 +24,6 @@ class ApplicationReviewDataService {
     update(data: ApplicationReviewData, id: any) {
         return http.put(`/ordencambio/${id}`, data);
     }
-
-    getOrderDownload(fileId: any) {
-        return http.get(`/documento/ordencambio/${fileId}`);
-    }
-
 
     delete(id: any) {
         return http.delete(`/orden_de_cambio/${id}`);
