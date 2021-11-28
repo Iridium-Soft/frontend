@@ -14,6 +14,7 @@ import ChangeOrderPage from "./pages/ChangeOrderPage";
 import ComplianceNotification from "./pages/ComplianceNotification";
 import Addendum from "./pages/Addendum";
 import ProvisionContract from "./pages/ProvisionContract";
+import { DocumentsPostulation } from "./pages/DocumentsPostulation";
 
 type Props = {};
 
@@ -51,9 +52,22 @@ export default class MainComponent extends Component<Props, State> {
           <Route exact path="/petis_form" component={PetisForm} />
           <Route exact path="/my_applications" component={ApplicationsList} />
           <Route exact path="/change_order" component={ChangeOrderPage} />
-          <Route exact path="/compliance_notification" component={ComplianceNotification}/>
+          <Route
+            exact
+            path="/compliance_notification"
+            component={ComplianceNotification}
+          />
           <Route exact path="/addendum" component={Addendum} />
-          <Route exact path="/provision_contract" component={ProvisionContract} />
+          <Route
+            exact
+            path="/provision_contract"
+            component={ProvisionContract}
+          />
+          <Route
+            exact
+            path="/inbox_postulation"
+            component={DocumentsPostulation}
+          />
           <Redirect to="/announcements_list" />
         </Switch>
       </>
