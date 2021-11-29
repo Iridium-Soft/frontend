@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 
-import ApplicationReviewDataService from "../../../services/applicationReview.service";
+import ObservationsReviewData from "../../../types/observationsReview.type";
+import ObservationsReviewDataService from "../../../services/observationsReview.service"
 
 import Snackbar from "@mui/material/Snackbar";
 import IconButton from "@mui/material/IconButton";
@@ -15,14 +16,11 @@ type State = {
     documentos: Array<any>,
     indiceDocumentoActual: number,
     documentoActual: any,
-    seccion: string,
-    descripcion: string,
     observaciones: Array<any>,
 
     open: boolean,
     message: string,
-
-    abiertos: boolean,
+    correct: boolean,
 };
 
 export default class ReviewObservationsPage extends Component<Props, State> {
@@ -32,57 +30,28 @@ export default class ReviewObservationsPage extends Component<Props, State> {
         this.state = {
             nombreGrupoEmpresa: "",
             documentos: [
-                {
-                    idDocumento: 1,
-                    nombreDocumento: "Parte-A",
-                    rutaDocumento: "algo1.pdf",
-                    observaciones: [
-                        {
-                            id: 1,
-                            seccionDoc: "ddd",
-                            descripcion: "sss",
-                            documento_id: 1,
-                        },
-                    ]
-                },
-                {
-                    idDocumento: 5,
-                    nombreDocumento: "Parte-B",
-                    rutaDocumento: "algo1.pdf",
-                    observaciones: [
-                        {
-                            id: 2,
-                            seccionDoc: "ddd",
-                            descripcion: "sss",
-                            documento_id: 5,
-                        },
-                    ]
-                },
+
             ],
             indiceDocumentoActual: 1,
             documentoActual: {
 
             },
-            seccion: "",
-            descripcion: "",
             observaciones: [
 
             ],
 
             open: false,
-            message: "",
-
-            abiertos: false,
+            message: "Error",
+            correct: false,
         };
 
         this.backDocument = this.backDocument.bind(this);
         this.skipDocument = this.skipDocument.bind(this);
         this.retrieveData = this.retrieveData.bind(this);
-        this.handleSeccion = this.handleSeccion.bind(this);
-        this.addObservation = this.addObservation.bind(this);
-        this.deleteObservation = this.deleteObservation.bind(this);
         this.openCloseObservation = this.openCloseObservation.bind(this);
         this.handleCorrect = this.handleCorrect.bind(this);
+        this.handleSave = this.handleSave.bind(this);
+        this.handleFinish = this.handleFinish.bind(this);
     }
 
     componentDidMount() {
@@ -91,40 +60,30 @@ export default class ReviewObservationsPage extends Component<Props, State> {
     }
 
     retrieveData() {
-        // ApplicationReviewDataService.get("1")
-        //     .then((response) => {
-        //         this.setState({
-        //             nombreGrupoEmpresa: response.data.nombreGP,
-        //             documentos: response.data.documentos,
-        //         })
-        //         const obs: Array<any> = [];
-        //         this.state.documentos.map((doc: any) => {
-        //             doc.observaciones.map((ob: any) => {
-        //                 obs.push({
-        //                     documento: doc.nombreDocumento,
-        //                     idDocumento: doc.idDocumento,
-        //                     observacion: ob,
-        //                 });
-        //             })
-        //         })
-        //         this.setState({observaciones: obs});
-        //     }).catch((e) => {
-        //     console.log(e);
-        // });
-        const obs: Array<any> = [];
-        this.state.documentos.map((doc: any) => {
-            doc.observaciones.map((ob: any) => {
-                obs.push({
-                    documento: doc.nombreDocumento,
-                    idDocumento: doc.idDocumento,
-                    idObservacion: ob.id,
-                    observacion: ob,
-                    open: false,
-                    corregida: false,
-                });
-            })
-        })
-        this.setState({observaciones: obs});
+        ObservationsReviewDataService.get("1")
+            .then((response) => {
+                this.setState({
+                    nombreGrupoEmpresa: response.data.nombreGP,
+                    documentos: response.data.documentos,
+                })
+                const obs: Array<any> = [];
+                this.state.documentos.map((doc: any) => {
+                    doc.observaciones.map((ob: any) => {
+                        obs.push({
+                            documento: doc.nombreDocumento,
+                            idDocumento: doc.idDocumento,
+                            idObservacion: ob.id,
+                            observacion: ob,
+                            open: false,
+                            corregido: ob.corregido,
+                            revisado: ob.revisado,
+                        });
+                    })
+                })
+                this.setState({observaciones: obs});
+            }).catch((e) => {
+            console.log(e);
+        });
     }
 
     backDocument() {
@@ -143,58 +102,6 @@ export default class ReviewObservationsPage extends Component<Props, State> {
         })
     }
 
-    handleSeccion(event: ChangeElement) {
-        this.setState({
-            seccion: event.target.value,
-        })
-    }
-
-    addObservation() {
-        if(this.state.seccion === "" || this.state.descripcion === "") {
-            this.setState({
-                message: "Todos los campos deben estar llenos",
-                open: true,
-            })
-            return;
-        } else if(!/[a-zA-Z0-9.]+/.test(this.state.seccion)){
-            this.setState({
-                message: "El campo Seccion esta llenado incorrectamente",
-                open: true,
-            })
-            return;
-        } else if(!/[a-zA-Z]+/.test(this.state.descripcion)) {
-            this.setState({
-                message: "El campo Descripcion esta llenado incorrectamente",
-                open: true,
-            })
-            return;
-        }
-        let o: any = {
-            id: this.state.documentoActual.observaciones.length + 1,
-            seccionDoc: this.state.seccion,
-            descripcion: this.state.descripcion,
-        }
-
-        ApplicationReviewDataService.registerObservation({
-            idDoc: this.state.documentoActual.idDocumento,
-            seccion: this.state.seccion,
-            descripcion: this.state.descripcion
-        }).then((response) => {
-            this.retrieveData();
-        });
-        this.retrieveData();
-    }
-
-    deleteObservation(event: any) {
-        const ind: number = parseInt(event.target.id.charAt(event.target.id.length - 1));
-        ApplicationReviewDataService.deleteObservation(
-            this.state.observaciones[ind].id,
-        ).then((response) => {
-            this.retrieveData();
-        });
-        this.retrieveData();
-    }
-
     openCloseObservation(id: string) {
         let obs: Array<any> = this.state.observaciones;
         let ans: number = 0;
@@ -211,7 +118,7 @@ export default class ReviewObservationsPage extends Component<Props, State> {
         })
     }
 
-    handleCorrect(id: string) {
+    handleCorrect(id: string, b: boolean) {
         let obs: Array<any> = this.state.observaciones;
         let ans: number = 0;
         for(let i = 0; i < obs.length; i++) {
@@ -220,13 +127,54 @@ export default class ReviewObservationsPage extends Component<Props, State> {
             }
         }
         let o: any = this.state.observaciones[ans];
-        o.corregida = !o.corregida;
+        o.revisado = true;
+        o.corregido = b;
         obs[ans] = o;
         this.setState({
             observaciones: obs,
         })
     }
 
+    handleSave() {
+        let da: Array<ObservationsReviewData> = [];
+        this.state.observaciones.map((e: any) => {
+            da.push({
+                idObservacion: e.idObservacion,
+                corregido: e.corregido,
+                revisado: e.revisado,
+            });
+        });
+
+        ObservationsReviewDataService.saveObservations(da).then((response) => {
+            this.setState({
+                message: response.data.mensaje,
+                open: true,
+            })
+        }).catch((e) => {
+            console.log(e);
+        })
+    }
+
+    handleFinish() {
+        let i: number = 0;
+        let bb: boolean = true;
+        while(i < this.state.observaciones.length && bb) {
+            if(!this.state.observaciones[i].revisado) {
+                this.setState({
+                    message: "Usted debe terminar de corregir todas las observaciones",
+                    open: true,
+                    correct: false,
+                })
+                bb = false;
+            }
+            i++;
+        }
+        if(bb) {
+            this.setState({
+                correct: true,
+            })
+        }
+    }
 
     render() {
         const closeSnackbar = (
@@ -277,7 +225,7 @@ export default class ReviewObservationsPage extends Component<Props, State> {
                                 ></button>
                             </div>
                             <p className="container-fluid">
-                                En base a sus datos registrados se registrara una <strong>{(this.state.observaciones.length === 0)? "NOTIFICACION DE CONFORMIDAD" : "ORDEN DE CAMBIO"}</strong>
+                                Se generara un <strong>contrato</strong>
                             </p>
                             <div className="modal-footer">
                                 <button
@@ -309,8 +257,8 @@ export default class ReviewObservationsPage extends Component<Props, State> {
                             <h4 className="mt-2">Nombre: {this.state.nombreGrupoEmpresa}</h4>
                         </div>
                         <div className="col-3">
-                            <button className="btn-lg mb-2 col-12 btn-info text-white" data-bs-toggle="modal"
-                                    data-bs-target={`#asd`}>
+                            <button className="btn-lg mb-2 col-12 btn-info text-white" data-bs-toggle={`${this.state.correct ? "modal" : ""}`}
+                                    data-bs-target={`#asd`} onClick={this.handleFinish}>
                                 Terminar calificacion
                             </button>
                         </div>
@@ -334,14 +282,14 @@ export default class ReviewObservationsPage extends Component<Props, State> {
                         <div className="col-7">
                             <iframe
                                 title="no"
-                                src={`https://docs.google.com/gview?url=/revision/documentos/${this.state.documentoActual?.rutaDocumento}&embedded=true`}
+                                src={`https://docs.google.com/gview?url=/enviar/documentos/${this.state.documentoActual?.rutaDocumento}&embedded=true`}
                                 style={{ width: "100%", height: "690px" }}
                             ></iframe>
                         </div>
                         <div className="col-5">
-                            <div className="row border border-dark" style={{height: "700px"}}>
+                            <div className="row border border-dark" style={{height: "600px"}}>
                                 <span className="col-12">
-                                    <TableContainer style={{height: "700px"}}>
+                                    <TableContainer style={{height: "600px"}}>
                                     <Table aria-label="simple table">
                                       <TableBody>
                                           {observations && observations.map((ob: any) => {
@@ -355,7 +303,9 @@ export default class ReviewObservationsPage extends Component<Props, State> {
                                                                       Observacion: {ob.observacion.id}
                                                                   </div>
                                                                   <div className="col-6">
-                                                                      Corregida: <i className={`fa fa-circle ${(ob.corregida) ? "text-success" : "text-danger"}`}></i>
+                                                                      Corregida: <i className={`fs-5 fa
+ ${(!ob.revisado) ? "fa-exclamation-circle text-warning" : ((ob.corregido) ? "fa-circle text-success" : "fa-circle text-danger")}`}>
+                                                                  </i>
                                                                   </div>
                                                               </div>
                                                           </button>
@@ -381,9 +331,11 @@ export default class ReviewObservationsPage extends Component<Props, State> {
                                                                   <div className="col-6">
                                                                       Observacion corregida:
                                                                   </div>
-                                                                  <div className="col-1">
-                                                                      <input className="form-check-input" type="checkbox" value=""
-                                                                             id="flexCheckChecked" onChange={() => {this.handleCorrect(ob.idObservacion)}}/>
+                                                                  <div className="col-6">
+                                                                      Si <input className="form-check-input ms-3 me-4" type="radio"
+                                                                             name="flexRadioDefault" onChange={() => {this.handleCorrect(ob.idObservacion, true)}} />
+                                                                      No <input className="form-check-input ms-3 me-4" type="radio"
+                                                                                name="flexRadioDefault" onChange={() => {this.handleCorrect(ob.idObservacion, false)}} />
                                                                   </div>
                                                               </div>
                                                               <div className="row">
@@ -395,8 +347,9 @@ export default class ReviewObservationsPage extends Component<Props, State> {
                                                                   <div className="col-12">
                                                                       <textarea
                                                                           className="col-12 mt-1"
-                                                                          style={{height: "100px", width: "475px", resize: "none"}}
-                                                                          disabled={ob.corregida}
+                                                                          style={{ resize: "none"}}
+                                                                          disabled
+                                                                          value={ob.observacion.descripcion}
                                                                       />
                                                                   </div>
                                                               </div>
@@ -409,6 +362,13 @@ export default class ReviewObservationsPage extends Component<Props, State> {
                                     </Table>
                                   </TableContainer>
                                 </span>
+                            </div>
+                            <div className="row mt-3">
+                                <div className="col-12">
+                                    <button className="offset-3 col-6 btn-lg btn-success text-white" onClick={this.handleSave}>
+                                        Guardar
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </div>

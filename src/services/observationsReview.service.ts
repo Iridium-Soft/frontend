@@ -6,7 +6,7 @@ class ObservationsReviewDataService {
     }
 
     saveObservations(data: Array<ObservationsReviewData>) {
-        return http.post('/ver/observaciones/', data);
+        return http.post('/aniadir/observaciones/', data);
     }
 }
 
