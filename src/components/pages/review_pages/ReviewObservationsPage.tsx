@@ -21,16 +21,43 @@ type State = {
 
     open: boolean,
     message: string,
+
+    abiertos: boolean,
 };
 
-export default class ReviewApplicationPage extends Component<Props, State> {
+export default class ReviewObservationsPage extends Component<Props, State> {
     constructor(props: Props) {
         super(props);
 
         this.state = {
             nombreGrupoEmpresa: "",
             documentos: [
-
+                {
+                    idDocumento: 1,
+                    nombreDocumento: "Parte-A",
+                    rutaDocumento: "algo1.pdf",
+                    observaciones: [
+                        {
+                            id: 1,
+                            seccionDoc: "ddd",
+                            descripcion: "sss",
+                            documento_id: 1,
+                        },
+                    ]
+                },
+                {
+                    idDocumento: 5,
+                    nombreDocumento: "Parte-B",
+                    rutaDocumento: "algo1.pdf",
+                    observaciones: [
+                        {
+                            id: 2,
+                            seccionDoc: "ddd",
+                            descripcion: "sss",
+                            documento_id: 5,
+                        },
+                    ]
+                },
             ],
             indiceDocumentoActual: 1,
             documentoActual: {
@@ -44,6 +71,8 @@ export default class ReviewApplicationPage extends Component<Props, State> {
 
             open: false,
             message: "",
+
+            abiertos: false,
         };
 
         this.backDocument = this.backDocument.bind(this);
@@ -52,6 +81,8 @@ export default class ReviewApplicationPage extends Component<Props, State> {
         this.handleSeccion = this.handleSeccion.bind(this);
         this.addObservation = this.addObservation.bind(this);
         this.deleteObservation = this.deleteObservation.bind(this);
+        this.openCloseObservation = this.openCloseObservation.bind(this);
+        this.handleCorrect = this.handleCorrect.bind(this);
     }
 
     componentDidMount() {
@@ -60,26 +91,40 @@ export default class ReviewApplicationPage extends Component<Props, State> {
     }
 
     retrieveData() {
-        ApplicationReviewDataService.get("1")
-            .then((response) => {
-                this.setState({
-                    nombreGrupoEmpresa: response.data.nombreGP,
-                    documentos: response.data.documentos,
-                })
-                const obs: Array<any> = [];
-                this.state.documentos.map((doc: any) => {
-                    doc.observaciones.map((ob: any) => {
-                        obs.push({
-                            documento: doc.nombreDocumento,
-                            idDocumento: doc.idDocumento,
-                            observacion: ob,
-                        });
-                    })
-                })
-                this.setState({observaciones: obs});
-            }).catch((e) => {
-                console.log(e);
-            });
+        // ApplicationReviewDataService.get("1")
+        //     .then((response) => {
+        //         this.setState({
+        //             nombreGrupoEmpresa: response.data.nombreGP,
+        //             documentos: response.data.documentos,
+        //         })
+        //         const obs: Array<any> = [];
+        //         this.state.documentos.map((doc: any) => {
+        //             doc.observaciones.map((ob: any) => {
+        //                 obs.push({
+        //                     documento: doc.nombreDocumento,
+        //                     idDocumento: doc.idDocumento,
+        //                     observacion: ob,
+        //                 });
+        //             })
+        //         })
+        //         this.setState({observaciones: obs});
+        //     }).catch((e) => {
+        //     console.log(e);
+        // });
+        const obs: Array<any> = [];
+        this.state.documentos.map((doc: any) => {
+            doc.observaciones.map((ob: any) => {
+                obs.push({
+                    documento: doc.nombreDocumento,
+                    idDocumento: doc.idDocumento,
+                    idObservacion: ob.id,
+                    observacion: ob,
+                    open: false,
+                    corregida: false,
+                });
+            })
+        })
+        this.setState({observaciones: obs});
     }
 
     backDocument() {
@@ -149,6 +194,39 @@ export default class ReviewApplicationPage extends Component<Props, State> {
         });
         this.retrieveData();
     }
+
+    openCloseObservation(id: string) {
+        let obs: Array<any> = this.state.observaciones;
+        let ans: number = 0;
+        for(let i = 0; i < obs.length; i++) {
+            if(id === obs[i].idObservacion){
+                ans = i;
+            }
+        }
+        let o: any = this.state.observaciones[ans];
+        o.open = !o.open;
+        obs[ans] = o;
+        this.setState({
+            observaciones: obs,
+        })
+    }
+
+    handleCorrect(id: string) {
+        let obs: Array<any> = this.state.observaciones;
+        let ans: number = 0;
+        for(let i = 0; i < obs.length; i++) {
+            if(id === obs[i].idObservacion){
+                ans = i;
+            }
+        }
+        let o: any = this.state.observaciones[ans];
+        o.corregida = !o.corregida;
+        obs[ans] = o;
+        this.setState({
+            observaciones: obs,
+        })
+    }
+
 
     render() {
         const closeSnackbar = (
@@ -225,7 +303,7 @@ export default class ReviewApplicationPage extends Component<Props, State> {
                 <div className="container p-3 position-relative">
                     <h3 className="row border-bottom border-dark">
                         <div className="col-5">
-                            <strong className="align-middle">Revision de postulacion</strong>
+                            <strong className="align-middle">Revision de observaciones</strong>
                         </div>
                         <div className="col-4">
                             <h4 className="mt-2">Nombre: {this.state.nombreGrupoEmpresa}</h4>
@@ -233,7 +311,7 @@ export default class ReviewApplicationPage extends Component<Props, State> {
                         <div className="col-3">
                             <button className="btn-lg mb-2 col-12 btn-info text-white" data-bs-toggle="modal"
                                     data-bs-target={`#asd`}>
-                                Terminar revision
+                                Terminar calificacion
                             </button>
                         </div>
                     </h3>
@@ -243,11 +321,11 @@ export default class ReviewApplicationPage extends Component<Props, State> {
                         </div>
                         <div className="col-2 mt-2 ms-5">
                             <button className={`btn ${this.state.indiceDocumentoActual === 0 ? "d-none" : ""}`}
-                            onClick={this.backDocument}>
+                                    onClick={this.backDocument}>
                                 <i className="fa fa-chevron-left fs-4"></i>
                             </button>
                             <button className={`btn ms-5 ${this.state.indiceDocumentoActual === (this.state.documentos.length - 1) ? "d-none" : ""}`}
-                            onClick={this.skipDocument}>
+                                    onClick={this.skipDocument}>
                                 <i className="fa fa-chevron-right fs-4"></i>
                             </button>
                         </div>
@@ -261,67 +339,71 @@ export default class ReviewApplicationPage extends Component<Props, State> {
                             ></iframe>
                         </div>
                         <div className="col-5">
-                            <div className="row mb-4">
-                                <div className="col-3 fs-5">
-                                    Seccion:
-                                </div>
-                                <div className="col-7">
-                                    <input
-                                        className="col-12"
-                                        type="text"
-                                        value={this.state.seccion}
-                                        onChange={this.handleSeccion}
-                                    />
-                                </div>
-                            </div>
-                            <div className="row mb-4">
-                                <div className="col-12 fs-5 mb-3">
-                                    Observacion:
-                                </div>
-                                <div className="col-12">
-                                    <textarea
-                                        className="col-12"
-                                        style={{height: "100px", resize: "none"}}
-                                        value={this.state.descripcion}
-                                        onChange={
-                                            (e) => {
-                                                this.setState({
-                                                    descripcion: e.target.value,
-                                                })
-                                            }
-                                        }
-                                    />
-                                </div>
-                            </div>
-                            <div className="row mb-4">
-                                <div className="col-4 offset-9">
-                                    <button className="btn btn-info text-white" onClick={this.addObservation}>
-                                        Registrar
-                                    </button>
-                                </div>
-                            </div>
-                            <div className="row border border-dark" style={{height: "400px"}}>
+                            <div className="row border border-dark" style={{height: "700px"}}>
                                 <span className="col-12">
-                                    <TableContainer style={{height: "400px"}}>
+                                    <TableContainer style={{height: "700px"}}>
                                     <Table aria-label="simple table">
-                                      <TableHead>
-                                        <TableRow>
-                                          <TableCell className="col-2"><strong>Documento</strong></TableCell>
-                                          <TableCell className="col-2"><strong>Seccion</strong></TableCell>
-                                          <TableCell className="col-8"><strong>Descripcion</strong></TableCell>
-                                        </TableRow>
-                                      </TableHead>
                                       <TableBody>
                                           {observations && observations.map((ob: any) => {
                                               numbers++;
-                                              return(<TableRow>
-                                                  <TableCell component="th" scope="row">{ob.documento}</TableCell>
-                                                  <TableCell>{ob.observacion.seccionDoc}</TableCell>
-                                                  <TableCell width="15px">
-                                                      {ob.observacion.descripcion}
-                                                  </TableCell>
-                                                  <TableCell><button className="btn" onClick={this.deleteObservation}><i className="fa fa-trash" id={`deleteObservationButton${numbers}`}></i></button></TableCell>
-                                              </TableRow>);
+                                              return(
+                                                  <>
+                                                      <TableRow className={`row ${(ob.open) ? "d-none" : ""}`}>
+                                                          <button className="btn btn-info btn-block mt-2 text-white" style={{fontSize: "17px"}} onClick={() => {this.openCloseObservation(ob.idObservacion)}}>
+                                                              <div className="row">
+                                                                  <div className="col-6">
+                                                                      Observacion: {ob.observacion.id}
+                                                                  </div>
+                                                                  <div className="col-6">
+                                                                      Corregida: <i className={`fa fa-circle ${(ob.corregida) ? "text-success" : "text-danger"}`}></i>
+                                                                  </div>
+                                                              </div>
+                                                          </button>
+                                                      </TableRow>
+                                                      <TableRow className={`row ${(ob.open) ? "" : "d-none"}`}>
+                                                          <button className="btn btn-info btn-block mt-2 text-white" style={{fontSize: "17px"}} onClick={() => {this.openCloseObservation(ob.idObservacion)}}>
+                                                              <div className="row">
+                                                                  <div className="col-4">
+                                                                      Observacion: {ob.observacion.id}
+                                                                  </div>
+                                                              </div>
+                                                          </button>
+                                                          <div className="bg-info text-white">
+                                                              <div className="row">
+                                                                  <div className="col-5">
+                                                                      Documento: {ob.documento}
+                                                                  </div>
+                                                                  <div className="col-6">
+                                                                      Seccion: {ob.observacion.seccionDoc}
+                                                                  </div>
+                                                              </div>
+                                                              <div className="row">
+                                                                  <div className="col-6">
+                                                                      Observacion corregida:
+                                                                  </div>
+                                                                  <div className="col-1">
+                                                                      <input className="form-check-input" type="checkbox" value=""
+                                                                             id="flexCheckChecked" onChange={() => {this.handleCorrect(ob.idObservacion)}}/>
+                                                                  </div>
+                                                              </div>
+                                                              <div className="row">
+                                                                  <div className="col-4">
+                                                                      Descripcion:
+                                                                  </div>
+                                                              </div>
+                                                              <div className="row">
+                                                                  <div className="col-12">
+                                                                      <textarea
+                                                                          className="col-12 mt-1"
+                                                                          style={{height: "100px", width: "475px", resize: "none"}}
+                                                                          disabled={ob.corregida}
+                                                                      />
+                                                                  </div>
+                                                              </div>
+                                                          </div>
+                                                      </TableRow>
+                                                  </>
+                                              );
                                           })}
                                       </TableBody>
                                     </Table>
