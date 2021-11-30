@@ -154,7 +154,7 @@ export default class ReviewApplicationPage extends Component<Props, State> {
             idDoc: this.state.documentoActual.idDocumento,
             seccion: this.state.seccion,
             descripcion: this.state.descripcion,
-            revisdado: false,
+            revisado: false,
             corregido: false,
         }).then((response) => {
             this.retrieveData();
