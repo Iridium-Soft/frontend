@@ -30,7 +30,7 @@ export default class ReviewApplicationPage extends Component<Props, State> {
         this.state = {
             nombreGrupoEmpresa: "",
             documentos: [
-                
+
             ],
             indiceDocumentoActual: 0,
             documentoActual: {
@@ -149,16 +149,13 @@ export default class ReviewApplicationPage extends Component<Props, State> {
             })
             return;
         }
-        let o: any = {
-            id: this.state.documentoActual.observaciones.length + 1,
-            seccionDoc: this.state.seccion,
-            descripcion: this.state.descripcion,
-        }
 
         ApplicationReviewDataService.registerObservation({
             idDoc: this.state.documentoActual.idDocumento,
             seccion: this.state.seccion,
-            descripcion: this.state.descripcion
+            descripcion: this.state.descripcion,
+            revisdado: false,
+            corregido: false,
         }).then((response) => {
             this.retrieveData();
         });
