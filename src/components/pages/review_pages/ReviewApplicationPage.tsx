@@ -49,8 +49,6 @@ export default class ReviewApplicationPage extends Component<Props, State> {
         };
 
         this.getDocument = this.getDocument.bind(this);
-        this.backDocument = this.backDocument.bind(this);
-        this.skipDocument = this.skipDocument.bind(this);
         this.retrieveData = this.retrieveData.bind(this);
         this.retrieveFirstData = this.retrieveFirstData.bind(this);
         this.handleSeccion = this.handleSeccion.bind(this);
@@ -71,7 +69,7 @@ export default class ReviewApplicationPage extends Component<Props, State> {
                     indiceDocumentoActual: 0,
                     documentoActual: response.data.documentos[0],
                 })
-                this.getDocument();
+                this.getDocument(0);
                 const obs: Array<any> = [];
                 this.state.documentos.map((doc: any) => {
                     doc.observaciones.map((ob: any) => {
@@ -111,34 +109,20 @@ export default class ReviewApplicationPage extends Component<Props, State> {
             });
     }
 
-    getDocument() {
+    //-1, 0, 1
+    getDocument(n: number) {
+        const index = this.state.indiceDocumentoActual + n;
         ApplicationReviewDataService.obtenerDocumento(
-            this.state.documentoActual.rutaDocumento
+            this.state.documentos[index].rutaDocumento
         ).then((response) =>  {
             this.setState({
                 documentoBase64: response.data,
+                indiceDocumentoActual: index,
+                documentoActual: this.state.documentos[index],
             })
         }).catch((e) => {
             console.log(e);
         })
-    }
-
-    backDocument() {
-        const index = this.state.indiceDocumentoActual - 1;
-        this.setState({
-            indiceDocumentoActual: index,
-            documentoActual: this.state.documentos[index],
-        })
-        this.getDocument();
-    }
-
-    skipDocument() {
-        const index = this.state.indiceDocumentoActual + 1;
-        this.setState({
-            indiceDocumentoActual: index,
-            documentoActual: this.state.documentos[index],
-        })
-        this.getDocument();
     }
 
     handleSeccion(event: ChangeElement) {
@@ -279,11 +263,11 @@ export default class ReviewApplicationPage extends Component<Props, State> {
                         </div>
                         <div className="col-2 mt-2 ms-5">
                             <button className={`btn ${this.state.indiceDocumentoActual === 0 ? "d-none" : ""}`}
-                            onClick={this.backDocument}>
+                            onClick={() => {this.getDocument(-1)}}>
                                 <i className="fa fa-chevron-left fs-4"></i>
                             </button>
                             <button className={`btn ms-5 ${this.state.indiceDocumentoActual === (this.state.documentos.length - 1) ? "d-none" : ""}`}
-                            onClick={this.skipDocument}>
+                            onClick={() => {this.getDocument(1)}}>
                                 <i className="fa fa-chevron-right fs-4"></i>
                             </button>
                         </div>
