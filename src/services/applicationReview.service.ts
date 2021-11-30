@@ -14,7 +14,11 @@ class ApplicationReviewDataService {
     }
 
     deleteObservation(id: string) {
-        return http.post(`/eliminarObs/${id}`);
+        return http.put(`/eliminarObs/${id}`);
+    }
+
+    obtenerDocumento(name: string) {
+        return http.get(`/revision/documentos/${name}`);
     }
 
     create(data: ApplicationReviewData) {

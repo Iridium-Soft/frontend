@@ -15,6 +15,7 @@ type State = {
     documentos: Array<any>,
     indiceDocumentoActual: number,
     documentoActual: any,
+    documentoBase64: string,
     seccion: string,
     descripcion: string,
     observaciones: Array<any>,
@@ -36,6 +37,7 @@ export default class ReviewApplicationPage extends Component<Props, State> {
             documentoActual: {
 
             },
+            documentoBase64: "",
             seccion: "",
             descripcion: "",
             observaciones: [
@@ -46,6 +48,7 @@ export default class ReviewApplicationPage extends Component<Props, State> {
             message: "",
         };
 
+        this.getDocument = this.getDocument.bind(this);
         this.backDocument = this.backDocument.bind(this);
         this.skipDocument = this.skipDocument.bind(this);
         this.retrieveData = this.retrieveData.bind(this);
@@ -107,12 +110,25 @@ export default class ReviewApplicationPage extends Component<Props, State> {
             });
     }
 
+    getDocument() {
+        ApplicationReviewDataService.obtenerDocumento(
+            this.state.documentoActual.rutaDocumento
+        ).then((response) =>  {
+            this.setState({
+                documentoBase64: response.data.archivo64,
+            })
+        }).catch((e) => {
+            console.log(e);
+        })
+    }
+
     backDocument() {
         const index = this.state.indiceDocumentoActual - 1;
         this.setState({
             indiceDocumentoActual: index,
             documentoActual: this.state.documentos[index],
         })
+        this.getDocument();
     }
 
     skipDocument() {
@@ -121,6 +137,7 @@ export default class ReviewApplicationPage extends Component<Props, State> {
             indiceDocumentoActual: index,
             documentoActual: this.state.documentos[index],
         })
+        this.getDocument();
     }
 
     handleSeccion(event: ChangeElement) {
@@ -276,7 +293,7 @@ export default class ReviewApplicationPage extends Component<Props, State> {
                         <div className="col-7">
                             <iframe
                                 title="no"
-                                src={`https://docs.google.com/gview?url=/revision/documentos/${this.state.documentoActual?.rutaDocumento}&embedded=true`}
+                                src={this.state.documentoBase64}
                                 style={{ width: "100%", height: "690px" }}
                             ></iframe>
                         </div>
