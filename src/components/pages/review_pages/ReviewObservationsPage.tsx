@@ -313,7 +313,7 @@ export default class ReviewObservationsPage extends Component<Props, State> {
                         <div className="col-7">
                             <iframe
                                 title="no"
-                                src={`https://docs.google.com/gview?url=/enviar/documentos/${this.state.documentoActual?.rutaDocumento}&embedded=true`}
+                                src={`data:application/pdf;base64,${this.state.documentoBase64}`}
                                 style={{ width: "100%", height: "690px" }}
                             ></iframe>
                         </div>
