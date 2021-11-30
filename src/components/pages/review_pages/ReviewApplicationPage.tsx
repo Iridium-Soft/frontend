@@ -177,7 +177,6 @@ export default class ReviewApplicationPage extends Component<Props, State> {
         }).then((response) => {
             this.retrieveData();
         });
-        this.retrieveData();
     }
 
     deleteObservation(valu: number) {
@@ -186,7 +185,6 @@ export default class ReviewApplicationPage extends Component<Props, State> {
         ).then((response) => {
             this.retrieveData();
         });
-        this.retrieveData();
     }
 
     render() {
