@@ -173,6 +173,7 @@ export default class ReviewObservationsPage extends Component<Props, State> {
                 idObservacion: e.idObservacion,
                 corregido: e.corregido,
                 revisado: e.revisado,
+                correccion: e.observacion.correccion,
             });
         });
 
@@ -380,6 +381,34 @@ export default class ReviewObservationsPage extends Component<Props, State> {
                                                                           style={{ resize: "none"}}
                                                                           disabled
                                                                           value={ob.observacion.descripcion}
+                                                                      />
+                                                                  </div>
+                                                              </div>
+                                                              <div className={`row ${(!this.state.observaciones[numbers].revisado || this.state.observaciones[numbers].corregido) ? "d-none" : ""}`}>
+                                                                  <div className="col-4">
+                                                                      Correccion:
+                                                                  </div>
+                                                              </div>
+                                                              <div className={`row ${(!this.state.observaciones[numbers].revisado || this.state.observaciones[numbers].corregido) ? "d-none" : ""}`}>
+                                                                  <div className="col-12">
+                                                                      <textarea
+                                                                          className="col-12 mt-1"
+                                                                          style={{ resize: "none"}}
+                                                                          value={this.state.observaciones[numbers].observacion.correccion}
+                                                                          onChange={(e) => {
+                                                                              let obs: Array<any> = this.state.observaciones;
+                                                                              let ans: number = 0;
+                                                                              for(let i = 0; i < obs.length; i++) {
+                                                                                  if(ob.observacion.id === obs[i].idObservacion){
+                                                                                      ans = i;
+                                                                                  }
+                                                                              }
+                                                                              let o: any = this.state.observaciones[ans];
+                                                                              o.observacion.correccion = e.target.value;
+                                                                              this.setState({
+                                                                                  observaciones: obs,
+                                                                              })
+                                                                          }}
                                                                       />
                                                                   </div>
                                                               </div>
