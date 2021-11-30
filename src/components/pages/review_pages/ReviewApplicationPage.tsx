@@ -30,7 +30,7 @@ export default class ReviewApplicationPage extends Component<Props, State> {
         this.state = {
             nombreGrupoEmpresa: "",
             documentos: [
-
+                
             ],
             indiceDocumentoActual: 0,
             documentoActual: {
@@ -165,10 +165,9 @@ export default class ReviewApplicationPage extends Component<Props, State> {
         this.retrieveData();
     }
 
-    deleteObservation(event: any) {
-        const ind: number = parseInt(event.target.id.charAt(event.target.id.length - 1));
+    deleteObservation(valu: number) {
         ApplicationReviewDataService.deleteObservation(
-            this.state.observaciones[ind]?.id,
+            (valu + "")
         ).then((response) => {
             this.retrieveData();
         });
@@ -198,7 +197,6 @@ export default class ReviewApplicationPage extends Component<Props, State> {
         );
 
         const observations: Array<any> = this.state.observaciones;
-        let numbers: number = -1;
 
         return (
             <>
@@ -338,14 +336,13 @@ export default class ReviewApplicationPage extends Component<Props, State> {
                                       </TableHead>
                                       <TableBody>
                                           {observations && observations.map((ob: any) => {
-                                              numbers++;
                                               return(<TableRow>
                                                   <TableCell component="th" scope="row">{ob.documento}</TableCell>
                                                   <TableCell>{ob.observacion.seccionDoc}</TableCell>
                                                   <TableCell width="15px">
                                                       {ob.observacion.descripcion}
                                                   </TableCell>
-                                                  <TableCell><button className="btn" onClick={this.deleteObservation}><i className="fa fa-trash" id={`deleteObservationButton${numbers}`}></i></button></TableCell>
+                                                  <TableCell><button className="btn" onClick={() => {this.deleteObservation(ob.observacion.id)}}><i className="fa fa-trash"></i></button></TableCell>
                                               </TableRow>);
                                           })}
                                       </TableBody>
