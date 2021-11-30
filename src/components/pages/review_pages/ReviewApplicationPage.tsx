@@ -71,6 +71,7 @@ export default class ReviewApplicationPage extends Component<Props, State> {
                     indiceDocumentoActual: 0,
                     documentoActual: response.data.documentos[0],
                 })
+                this.getDocument();
                 const obs: Array<any> = [];
                 this.state.documentos.map((doc: any) => {
                     doc.observaciones.map((ob: any) => {
@@ -115,7 +116,7 @@ export default class ReviewApplicationPage extends Component<Props, State> {
             this.state.documentoActual.rutaDocumento
         ).then((response) =>  {
             this.setState({
-                documentoBase64: response.data.archivo64,
+                documentoBase64: response.data,
             })
         }).catch((e) => {
             console.log(e);
