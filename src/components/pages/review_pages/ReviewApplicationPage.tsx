@@ -290,11 +290,12 @@ export default class ReviewApplicationPage extends Component<Props, State> {
                     </div>
                     <div className="row">
                         <div className="col-7">
-                            <iframe
-                                title="no"
-                                src={this.state.documentoBase64}
-                                style={{ width: "100%", height: "690px" }}
-                            ></iframe>
+                            <object>
+                                <embed type="text/html"
+                                       src={this.state.documentoBase64}
+                                       style={{ width: "100%", height: "690px" }}
+                                />
+                            </object>
                         </div>
                         <div className="col-5">
                             <div className="row mb-4">
