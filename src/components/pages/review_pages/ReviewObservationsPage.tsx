@@ -7,6 +7,7 @@ import Snackbar from "@mui/material/Snackbar";
 import IconButton from "@mui/material/IconButton";
 
 import { Table, TableBody, TableCell, TableContainer,TableRow, TableHead, Box } from "@mui/material"
+import ApplicationReviewDataService from "../../../services/applicationReview.service";
 
 type ChangeElement = React.ChangeEvent<HTMLInputElement>;
 type Props = {};
@@ -16,6 +17,7 @@ type State = {
     documentos: Array<any>,
     indiceDocumentoActual: number,
     documentoActual: any,
+    documentoBase64: string,
     observaciones: Array<any>,
 
     open: boolean,
@@ -36,6 +38,7 @@ export default class ReviewObservationsPage extends Component<Props, State> {
             documentoActual: {
 
             },
+            documentoBase64: "",
             observaciones: [
 
             ],
@@ -45,8 +48,7 @@ export default class ReviewObservationsPage extends Component<Props, State> {
             correct: false,
         };
 
-        this.backDocument = this.backDocument.bind(this);
-        this.skipDocument = this.skipDocument.bind(this);
+        this.getDocument = this.getDocument.bind(this);
         this.retrieveData = this.retrieveData.bind(this);
         this.retrieveFirstData = this.retrieveFirstData.bind(this);
         this.openCloseObservation = this.openCloseObservation.bind(this);
@@ -68,6 +70,7 @@ export default class ReviewObservationsPage extends Component<Props, State> {
                     indiceDocumentoActual: 0,
                     documentoActual: response.data.documentos[0],
                 })
+                this.getDocument(0);
                 const obs: Array<any> = [];
                 this.state.documentos.map((doc: any) => {
                     doc.observaciones.map((ob: any) => {
@@ -115,19 +118,18 @@ export default class ReviewObservationsPage extends Component<Props, State> {
         });
     }
 
-    backDocument() {
-        const index = this.state.indiceDocumentoActual - 1;
-        this.setState({
-            indiceDocumentoActual: index,
-            documentoActual: this.state.documentos[index],
-        })
-    }
-
-    skipDocument() {
-        const index = this.state.indiceDocumentoActual + 1;
-        this.setState({
-            indiceDocumentoActual: index,
-            documentoActual: this.state.documentos[index],
+    getDocument(n: number) {
+        const index = this.state.indiceDocumentoActual + n;
+        ObservationsReviewDataService.obtenerDocumento(
+            this.state.documentos[index].rutaDocumento
+        ).then((response) =>  {
+            this.setState({
+                documentoBase64: response.data,
+                indiceDocumentoActual: index,
+                documentoActual: this.state.documentos[index],
+            })
+        }).catch((e) => {
+            console.log(e);
         })
     }
 
@@ -298,11 +300,11 @@ export default class ReviewObservationsPage extends Component<Props, State> {
                         </div>
                         <div className="col-2 mt-2 ms-5">
                             <button className={`btn ${this.state.indiceDocumentoActual === 0 ? "d-none" : ""}`}
-                                    onClick={this.backDocument}>
+                                    onClick={() => {this.getDocument(-1)}}>
                                 <i className="fa fa-chevron-left fs-4"></i>
                             </button>
                             <button className={`btn ms-5 ${this.state.indiceDocumentoActual === (this.state.documentos.length - 1) ? "d-none" : ""}`}
-                                    onClick={this.skipDocument}>
+                                    onClick={() => {this.getDocument(1)}}>
                                 <i className="fa fa-chevron-right fs-4"></i>
                             </button>
                         </div>

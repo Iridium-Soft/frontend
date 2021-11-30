@@ -8,6 +8,10 @@ class ObservationsReviewDataService {
     saveObservations(data: Array<ObservationsReviewData>) {
         return http.post('/aniadir/observaciones/', data);
     }
+
+    obtenerDocumento(name: string) {
+        return http.get(`/enviar/documentos/${name}`);
+    }
 }
 
 export default new ObservationsReviewDataService();
