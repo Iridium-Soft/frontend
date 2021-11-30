@@ -364,10 +364,9 @@ export default class ReviewObservationsPage extends Component<Props, State> {
                                                                   </div>
                                                                   <div className="col-6">
                                                                       Si <input className="form-check-input ms-3 me-4" type="radio"
-                                                                             name="flexRadioDefault" onChange={() => {this.handleCorrect(ob.idObservacion, true)}} />
+                                                                            name={`flexRadioDefault${ob.observacion.id}`} id={`radioButtonObservation${ob.observacion.id}`} onChange={() => {this.handleCorrect(ob.idObservacion, true)}} />
                                                                       No <input className="form-check-input ms-3 me-4" type="radio"
-                                                                                name="flexRadioDefault" onChange={() => {this.handleCorrect(ob.idObservacion, false)}} />
-                                                                  </div>
+                                                                            name={`flexRadioDefault${ob.observacion.id}`} id={`radioButtonObservation${ob.observacion.id}`} onChange={() => {this.handleCorrect(ob.idObservacion, false)}} /> </div>
                                                               </div>
                                                               <div className="row">
                                                                   <div className="col-4">
