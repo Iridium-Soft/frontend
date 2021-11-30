@@ -32,7 +32,7 @@ export default class ReviewApplicationPage extends Component<Props, State> {
             documentos: [
 
             ],
-            indiceDocumentoActual: 1,
+            indiceDocumentoActual: 0,
             documentoActual: {
 
             },
@@ -49,14 +49,39 @@ export default class ReviewApplicationPage extends Component<Props, State> {
         this.backDocument = this.backDocument.bind(this);
         this.skipDocument = this.skipDocument.bind(this);
         this.retrieveData = this.retrieveData.bind(this);
+        this.retrieveFirstData = this.retrieveFirstData.bind(this);
         this.handleSeccion = this.handleSeccion.bind(this);
         this.addObservation = this.addObservation.bind(this);
         this.deleteObservation = this.deleteObservation.bind(this);
     }
 
     componentDidMount() {
-        this.retrieveData();
-        this.backDocument();
+        this.retrieveFirstData();
+    }
+
+    retrieveFirstData() {
+        ApplicationReviewDataService.get("1")
+            .then((response) => {
+                this.setState({
+                    nombreGrupoEmpresa: response.data.nombreGP,
+                    documentos: response.data.documentos,
+                    indiceDocumentoActual: 0,
+                    documentoActual: response.data.documentos[0],
+                })
+                const obs: Array<any> = [];
+                this.state.documentos.map((doc: any) => {
+                    doc.observaciones.map((ob: any) => {
+                        obs.push({
+                            documento: doc.nombreDocumento,
+                            idDocumento: doc.idDocumento,
+                            observacion: ob,
+                        });
+                    })
+                })
+                this.setState({observaciones: obs});
+            }).catch((e) => {
+            console.log(e);
+        });
     }
 
     retrieveData() {
@@ -143,7 +168,7 @@ export default class ReviewApplicationPage extends Component<Props, State> {
     deleteObservation(event: any) {
         const ind: number = parseInt(event.target.id.charAt(event.target.id.length - 1));
         ApplicationReviewDataService.deleteObservation(
-            this.state.observaciones[ind].id,
+            this.state.observaciones[ind]?.id,
         ).then((response) => {
             this.retrieveData();
         });
