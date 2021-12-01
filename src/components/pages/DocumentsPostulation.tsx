@@ -6,47 +6,27 @@ import "./AnnouncementsList.css";
 
 export const DocumentsPostulation = () => {
   const [documentsReceived, setDocumentsReceived] = useState(
-    [] as InboxDocumentsData[]
+    null as InboxDocumentsData | null
   );
   const [currentDocumentReceived, setCurrentDocumentReceived] = useState({
-    idDocumento: "",
-    nombreDocumento: "",
-    codDocumento: "",
-    fechaRecepcion: "",
-    documento: "",
+    documento: {
+      idDocumento: "",
+      nombreDocumento: "",
+      codDocumento: "",
+      fechaRecepcion: "",
+      documento: "",
+    },
     docRequeridos: [] as Array<{ id: any; nombre: string }>,
   });
 
   useEffect(() => {
-    /*InboxDocumentsDataService.getAll()
+    InboxDocumentsDataService.getAll(1)
       .then((response) => {
         setDocumentsReceived(response.data);
-        console.log(response.data);
       })
       .catch((error) => {
         console.log(error);
-      });*/
-    setDocumentsReceived([
-      {
-        idDocumento: "1",
-        nombreDocumento: "Nombre1",
-        codDocumento: "Cod1",
-        fechaRecepcion: "En el futuro",
-        documento: "ppp",
-        docRequeridos: [
-          { id: "1", nombre: "Tipo1" },
-          { id: "2", nombre: "Tipo2" },
-        ],
-      },
-      {
-        idDocumento: "2",
-        nombreDocumento: "Nombre2",
-        codDocumento: "Cod2",
-        fechaRecepcion: "En el pasado",
-        documento: "njvskd",
-        docRequeridos: [],
-      },
-    ]);
+      });
   }, []);
 
   const modalId = "modal-documents-postulation";
@@ -55,11 +35,11 @@ export const DocumentsPostulation = () => {
     <>
       <ModelPostulationDocsModal
         modalId={modalId}
-        nameDocument={currentDocumentReceived.nombreDocumento}
-        typeDocument={currentDocumentReceived.nombreDocumento}
-        codeDocument={currentDocumentReceived.codDocumento}
-        receptionDate={currentDocumentReceived.fechaRecepcion}
-        nameDocumentReceived={currentDocumentReceived.documento}
+        nameDocument={currentDocumentReceived.documento.nombreDocumento}
+        typeDocument={currentDocumentReceived.documento.nombreDocumento}
+        codeDocument={currentDocumentReceived.documento.codDocumento}
+        receptionDate={currentDocumentReceived.documento.fechaRecepcion}
+        nameDocumentReceived={currentDocumentReceived.documento.documento}
         listDocsForOrderChange={currentDocumentReceived.docRequeridos}
       />
       <div className="container p-3 position-relative">
@@ -68,15 +48,21 @@ export const DocumentsPostulation = () => {
             <h3>Bandeja de Entrada</h3>
           </div>
         </div>
-        {documentsReceived &&
-          documentsReceived.map((document) => (
-            <div className="row mx-0 mb-2">
+        {documentsReceived?.documento &&
+          documentsReceived.documento.map((document, index) => (
+            <div className="row mx-0 mb-2" key={index}>
               <button
                 className="btn btn-info col-12 btn-md announcement"
                 data-bs-toggle="modal"
                 data-bs-target={`#${modalId}`}
                 onClick={() => {
-                  setCurrentDocumentReceived(document);
+                  setCurrentDocumentReceived({
+                    documento: document,
+                    docRequeridos:
+                      document.nombreDocumento === "Orden de Cambio"
+                        ? documentsReceived.docRequeridos
+                        : [],
+                  });
                 }}
               >
                 <div className="row">

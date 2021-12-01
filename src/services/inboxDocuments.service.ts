@@ -6,8 +6,8 @@ type DocumentForChangeOrder = {
 };
 
 class InboxDocumentsDataService {
-  getAll() {
-    return http.get("/postulacion/bandejaentrada");
+  getAll(id: number) {
+    return http.get(`/postulacion/bandejaentrada/${id}`);
   }
 
   getDocumentFile(fileName: string) {

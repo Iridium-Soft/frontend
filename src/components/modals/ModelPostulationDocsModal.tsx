@@ -30,7 +30,6 @@ export const ModelPostulationDocsModal = (props: Props) => {
   const retrieveInboxDoc = () => {
     InboxDocumentsDataService.getDocumentFile(props.nameDocumentReceived)
       .then((response) => {
-        console.log(response.data);
         setDocumento(response.data);
       })
       .catch((e) => {
@@ -43,8 +42,6 @@ export const ModelPostulationDocsModal = (props: Props) => {
   }, [props.nameDocumentReceived]);
 
   const updateOpenModal = () => {
-    console.log(files.length);
-    console.log(props.listDocsForOrderChange.length);
     if (files.length === props.listDocsForOrderChange.length) {
       setOpenModal(true);
     } else {
@@ -154,9 +151,12 @@ export const ModelPostulationDocsModal = (props: Props) => {
                 className="btn btn-primary"
                 data-bs-dismiss="modal"
                 onClick={() => {
-                  InboxDocumentsDataService.postDocumentForChangeOrder(files);
-                  setOpen(true);
-                  setMessage("Documentos enviados correctamente");
+                  InboxDocumentsDataService.postDocumentForChangeOrder(
+                    files
+                  ).then((response) => {
+                    setMessage(response.data);
+                    setOpen(true);
+                  });
                 }}
               >
                 Aceptar
@@ -202,7 +202,7 @@ export const ModelPostulationDocsModal = (props: Props) => {
               <div className="row">
                 <div className="d-grid gap-2 col-6 mx-auto">
                   <a
-                    download={`${props.nameDocument}.jpg`}
+                    download={`${props.nameDocument}.pdf`}
                     className="btn btn-primary"
                     type="button"
                     href={documento}
@@ -241,7 +241,7 @@ export const ModelPostulationDocsModal = (props: Props) => {
                   {props.listDocsForOrderChange.map((typeDoc, index) => (
                     <div
                       className="file-upload btn btn-primary"
-                      style={{ width: "90px", height: "40px", margin: "5px" }}
+                      style={{ width: "215px", height: "50px", margin: "5px" }}
                       key={typeDoc.id}
                     >
                       <span>{typeDoc.nombre + " "}</span>
