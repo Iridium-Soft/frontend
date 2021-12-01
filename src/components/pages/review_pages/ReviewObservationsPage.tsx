@@ -167,6 +167,16 @@ export default class ReviewObservationsPage extends Component<Props, State> {
     }
 
     handleSave() {
+        this.state.observaciones.map((e: any) => {
+            if(!e.corregido && e.observacion.correccion === "") {
+                this.setState({
+                    message: "Alguna de las observaciones no corregidas no tiene texto en la correccion",
+                    open: true,
+                });
+                return false;
+            }
+        });
+
         let da: Array<ObservationsReviewData> = [];
         this.state.observaciones.map((e: any) => {
             da.push({
