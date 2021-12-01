@@ -172,7 +172,7 @@ export default class ReviewObservationsPage extends Component<Props, State> {
     handleSave() {
         let bandera: boolean = false;
         this.state.observaciones.map((e: any) => {
-            if(!e.corregido && e.observacion.correccion === "") {
+            if(!e.corregido && e.observacion.correccion) {
                 this.setState({
                     message: "Existen observaciones mal corregidas vacias, por favor llene el campo Correccion",
                     open: true,

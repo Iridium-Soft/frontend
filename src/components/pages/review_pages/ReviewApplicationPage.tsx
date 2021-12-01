@@ -168,7 +168,7 @@ export default class ReviewApplicationPage extends Component<Props, State> {
             (valu + "")
         ).then((response) => {
             this.setState({
-                message: "Convocatoria borrada exitosamente",
+                message: "Se ha eliminado correctamente",
                 open: true,
             })
             this.retrieveData();
