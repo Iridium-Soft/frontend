@@ -167,6 +167,10 @@ export default class ReviewApplicationPage extends Component<Props, State> {
         ApplicationReviewDataService.deleteObservation(
             (valu + "")
         ).then((response) => {
+            this.setState({
+                message: "Convocatoria borrada exitosamente",
+                open: true,
+            })
             this.retrieveData();
         });
     }
