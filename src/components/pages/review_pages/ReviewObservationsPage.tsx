@@ -170,34 +170,38 @@ export default class ReviewObservationsPage extends Component<Props, State> {
     }
 
     handleSave() {
+        let bandera: boolean = false;
         this.state.observaciones.map((e: any) => {
             if(!e.corregido && e.observacion.correccion === "") {
                 this.setState({
                     message: "Existen observaciones mal corregidas vacias, por favor llene el campo Correccion",
                     open: true,
                 });
-                return false;
+                bandera = true;
+                return;
             }
         });
 
-        let da: Array<ObservationsReviewData> = [];
-        this.state.observaciones.map((e: any) => {
-            da.push({
-                idObservacion: e.idObservacion,
-                corregido: e.corregido,
-                revisado: e.revisado,
-                correccion: e.observacion.correccion,
+        if(!bandera) {
+            let da: Array<ObservationsReviewData> = [];
+            this.state.observaciones.map((e: any) => {
+                da.push({
+                    idObservacion: e.idObservacion,
+                    corregido: e.corregido,
+                    revisado: e.revisado,
+                    correccion: e.observacion.correccion,
+                });
             });
-        });
 
-        ObservationsReviewDataService.saveObservations(da).then((response) => {
-            this.setState({
-                message: response.data.mensaje,
-                open: true,
+            ObservationsReviewDataService.saveObservations(da).then((response) => {
+                this.setState({
+                    message: response.data.mensaje,
+                    open: true,
+                })
+            }).catch((e) => {
+                console.log(e);
             })
-        }).catch((e) => {
-            console.log(e);
-        })
+        }
     }
 
     handleFinish() {
