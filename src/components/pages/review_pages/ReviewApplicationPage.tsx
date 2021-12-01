@@ -162,6 +162,8 @@ export default class ReviewApplicationPage extends Component<Props, State> {
             this.setState({
                 seccion: "",
                 descripcion: "",
+                message: "Se registro exitosamente la observacion",
+                open: true,
             })
             this.retrieveData();
         });
