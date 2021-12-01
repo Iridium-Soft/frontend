@@ -4,7 +4,11 @@ import InboxDocumentsDataService from "../../services/inboxDocuments.service";
 import InboxDocumentsData from "../../types/inboxDocuments.type";
 import "./AnnouncementsList.css";
 
-export const DocumentsPostulation = () => {
+type Props = {
+  companyId: number;
+};
+
+export const DocumentsPostulation = (props: Props) => {
   const [documentsReceived, setDocumentsReceived] = useState(
     null as InboxDocumentsData | null
   );
@@ -20,7 +24,7 @@ export const DocumentsPostulation = () => {
   });
 
   useEffect(() => {
-    InboxDocumentsDataService.getAll(1)
+    InboxDocumentsDataService.getAll(props.companyId)
       .then((response) => {
         setDocumentsReceived(response.data);
       })

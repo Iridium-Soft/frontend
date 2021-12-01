@@ -77,8 +77,13 @@ export default class MainComponent extends Component<Props, State> {
           />
           <Route
             exact
-            path="/inbox_postulation"
-            component={DocumentsPostulation}
+            path="/inbox_postulation/1"
+            component={() => <DocumentsPostulation companyId={1} />}
+          />
+          <Route
+            exact
+            path="/inbox_postulation/2"
+            component={() => <DocumentsPostulation companyId={2} />}
           />
           <Redirect to="/announcements_list" />
         </Switch>
