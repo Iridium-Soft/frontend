@@ -159,6 +159,10 @@ export default class ReviewApplicationPage extends Component<Props, State> {
             revisado: false,
             corregido: false,
         }).then((response) => {
+            this.setState({
+                seccion: "",
+                descripcion: "",
+            })
             this.retrieveData();
         });
     }
