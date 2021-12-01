@@ -66,6 +66,13 @@ export default function PostAnnouncement(props: Props): JSX.Element {
         pliego: "",
       },
       id
+    ).then((response) => {
+      setMessage(
+          response.data
+      );
+      setOpen(true);
+    }).catch((e) => {
+      console.log(e)}
     );
     props.refresh();
   };
@@ -181,11 +188,6 @@ export default function PostAnnouncement(props: Props): JSX.Element {
                 className="btn btn-info text-white"
                 onClick={() => {
                   publishAnnouncement();
-                  setMessage("Convocatoria correctamente publicada");
-                  setOpen(true);
-                  setTimeout(() => {
-                    window.location.reload();
-                  }, 6000);
                 }}
               >
                 Publicar
