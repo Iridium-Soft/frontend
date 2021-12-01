@@ -19,6 +19,7 @@ type State = {
     documentoActual: any,
     documentoBase64: string,
     observaciones: Array<any>,
+    esAdenda: boolean,
 
     open: boolean,
     message: string,
@@ -42,6 +43,7 @@ export default class ReviewObservationsPage extends Component<Props, State> {
             observaciones: [
 
             ],
+            esAdenda: false,
 
             open: false,
             message: "Error",
@@ -55,6 +57,7 @@ export default class ReviewObservationsPage extends Component<Props, State> {
         this.handleCorrect = this.handleCorrect.bind(this);
         this.handleSave = this.handleSave.bind(this);
         this.handleFinish = this.handleFinish.bind(this);
+        this.verifyProduct = this.verifyProduct.bind(this);
     }
 
     componentDidMount() {
@@ -167,24 +170,38 @@ export default class ReviewObservationsPage extends Component<Props, State> {
     }
 
     handleSave() {
-        let da: Array<ObservationsReviewData> = [];
+        let bandera: boolean = false;
         this.state.observaciones.map((e: any) => {
-            da.push({
-                idObservacion: e.idObservacion,
-                corregido: e.corregido,
-                revisado: e.revisado,
-                correccion: e.observacion.correccion,
-            });
+            if(e.revisado && !e.corregido && !e.observacion.correccion) {
+                this.setState({
+                    message: "Existen observaciones mal corregidas vacias, por favor llene el campo Correccion",
+                    open: true,
+                });
+                bandera = true;
+                return;
+            }
         });
 
-        ObservationsReviewDataService.saveObservations(da).then((response) => {
-            this.setState({
-                message: response.data.mensaje,
-                open: true,
+        if(!bandera) {
+            let da: Array<ObservationsReviewData> = [];
+            this.state.observaciones.map((e: any) => {
+                da.push({
+                    idObservacion: e.idObservacion,
+                    corregido: e.corregido,
+                    revisado: e.revisado,
+                    correccion: e.observacion.correccion,
+                });
+            });
+
+            ObservationsReviewDataService.saveObservations(da).then((response) => {
+                this.setState({
+                    message: response.data.mensaje,
+                    open: true,
+                })
+            }).catch((e) => {
+                console.log(e);
             })
-        }).catch((e) => {
-            console.log(e);
-        })
+        }
     }
 
     handleFinish() {
@@ -201,11 +218,22 @@ export default class ReviewObservationsPage extends Component<Props, State> {
             }
             i++;
         }
+        this.verifyProduct();
         if(bb) {
             this.setState({
                 correct: true,
             })
         }
+    }
+
+    verifyProduct() {
+        this.state.observaciones.map((e:any) => {
+            if(!e.corregido) {
+                this.setState({
+                    esAdenda: true,
+                })
+            }
+        });
     }
 
     render() {
@@ -257,7 +285,7 @@ export default class ReviewObservationsPage extends Component<Props, State> {
                                 ></button>
                             </div>
                             <p className="container-fluid">
-                                Se generara un <strong>contrato</strong>
+                                Se generara <strong>{(this.state.esAdenda) ? "una adenda" : "un contrato"}</strong>
                             </p>
                             <div className="modal-footer">
                                 <button
@@ -365,9 +393,9 @@ export default class ReviewObservationsPage extends Component<Props, State> {
                                                                   </div>
                                                                   <div className="col-6">
                                                                       Si <input className="form-check-input ms-3 me-4" type="radio"
-                                                                            name={`flexRadioDefault${ob.observacion.id}`} id={`radioButtonObservation${ob.observacion.id}`} onChange={() => {this.handleCorrect(ob.idObservacion, true)}} />
+                                                                            name={`flexRadioDefault${ob.observacion.id}`} checked={(ob.revisado && ob.corregido)} id={`radioButtonObservation${ob.observacion.id}`} onChange={() => {this.handleCorrect(ob.idObservacion, true)}} />
                                                                       No <input className="form-check-input ms-3 me-4" type="radio"
-                                                                            name={`flexRadioDefault${ob.observacion.id}`} id={`radioButtonObservation${ob.observacion.id}`} onChange={() => {this.handleCorrect(ob.idObservacion, false)}} /> </div>
+                                                                            name={`flexRadioDefault${ob.observacion.id}`} checked={(ob.revisado && !ob.corregido)} id={`radioButtonObservation${ob.observacion.id}`} onChange={() => {this.handleCorrect(ob.idObservacion, false)}} /> </div>
                                                               </div>
                                                               <div className="row">
                                                                   <div className="col-4">

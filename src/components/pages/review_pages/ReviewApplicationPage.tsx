@@ -144,7 +144,7 @@ export default class ReviewApplicationPage extends Component<Props, State> {
                 open: true,
             })
             return;
-        } else if(!/[a-zA-Z]+/.test(this.state.descripcion)) {
+        } else if(!/[a-zA-Z0-9.]+/.test(this.state.descripcion)) {
             this.setState({
                 message: "El campo Descripcion esta llenado incorrectamente",
                 open: true,
@@ -159,6 +159,12 @@ export default class ReviewApplicationPage extends Component<Props, State> {
             revisado: false,
             corregido: false,
         }).then((response) => {
+            this.setState({
+                seccion: "",
+                descripcion: "",
+                message: "Se registro exitosamente la observacion",
+                open: true,
+            })
             this.retrieveData();
         });
     }
@@ -167,6 +173,10 @@ export default class ReviewApplicationPage extends Component<Props, State> {
         ApplicationReviewDataService.deleteObservation(
             (valu + "")
         ).then((response) => {
+            this.setState({
+                message: "Se ha eliminado correctamente",
+                open: true,
+            })
             this.retrieveData();
         });
     }
