@@ -19,6 +19,7 @@ type State = {
     documentoActual: any,
     documentoBase64: string,
     observaciones: Array<any>,
+    esAdenda: boolean,
 
     open: boolean,
     message: string,
@@ -42,6 +43,7 @@ export default class ReviewObservationsPage extends Component<Props, State> {
             observaciones: [
 
             ],
+            esAdenda: false,
 
             open: false,
             message: "Error",
@@ -55,6 +57,7 @@ export default class ReviewObservationsPage extends Component<Props, State> {
         this.handleCorrect = this.handleCorrect.bind(this);
         this.handleSave = this.handleSave.bind(this);
         this.handleFinish = this.handleFinish.bind(this);
+        this.verifyProduct = this.verifyProduct.bind(this);
     }
 
     componentDidMount() {
@@ -170,7 +173,7 @@ export default class ReviewObservationsPage extends Component<Props, State> {
         this.state.observaciones.map((e: any) => {
             if(!e.corregido && e.observacion.correccion === "") {
                 this.setState({
-                    message: "Alguna de las observaciones no corregidas no tiene texto en la correccion",
+                    message: "Existen observaciones mal corregidas vacias, por favor llene el campo Correccion",
                     open: true,
                 });
                 return false;
@@ -211,11 +214,22 @@ export default class ReviewObservationsPage extends Component<Props, State> {
             }
             i++;
         }
+        this.verifyProduct();
         if(bb) {
             this.setState({
                 correct: true,
             })
         }
+    }
+
+    verifyProduct() {
+        this.state.observaciones.map((e:any) => {
+            if(!e.corregido) {
+                this.setState({
+                    esAdenda: true,
+                })
+            }
+        });
     }
 
     render() {
@@ -267,7 +281,7 @@ export default class ReviewObservationsPage extends Component<Props, State> {
                                 ></button>
                             </div>
                             <p className="container-fluid">
-                                Se generara un <strong>contrato</strong>
+                                Se generara <strong>{(this.state.esAdenda) ? "una adenda" : "un contrato"}</strong>
                             </p>
                             <div className="modal-footer">
                                 <button
