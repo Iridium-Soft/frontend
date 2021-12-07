@@ -62,7 +62,7 @@
     justify-content: space-between;
 }
 .sidebar.close .nav-links li .iocn-link{
-    display: block
+    display: block;
 }
 .sidebar .nav-links li i{
     height: 50px;
@@ -86,7 +86,7 @@
     text-decoration: none;
 }
 .sidebar .nav-links li a .link_name{
-    font-size: 18px;
+    font-size: 19px;
     font-weight: 400;
     color: #fff;
     transition: all 0.4s ease;
@@ -105,6 +105,13 @@
     display: block;
 }
 .sidebar .nav-links li .sub-menu a{
+    color: #fff;
+    font-size: 15px;
+    padding: 5px 0;
+    opacity: 0.6;
+    transition: all 0.3s ease;
+}
+.sidebar.close .nav-links li .sub-menu a{
     color: #fff;
     font-size: 15px;
     padding: 5px 0;
