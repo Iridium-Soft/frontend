@@ -9,6 +9,8 @@ import { PostulationDetails } from "../modals/PostulationDetailsModal";
 import { PostModal } from "../modals/PostModal";
 import WorkCalendarData from "../../types/workCalendar.type";
 import DocumentsDataService from "../../services/documents.service";
+import "./ApplicationsList.css";
+import { Tooltip } from "@mui/material";
 
 type Props = {};
 
@@ -36,7 +38,60 @@ export default class AnnouncementsList extends Component<Props, State> {
     this.refreshList = this.refreshList.bind(this);
 
     this.state = {
-      applications: [],
+      applications: [
+        {
+          codigoConvocatoria: "",
+          fechaRegistro: "",
+          idConvocatoria: 3,
+          idGrupoEmpresa: 2,
+          idNotiConf: 1,
+          idOrdenCambio: 1,
+          idPostulacion: 1,
+          nombreGrupoEmpresa: "IridiumSoft",
+          tituloConvocatoria: "Titulo convocatoria",
+          estado: 1,
+          nombreEstado: "En espera de reenvio de documentos"
+        },
+        {
+          codigoConvocatoria: "",
+          fechaRegistro: "",
+          idConvocatoria: 4,
+          idGrupoEmpresa: 3,
+          idNotiConf: 2,
+          idOrdenCambio: 2,
+          idPostulacion: 2,
+          nombreGrupoEmpresa: "HolaSoft",
+          tituloConvocatoria: "Titulo convocatoria",
+          estado: 2,
+          nombreEstado: "Aun no ha revisado la postulacion de esta grupo empresa"
+        },
+        {
+          codigoConvocatoria: "",
+          fechaRegistro: "",
+          idConvocatoria: 5,
+          idGrupoEmpresa: 4,
+          idNotiConf: 3,
+          idOrdenCambio: 3,
+          idPostulacion: 3,
+          nombreGrupoEmpresa: "FracasoSoft",
+          tituloConvocatoria: "Titulo convocatoria",
+          estado: 3,
+          nombreEstado: "Registrada con notificacion de conformidad"
+        },
+        {
+          codigoConvocatoria: "",
+          fechaRegistro: "",
+          idConvocatoria: 6,
+          idGrupoEmpresa: 5,
+          idNotiConf: 4,
+          idOrdenCambio: 4,
+          idPostulacion: 4,
+          nombreGrupoEmpresa: "MundoSoft",
+          tituloConvocatoria: "Titulo convocatoria",
+          estado: 4,
+          nombreEstado: "Ya se finalzo toto lo concerniente a esta postulacion"
+        }
+      ],
       currentApplication: {
         codigoConvocatoria: "",
         fechaRegistro: "",
@@ -47,6 +102,8 @@ export default class AnnouncementsList extends Component<Props, State> {
         idPostulacion: 2,
         nombreGrupoEmpresa: "",
         tituloConvocatoria: "",
+        estado: -1,
+        nombreEstado: "",
       },
 
       milestones: { id: "", hitos: [] },
@@ -70,16 +127,16 @@ export default class AnnouncementsList extends Component<Props, State> {
   }
 
   retrieveApplications() {
-    ApplicationsDataService.get("1")
-      .then((response) => {
-        this.setState({
-          applications: response.data,
-        });
-        console.log(response.data);
-      })
-      .catch((e) => {
-        console.log(e);
-      });
+    // ApplicationsDataService.get("1")
+    //   .then((response) => {
+    //     this.setState({
+    //       applications: response.data,
+    //     });
+    //     console.log(response.data);
+    //   })
+    //   .catch((e) => {
+    //     console.log(e);
+    //   });
   }
 
   refreshList() {
@@ -123,11 +180,22 @@ export default class AnnouncementsList extends Component<Props, State> {
               <h3>Postulaciones</h3>
             </div>
           </div>
+          <div className="row mb-2">
+              <div className="col-3 ms-5">
+                Nombre
+              </div>
+              <div className="col-3">
+                Titulo
+              </div>
+              <div className="col-3">
+                Estado
+              </div>
+          </div>
           {applications &&
             applications.map((application: ApplicationsData) => (
               <div key={application.idGrupoEmpresa} className="row mx-0 mb-2">
                 <button
-                  className="btn btn-info col-8 btn-md announcement"
+                  className="btn btn-info col-6 btn-md application-left"
                   data-bs-toggle="modal"
                   data-bs-target={`#${modalId}`}
                   onClick={() => {
@@ -151,17 +219,23 @@ export default class AnnouncementsList extends Component<Props, State> {
                   }}
                 >
                   <div className="row">
-                    <div className="col-xs-12 col-md-3">
+                    <div className="col-md-6">
                       {application.nombreGrupoEmpresa}
                     </div>
-                    <div className="col-md-3">
+                    <div className="col-md-6">
                       {application.tituloConvocatoria}
-                    </div>
-                    <div className="col-md-3">
-                      {application.codigoConvocatoria}
                     </div>
                   </div>
                 </button>
+                <Tooltip title={<p style={{fontSize: '18px'}}>{application.nombreEstado}</p>} arrow>
+                  <div className={`btn btn-info col-3 btn-md application-right 
+                  ${(application.estado === 1) ? "state-one" : ((application.estado === 2) ? "state-two": ((application.estado === 3) ? "state-three" : ((application.estado === 4) ? "state-four" : "")))}`}
+                          data-bs-toggle="modal"
+                          data-bs-target={`#${modalId}`}
+                  >
+                    {(application.estado === 1) ? "En espera de documentos" : ((application.estado === 2) ? "Postulacion no revisada": ((application.estado === 3) ? "Postulacion satisfactoria" : ((application.estado === 4) ? "Postulacion concluida" : "")))}
+                  </div>
+                </Tooltip>
                 <div className="dropdown col-3">
                   <a
                     className="btn btn-info dropdown-toggle announcement"

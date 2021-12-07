@@ -8,4 +8,6 @@ export default interface ApplicationsData {
   idPostulacion: number;
   nombreGrupoEmpresa: string;
   tituloConvocatoria: string;
+  estado: number;
+  nombreEstado: string,
 }
