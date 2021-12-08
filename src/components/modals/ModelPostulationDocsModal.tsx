@@ -24,6 +24,14 @@ export const ModelPostulationDocsModal = (props: Props) => {
   const [open, setOpen] = useState(false);
   const [message, setMessage] = useState("");
 
+  const [isFileUploaded, setIsFileUploaded] = useState([
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+  ]);
   const [files, setFiles] = useState([] as DocumentForChangeOrder[]);
 
   const [documento, setDocumento] = useState("");
@@ -237,10 +245,13 @@ export const ModelPostulationDocsModal = (props: Props) => {
                 onSubmit={handleSubmit}
                 className="modal-footer d-flex justify-content-center"
               >
+                <h6>Devolver documentos revisados</h6>
                 <div className="col-12">
                   {props.listDocsForOrderChange.map((typeDoc, index) => (
                     <div
-                      className="file-upload btn btn-primary"
+                      className={`file-upload btn ${
+                        isFileUploaded[index] ? "btn-primary" : "btn-secondary"
+                      }`}
                       style={{ width: "215px", height: "50px", margin: "5px" }}
                       key={typeDoc.id}
                     >
@@ -253,6 +264,10 @@ export const ModelPostulationDocsModal = (props: Props) => {
                         className="upload"
                         onChange={(e) => {
                           onUploadFileChange(e, typeDoc.id);
+                          let isFileUploadedAux = isFileUploaded;
+                          isFileUploadedAux[index] = true;
+                          setIsFileUploaded(isFileUploadedAux);
+                          setOpenModal(true);
                         }}
                         required
                       />
