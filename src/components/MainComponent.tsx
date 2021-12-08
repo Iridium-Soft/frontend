@@ -10,8 +10,7 @@ import ApplyToAnnouncement from "./forms/ApplyToAnnouncement";
 import WorkCalendar from "./pages/WorkCalendar";
 import PetisForm from "./forms/PetisForm";
 import ApplicationsList from "./pages/ApplicationsList";
-import ChangeOrderPage from "./pages/ChangeOrderPage";
-import ComplianceNotification from "./pages/ComplianceNotification";
+import GradeApplication from "./pages/GradeApplication";
 import Addendum from "./pages/Addendum";
 import ProvisionContract from "./pages/ProvisionContract";
 import ReviewApplicationPage from "./pages/review_pages/ReviewApplicationPage";
@@ -53,12 +52,7 @@ export default class MainComponent extends Component<Props, State> {
           <Route exact path="/my_work_calendar" component={WorkCalendar} />
           <Route exact path="/petis_form" component={PetisForm} />
           <Route exact path="/my_applications" component={ApplicationsList} />
-          <Route exact path="/change_order" component={ChangeOrderPage} />
-          <Route
-            exact
-            path="/compliance_notification"
-            component={ComplianceNotification}
-          />
+          <Route exact path="/grade_application" component={GradeApplication}/>
           <Route exact path="/addendum" component={Addendum} />
           <Route
             exact

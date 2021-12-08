@@ -104,7 +104,7 @@ export default class ScoresTable extends Component<Props, State> {
                             {evaluacion.descripcion}
                         </td>
                         <td align="center">
-                            {evaluacion.puntajeReferencial} puntos
+                            {evaluacion.puntaje} puntos
                         </td>
                         <td>
                             <input
@@ -113,7 +113,7 @@ export default class ScoresTable extends Component<Props, State> {
                                 id={"value" + fields}
                                 onChange={this.changeScore}
                                 min="1"
-                                max={evaluacion.puntajeReferencial}
+                                max={evaluacion.puntaje}
                                 required
                             />
                         </td>

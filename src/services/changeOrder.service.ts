@@ -13,8 +13,12 @@ class ChangeOrderDataService {
     return http.get(`/generar/ordencambio/${id}`);
   }
 
-  create(data: ChangeOrderData) {
-    return http.post("/postulacion/ordencambio/", data);
+  createChangeOrder(data: any, id: any) {
+    return http.post(`/ordendecambio/terminar/${id}`, data);
+  }
+
+  createComplianceNotification(data: any, id: any) {
+    return http.post(`/notificacionconformidad/terminar/${id}`, data);
   }
 
   update(data: ChangeOrderData, id: any) {
