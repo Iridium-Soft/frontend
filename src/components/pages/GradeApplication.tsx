@@ -325,7 +325,7 @@ export default class GradeApplication extends Component<Props, State> {
                         <div className="modal-content">
                             <div className="modal-header">
                                 <h5 className="modal-title">
-                                    ¿Está seguro de cancelar la el registro de su orden de cambio?
+                                    ¿Está seguro de cancelar la el registro de su {observations.length > 0 ? "orden de cambio" : "notificacion de conformidad"}?
                                 </h5>
                                 <button
                                     type="button"
