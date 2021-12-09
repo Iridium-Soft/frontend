@@ -11,14 +11,17 @@
     border: none;
 }
 .state-one, .state-one:hover, .state-one:focus {
-    background-color: #ec6d00;
+    background-color: #a47bc3;
 }
 .state-two, .state-two:hover, .state-two:focus {
-    background-color: #eca100;
+    background-color: #bd2a1f;
 }
 .state-three, .state-three:hover, .state-three:focus {
-    background-color: #198754;
+    background-color: #ec6d00;
 }
 .state-four, .state-four:hover, .state-four:focus {
-    background-color: #482f76;
+    background-color: #e4a720;
+}
+.state-five, .state-five:hover, .state-five:focus {
+    background-color: #14773c;
 }
