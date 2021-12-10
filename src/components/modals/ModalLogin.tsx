@@ -1,22 +1,43 @@
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import React, { useState } from "react";
+import AuthService from "../../services/auth.service";
 
 type Props = { modalId: string };
 
 export const ModalLogin = (props: Props) => {
+  const [userNameValid, setUserNameValid] = useState(true);
+
   const defaultValues = { username: "", password: "" };
   const modalLabel = "modal-login-label";
 
-  const onSubmit = (values: any) => {};
+  const handleSubmit = async (values: any) => {
+    let validUserName = await AuthService.login(values);
+    if (validUserName) {
+      setUserNameValid(true);
+      window.location.reload();
+    } else {
+      setUserNameValid(false);
+    }
+  };
 
   const validate = (values: any) => {
     const errors: any = {};
     if (!values.username) {
       errors.username = "Nombre de usuario requerido";
+    } else if (
+      !/^(?=.{8,20}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$/.test(
+        values.username
+      )
+    ) {
+      errors.username = "Nombre de usuario inválido";
     }
 
     if (!values.password) {
       errors.password = "Contraseña requerida";
+    } else if (
+      !/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/.test(values.password)
+    ) {
+      errors.password = "Contraseña inválida";
     }
 
     return errors;
@@ -46,7 +67,7 @@ export const ModalLogin = (props: Props) => {
           <div className="modal-body">
             <Formik
               initialValues={defaultValues}
-              onSubmit={onSubmit}
+              onSubmit={handleSubmit}
               validate={validate}
             >
               <Form>
@@ -82,6 +103,15 @@ export const ModalLogin = (props: Props) => {
                   <div className="col-12 text-danger">
                     <ErrorMessage name="password" />
                   </div>
+                </div>
+                <div className="form-group row justify-content-center mb-3">
+                  {!userNameValid && (
+                    <div className="col-auto text-danger">
+                      El nombre de usuario que ingresaste no pertenece a ninguna
+                      cuenta. Comprueba el nombre de usuario y vuelve a
+                      interntarlo
+                    </div>
+                  )}
                 </div>
                 <div className="d-grid gap-2 col-6 mx-auto">
                   <button className="btn btn-primary" type="submit">

@@ -16,14 +16,16 @@ class AuthService {
 
   logout() {
     localStorage.removeItem("token");
+    window.location.reload();
   }
 
-  getCurrentUser() {
-    const token = localStorage.getItem("token");
-    if (!token) {
+  async getCurrentUser() {
+    if (!localStorage.getItem("token")) {
       return null;
+    } else {
+      const res = await http.get("/user");
+      return res.data;
     }
-    return token;
   }
 }
 
