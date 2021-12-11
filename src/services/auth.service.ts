@@ -14,9 +14,14 @@ class AuthService {
     return false;
   }
 
-  logout() {
-    localStorage.removeItem("token");
-    window.location.assign("/");
+  async logout() {
+    try {
+      await http.post("/logout", { token: localStorage.getItem("token") });
+      localStorage.removeItem("token");
+      window.location.assign("/");
+    } catch (err) {
+      console.log(err);
+    }
   }
 
   async getCurrentUser() {
