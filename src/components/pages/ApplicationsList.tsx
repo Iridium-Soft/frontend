@@ -543,7 +543,7 @@ export default class AnnouncementsList extends Component<Props, State> {
                   </div>
                 </button>
                 <Tooltip title={<p style={{fontSize: '18px'}}>{application.nombreEstado}</p>} arrow>
-                  <div className={`btn btn-info col-3 btn-md application-right 
+                  <div className={`btn btn-info col-3 btn-md application-right
                   ${(application.estado === 1 || application.estado === 8) ? "state-one" : ((application.estado === 2 || application.estado === 9) ? "state-two": ((application.estado === 3 || application.estado === 6) ? "state-three" : ((application.estado === 4 || application.estado === 5 || application.estado === 7 || application.estado === 10) ? "state-four" : ((application.estado === 11) ? "state-five" : ""))))}`}
                           data-bs-toggle="modal"
                           data-bs-target={`#${modalId}`}
@@ -552,8 +552,14 @@ export default class AnnouncementsList extends Component<Props, State> {
                   </div>
                 </Tooltip>
                 <div className="dropdown col-2">
-
-                  {(application.estado === 2 && this.renderStateTwoOptions(application.idGrupoEmpresa)) || (application.estado === 3 && this.renderStateThreeOptions(application.idGrupoEmpresa)) || (application.estado === 4 && this.renderStateFourOptions(application.idGrupoEmpresa)) || (application.estado === 5 && this.renderStateFiveOptions(application.idGrupoEmpresa)) || (application.estado === 6 && this.renderStateSixOptions(application.idGrupoEmpresa)) || (application.estado === 7 && this.renderStateSevenOptions(application.idGrupoEmpresa)) || (application.estado === 9 && this.renderStateNineOptions(application.idGrupoEmpresa)) || (application.estado === 10 && this.renderStateTenOptions(application.idGrupoEmpresa))}
+                  {(application.estado === 2 && this.renderStateTwoOptions(application.idGrupoEmpresa))
+                  || (application.estado === 3 && this.renderStateThreeOptions(application.idGrupoEmpresa))
+                  || (application.estado === 4 && this.renderStateFourOptions(application.idGrupoEmpresa))
+                  || (application.estado === 5 && this.renderStateFiveOptions(application.idGrupoEmpresa))
+                  || (application.estado === 6 && this.renderStateSixOptions(application.idGrupoEmpresa))
+                  || (application.estado === 7 && this.renderStateSevenOptions(application.idGrupoEmpresa))
+                  || (application.estado === 9 && this.renderStateNineOptions(application.idGrupoEmpresa))
+                  || (application.estado === 10 && this.renderStateTenOptions(application.idGrupoEmpresa))}
                 </div>
               </div>
             ))}
