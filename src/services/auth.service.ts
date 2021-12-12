@@ -1,4 +1,5 @@
 import http from "../http-common";
+import FormData from "form-data";
 
 class AuthService {
   async login(data: any) {
@@ -16,7 +17,13 @@ class AuthService {
 
   async logout() {
     try {
-      await http.post("/logout", { token: localStorage.getItem("token") });
+      //await http.post("/logout", { token: localStorage.getItem("token") });
+      const token = localStorage.getItem("token");
+      const formData = new FormData();
+      formData.append("token", token ? token : "");
+      await http.post("/logout", formData, {
+        headers: formData.getHeaders(),
+      });
       localStorage.removeItem("token");
       window.location.assign("/");
     } catch (err) {
