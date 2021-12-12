@@ -7,7 +7,7 @@ class ApplicationsDataService {
     return http.get("/postulacion");
   }
 
-  get(id: string) {
+  get(id: number) {
     return http.get(`/postulacion/propias/${id}`);
   }
 

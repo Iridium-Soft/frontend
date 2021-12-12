@@ -9,7 +9,7 @@ import AnnouncementsForm from "./forms/AnnouncementsForm";
 import ApplyToAnnouncement from "./forms/ApplyToAnnouncement";
 import WorkCalendar from "./pages/WorkCalendar";
 import PetisForm from "./forms/PetisForm";
-import ApplicationsList from "./pages/ApplicationsList";
+import { ApplicationsList } from "./pages/ApplicationsList";
 import GradeApplication from "./pages/GradeApplication";
 import Addendum from "./pages/Addendum";
 import ProvisionContract from "./pages/ProvisionContract";
@@ -52,7 +52,7 @@ export default class MainComponent extends Component<Props, State> {
           <Route exact path="/my_work_calendar" component={WorkCalendar} />
           <Route exact path="/petis_form" component={PetisForm} />
           <Route exact path="/my_applications" component={ApplicationsList} />
-          <Route exact path="/grade_application" component={GradeApplication}/>
+          <Route exact path="/grade_application" component={GradeApplication} />
           <Route exact path="/addendum" component={Addendum} />
           <Route
             exact
