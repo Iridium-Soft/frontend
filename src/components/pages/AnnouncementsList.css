@@ -1,4 +1,4 @@
-.announcement, .announcement:hover {
+.announcement, .announcement:hover, .announcement:focus {
     outline: none !important;
     border-radius: 12px;
     color: white;
