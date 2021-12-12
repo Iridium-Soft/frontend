@@ -151,13 +151,13 @@ export default class AnnouncementsList extends Component<Props, State> {
                   }}
                 >
                   <div className="row">
-                    <div className="col-xs-12 col-md-3">
+                    <div className="col-4">
                       {application.nombreGrupoEmpresa}
                     </div>
-                    <div className="col-md-3">
+                    <div className="col-4">
                       {application.tituloConvocatoria}
                     </div>
-                    <div className="col-md-3">
+                    <div className="col-4">
                       {application.codigoConvocatoria}
                     </div>
                   </div>
@@ -170,6 +170,9 @@ export default class AnnouncementsList extends Component<Props, State> {
                     id={`dropdown${application.idGrupoEmpresa}`}
                     data-bs-toggle="dropdown"
                     aria-expanded={false}
+                    onClick={() => {
+                      this.setState({ currentApplication: application });
+                    }}
                   >
                     Opciones
                   </a>
@@ -186,7 +189,6 @@ export default class AnnouncementsList extends Component<Props, State> {
                         data-bs-target={`#${postModalId}`}
                         onClick={() => {
                           this.setState({
-                            currentApplication: application,
                             modalTitle: "Publicar orden de cambio",
                             titleDoc: "Titulo de la convocatoria registrada",
                             typeDoc: "Orden de cambio",
@@ -224,14 +226,13 @@ export default class AnnouncementsList extends Component<Props, State> {
                         data-bs-target={`#${postModalId}`}
                         onClick={() => {
                           this.setState({
-                            currentApplication: application,
                             modalTitle: "Publicar notificación de conformidad",
                             titleDoc: "Titulo de la convocatoria registrada",
                             typeDoc: "Notificación de conformidad",
                             functionPublicar: async () => {
                               let res = "";
                               await ConformityNotificationDataService.updatePostNotification(
-                                1
+                                this.state.currentApplication.idNotiConf
                               ).then((response) => {
                                 res = response.data.mensaje;
                               });
@@ -260,7 +261,6 @@ export default class AnnouncementsList extends Component<Props, State> {
                         data-bs-target={`#${postModalId}`}
                         onClick={() => {
                           this.setState({
-                            currentApplication: application,
                             modalTitle: "Publicar adenda",
                             titleDoc: "Titulo de la convocatoria registrada",
                             typeDoc: "Adenda",

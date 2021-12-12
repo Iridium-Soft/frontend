@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Snackbar from "@mui/material/Snackbar";
 import IconButton from "@mui/material/IconButton";
 
@@ -15,6 +15,7 @@ type Props = {
 export const PostModal = (props: Props) => {
   const [open, setOpen] = useState(false);
   const [message, setMessage] = useState("");
+  const [visualizar, setVisualizar] = useState(false);
 
   const closeSnackbar = (
     event: React.SyntheticEvent | React.MouseEvent,
@@ -39,7 +40,7 @@ export const PostModal = (props: Props) => {
 
   const handlePost = async () => {
     const functionRes = await props.functionPublicar();
-    setMessage("La " + props.typeDoc + " " + functionRes);
+    setMessage(functionRes);
     setOpen(true);
   };
 
@@ -51,7 +52,7 @@ export const PostModal = (props: Props) => {
         tabIndex={-1}
         aria-hidden={true}
       >
-        <div className="modal-dialog">
+        <div className={`modal-dialog ${visualizar ? "modal-fullscreen" : ""}`}>
           <div className="modal-content">
             <div className="modal-header">
               <h5 className="modal-title">{props.modalTitle}</h5>
@@ -63,13 +64,58 @@ export const PostModal = (props: Props) => {
               ></button>
             </div>
             <div className="modal-body">
-              <p>Nombre de la grupo-empresa: {props.nameCompany}</p>
-              <p>Titulo: {props.titleDoc}</p>
-              <a
-                download={`${props.titleDoc}.pdf`}
-                href={props.downloadHref}
-                className="btn btn-primary"
-              >{`Descargar ${props.typeDoc}`}</a>
+              {!visualizar ? (
+                <div className="container-fluid">
+                  <p className="row">
+                    Nombre de la grupo-empresa: {props.nameCompany}
+                  </p>
+                  <p className="row">Titulo: {props.titleDoc}</p>
+                  <button
+                    type="button"
+                    className="row btn btn-primary"
+                    onClick={() => {
+                      setVisualizar(!visualizar);
+                    }}
+                  >
+                    {visualizar
+                      ? `Dejar de visualizar ${props.typeDoc}`
+                      : `Visualizar ${props.typeDoc}`}
+                  </button>
+                </div>
+              ) : (
+                <div className="container-fluid">
+                  <div className="row justify-content-center">
+                    <div className="col-auto">
+                      <div className="container-fluid">
+                        <p className="row">
+                          Nombre de la grupo-empresa: {props.nameCompany}
+                        </p>
+                        <p className="row">Titulo: {props.titleDoc}</p>
+                        <button
+                          type="button"
+                          className="row btn btn-primary"
+                          onClick={() => {
+                            setVisualizar(!visualizar);
+                          }}
+                        >
+                          {visualizar
+                            ? `Dejar de visualizar ${props.typeDoc}`
+                            : `Visualizar ${props.typeDoc}`}
+                        </button>
+                      </div>
+                    </div>
+                    <div className="col-6">
+                      <iframe
+                        title="no"
+                        src={`data:application/pdf;base64,${props.downloadHref.slice(
+                          props.downloadHref.indexOf(",") + 1
+                        )}`}
+                        style={{ width: "100%", height: "690px" }}
+                      />
+                    </div>
+                  </div>
+                </div>
+              )}
             </div>
             <div className="modal-footer">
               <button
