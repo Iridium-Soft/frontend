@@ -105,7 +105,9 @@ export default class MyAnnouncementsList extends Component<Props, State> {
           modalId={modalIdPliego}
         />
         <div className="container p-3 position-relative">
-          <h2 className="row"> Mis convocatorias</h2>
+          <h2 className="row"> <div className="col-8">
+            <h3> Mis convocatorias</h3>
+          </div></h2>
           {announcements &&
             announcements.map((announcement: AnnouncementData) => (
               <>

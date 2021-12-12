@@ -219,8 +219,12 @@ export default class PetisForm extends Component<Props, State> {
             </div>
           </div>
         </div>
-        <div className="container">
-          <h1>Formulario de registro de Pliego de Especificación</h1>
+        <div className="container p-3 position-relative">
+          <div className="row">
+            <div className="col-12">
+              <h3> Formulario de registro de Pliego de Especificación</h3>
+            </div>
+          </div>
           <form onSubmit={this.handleSubmit} method="post" noValidate>
             <div className="form-group row m-3">
               <label htmlFor="tituloPliego" className="col-md-2 col-form-label">
@@ -306,10 +310,10 @@ export default class PetisForm extends Component<Props, State> {
               </div>
             </div>
             <div className="form-group row m-3 d-flex justify-content-end">
-              <div className="col-1">
+              <div className="col-2">
                 <button
                   type="button"
-                  className="btn btn-danger"
+                  className="btn btn-danger text-white"
                   data-bs-toggle="modal"
                   data-bs-target="#popupCancelModalPetis"
                 >

@@ -214,7 +214,11 @@ export default class WorkCalendar extends Component<Props, State> {
           </div>
         </div>
         <div className="container p-3 position-relative">
-          <h3 className="row">Planificacion</h3>
+          <div className="row">
+            <div className="col-8">
+              <h3> Planificacion</h3>
+            </div>
+          </div>
           <div className="row">
             <div className="col col-12">
               <table className="table table-bordered">

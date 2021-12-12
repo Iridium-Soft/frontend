@@ -99,7 +99,7 @@ export default class AnnouncementsList extends Component<Props, State> {
         <div className="container p-3 position-relative">
           <div className="row">
             <div className="col-8">
-              <h3>Convocatorias Publicas</h3>
+              <h3>Convocatorias publicas</h3>
             </div>
             <div className="col-4">
               <p className="text-secondary pb-0">

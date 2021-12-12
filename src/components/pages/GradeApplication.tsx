@@ -354,7 +354,11 @@ export default class GradeApplication extends Component<Props, State> {
                     </div>
                 </div>
                 <div className="container p-3 position-relative">
-                    <h3 className="row"><strong>Registrar calificiacion - {observations.length > 0 ? "Orden de cambio" : "Notificacion de conformidad"}</strong></h3>
+                    <div className="row">
+                        <div className="col-12">
+                            <h3>Registrar calificiacion - {observations.length > 0 ? "Orden de cambio" : "Notificacion de conformidad"}</h3>
+                        </div>
+                    </div>
                     <div className="form-group row m-3">
                         <label
                             htmlFor="codigoConvocatoria"

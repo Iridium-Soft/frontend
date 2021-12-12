@@ -249,9 +249,11 @@ export default class AnnouncementsForm extends Component<Props, State> {
             </div>
           </div>
         </div>
-        <div className="container">
-          <div className="row mt-5">
-            <h1>Formulario de registro de convocatoria</h1>
+        <div className="container p-3 position-relative">
+          <div className="row">
+            <div className="col-8">
+              <h3> Formulario de registro de convocatoria</h3>
+            </div>
           </div>
           <form onSubmit={this.handleSubmit} method="post" noValidate>
             <div className="form-group row m-3">
@@ -373,10 +375,10 @@ export default class AnnouncementsForm extends Component<Props, State> {
               </div>
             </div>
             <div className="form-group row m-3 d-flex justify-content-end">
-              <div className="col-1">
+              <div className="col-2">
                 <button
                   type="button"
-                  className="btn btn-danger"
+                  className="btn btn-danger text-white"
                   data-bs-toggle="modal"
                   data-bs-target="#popupCancelModal"
                 >

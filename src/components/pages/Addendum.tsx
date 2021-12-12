@@ -189,9 +189,13 @@ export default class Addendum extends Component<Props, State> {
           </div>
         </div>
         <div className="container p-3 position-relative">
-          <h3 className="row">
-            <strong>Adenda</strong>
-          </h3>
+          <div className="row">
+            <div className="col-8">
+              <h3>
+                Adenda
+              </h3>
+            </div>
+          </div>
           <div className="form-group row m-3">
             <label
               htmlFor="codigoConvocatoria"

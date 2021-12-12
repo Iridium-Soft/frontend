@@ -26,9 +26,13 @@ export default class ProvisionContract extends Component<Props, State> {
         return (
             <>
                 <div className="container p-3 position-relative">
-                    <h3 className="row"><strong>
-                        Contrato de prestacion de servicios
-                    </strong></h3>
+                    <div className="row">
+                        <div className="col-8">
+                            <h3>
+                                Contrato de prestacion de servicios
+                            </h3>
+                        </div>
+                    </div>
                     <div className="form-group row m-3 pt-4">
                         <label
                             htmlFor="codigoConvocatoria"
