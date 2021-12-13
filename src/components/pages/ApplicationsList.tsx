@@ -1,16 +1,11 @@
 import { Component } from "react";
 import ApplicationsDataService from "../../services/applications.service";
-import ChangeOrderDataService from "../../services/changeOrder.service";
-import ConformityNotificationDataService from "../../services/conformityNotification.service";
-import AddendumDataService from "../../services/addendum.service";
-import "./AnnouncementsList.css";
 import ApplicationsData from "../../types/applications.type";
 import { PostulationDetailsModal } from "../modals/PostulationDetailsModal";
 import { PostModal } from "../modals/PostModal";
-import WorkCalendarData from "../../types/workCalendar.type";
-import DocumentsDataService from "../../services/documents.service";
-import "./ApplicationsList.css";
 import { Tooltip } from "@mui/material";
+import "./ApplicationsList.css";
+import "./AnnouncementsList.css";
 
 type Props = {};
 
@@ -642,6 +637,25 @@ export default class AnnouncementsList extends Component<Props, State> {
                 </div>
               </div>
             ))}
+          {applications.length === 0 && (
+            <div className="container">
+              <div
+                className="row align-items-center text-info"
+                style={{ minHeight: "50vh" }}
+              >
+                <div className="col-12">
+                  <div>
+                    <h1>¡Vaya!</h1>
+                  </div>
+                  <div>
+                    <h5 className="text-secondary">
+                      Parece que no hay ningun elemento para mostrar
+                    </h5>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
         </div>
       </>
     );

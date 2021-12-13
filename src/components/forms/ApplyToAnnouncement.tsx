@@ -168,10 +168,14 @@ export default class ApplyToAnnouncement extends Component<Props, State> {
             </div>
           </div>
         </div>
-        <div className="container">
-          <h1>Aplicar a una convocatoria</h1>
+        <div className="container p-3 position-relative">
+          <div className="row">
+            <div className="col-8">
+              <h3> Aplicar a una convocatoria</h3>
+            </div>
+          </div>
           <form onSubmit={this.handleSubmit}>
-            <div className="form-group row">
+            <div className="form-group row ps-4 pt-3">
               <select
                 className="form-select form-select-lg mb-3"
                 value={this.state.announcementSelected}
@@ -195,7 +199,7 @@ export default class ApplyToAnnouncement extends Component<Props, State> {
               <div className="col-auto">
                 <button
                   type="button"
-                  className="btn btn-danger"
+                  className="btn btn-danger text-white"
                   onClick={() => {
                     window.location.reload();
                   }}

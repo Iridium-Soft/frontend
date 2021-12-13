@@ -4,6 +4,12 @@
     color: white;
 }
 
+.element, .element:hover, .element:focus {
+    outline: none !important;
+    border-radius: 12px;
+    color: white;
+}
+
 .sidebar.close ~ .container{
     left: 0px;
     width: calc(100% - 78px);

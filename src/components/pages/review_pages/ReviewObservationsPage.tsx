@@ -311,7 +311,7 @@ export default class ReviewObservationsPage extends Component<Props, State> {
                 <div className="container p-3 position-relative">
                     <h3 className="row border-bottom border-dark">
                         <div className="col-5">
-                            <strong className="align-middle">Revision de observaciones</strong>
+                            <h3 className="align-middle">Revision de observaciones</h3>
                         </div>
                         <div className="col-4">
                             <h4 className="mt-2">Nombre: {this.state.nombreGrupoEmpresa}</h4>
