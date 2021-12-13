@@ -4,9 +4,15 @@ import FormData from "form-data";
 class AuthService {
   async login(data: any) {
     try {
-      const res = await http.post("/signin", data);
+      const formData = new FormData();
+      formData.append("username", data.username);
+      formData.append("password", data.password);
+      const res = await http.post("/signin", formData, {
+        headers: formData.getHeaders(),
+      });
       if (res.data.token) {
         localStorage.setItem("token", res.data.token);
+        //localStorage.setItem("user", JSON.stringify(res.data.user));
         return true;
       }
     } catch (err) {
@@ -23,6 +29,7 @@ class AuthService {
       formData.append("token", token ? token : "");
       await http.post("/logout", formData, {
         headers: formData.getHeaders(),
+        // Here we send the token in the header
       });
       localStorage.removeItem("token");
       window.location.assign("/");
