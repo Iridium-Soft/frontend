@@ -5,7 +5,7 @@ import ConformityNotificationDataService from "../../services/conformityNotifica
 import AddendumDataService from "../../services/addendum.service";
 import "./AnnouncementsList.css";
 import ApplicationsData from "../../types/applications.type";
-import { PostulationDetails } from "../modals/PostulationDetailsModal";
+import { PostulationDetailsModal } from "../modals/PostulationDetailsModal";
 import { PostModal } from "../modals/PostModal";
 import WorkCalendarData from "../../types/workCalendar.type";
 import DocumentsDataService from "../../services/documents.service";
@@ -17,200 +17,206 @@ type Props = {};
 type State = {
   applications: Array<ApplicationsData>;
   currentApplication: ApplicationsData;
-  modalTitle: string;
-  titleDoc: string;
   typeDoc: string;
-  downloadHref: string;
-  milestones: WorkCalendarData;
-  functionPublicar: any;
-
-  partAHref: string;
-  partBHref: string;
-  warrantyHref: string;
-  presentationHref: string;
-  constitutionHref: string;
 };
 
 export default class AnnouncementsList extends Component<Props, State> {
   constructor(props: Props) {
     super(props);
-    this.retrieveApplications = this.retrieveApplications.bind(this);
-    this.refreshList = this.refreshList.bind(this);
+
+    const defaultValuesCurrentApplication = {
+      nombreGrupoEmpresa: "",
+      idGrupoEmpresa: -1,
+      idConvocatoria: -1,
+      codigoConvocatoria: "",
+      tituloConvocatoria: "",
+      estado: -1,
+      nombreEstado: "",
+      adenda: "",
+      orden_cambio: "",
+      notificacion_conformidad: "",
+      contrato: "",
+      fechaRegistro: "",
+      idPostulacion: -1,
+    };
 
     this.state = {
       applications: [
         {
-          codigoConvocatoria: "",
-          fechaRegistro: "",
-          idConvocatoria: 3,
-          idGrupoEmpresa: 2,
-          idNotiConf: 1,
-          idOrdenCambio: 1,
-          idPostulacion: 1,
           nombreGrupoEmpresa: "IridiumSoft",
+          idGrupoEmpresa: 2,
+          idConvocatoria: 3,
+          codigoConvocatoria: "",
           tituloConvocatoria: "Titulo convocatoria",
           estado: 1,
-          nombreEstado: "En espera de reenvio de documentos"
+          nombreEstado: "En espera de reenvio de documentos",
+          adenda: "",
+          orden_cambio: "",
+          notificacion_conformidad: "",
+          contrato: "",
+          fechaRegistro: "",
+          idPostulacion: 1,
         },
         {
-          codigoConvocatoria: "",
-          fechaRegistro: "",
-          idConvocatoria: 4,
-          idGrupoEmpresa: 3,
-          idNotiConf: 2,
-          idOrdenCambio: 2,
-          idPostulacion: 2,
           nombreGrupoEmpresa: "HolaSoft",
+          idGrupoEmpresa: 3,
+          idConvocatoria: 4,
+          codigoConvocatoria: "",
           tituloConvocatoria: "Titulo convocatoria",
           estado: 2,
-          nombreEstado: "Aun no ha revisado la postulacion de esta grupo empresa"
+          nombreEstado:
+            "Aun no ha revisado la postulacion de esta grupo empresa",
+          adenda: "",
+          orden_cambio: "",
+          notificacion_conformidad: "",
+          contrato: "",
+          fechaRegistro: "",
+          idPostulacion: 2,
         },
         {
-          codigoConvocatoria: "",
-          fechaRegistro: "",
-          idConvocatoria: 5,
-          idGrupoEmpresa: 4,
-          idNotiConf: 3,
-          idOrdenCambio: 3,
-          idPostulacion: 3,
           nombreGrupoEmpresa: "FracasoSoft",
+          idGrupoEmpresa: 4,
+          idConvocatoria: 5,
+          codigoConvocatoria: "",
           tituloConvocatoria: "Titulo convocatoria",
           estado: 3,
-          nombreEstado: "Registrada con notificacion de conformidad"
+          nombreEstado: "Registrada con notificacion de conformidad",
+          adenda: "",
+          orden_cambio: "",
+          notificacion_conformidad: "",
+          contrato: "",
+          fechaRegistro: "",
+          idPostulacion: 3,
         },
         {
-          codigoConvocatoria: "",
-          fechaRegistro: "",
-          idConvocatoria: 6,
-          idGrupoEmpresa: 5,
-          idNotiConf: 4,
-          idOrdenCambio: 4,
-          idPostulacion: 4,
           nombreGrupoEmpresa: "MundoSoft",
+          idGrupoEmpresa: 5,
+          idConvocatoria: 6,
+          codigoConvocatoria: "",
           tituloConvocatoria: "Titulo convocatoria",
           estado: 4,
-          nombreEstado: "Ya se finalzo toto lo concerniente a esta postulacion"
+          nombreEstado: "Ya se finalzo toto lo concerniente a esta postulacion",
+          adenda: "",
+          orden_cambio: "",
+          notificacion_conformidad: "",
+          contrato: "",
+          fechaRegistro: "",
+          idPostulacion: 4,
         },
         {
-          codigoConvocatoria: "",
-          fechaRegistro: "",
-          idConvocatoria: 7,
-          idGrupoEmpresa: 7,
-          idNotiConf: 7,
-          idOrdenCambio: 7,
-          idPostulacion: 7,
           nombreGrupoEmpresa: "MundoSoft",
+          idGrupoEmpresa: 7,
+          idConvocatoria: 7,
+          codigoConvocatoria: "",
           tituloConvocatoria: "Titulo convocatoria",
           estado: 5,
-          nombreEstado: "Ya se finalzo toto lo concerniente a esta postulacion"
+          nombreEstado: "Ya se finalzo toto lo concerniente a esta postulacion",
+          adenda: "",
+          orden_cambio: "",
+          notificacion_conformidad: "",
+          contrato: "",
+          fechaRegistro: "",
+          idPostulacion: 7,
         },
         {
-          codigoConvocatoria: "",
-          fechaRegistro: "",
-          idConvocatoria: 8,
-          idGrupoEmpresa: 8,
-          idNotiConf: 8,
-          idOrdenCambio: 8,
-          idPostulacion: 8,
           nombreGrupoEmpresa: "MundoSoft",
+          idGrupoEmpresa: 8,
+          idConvocatoria: 8,
+          codigoConvocatoria: "",
           tituloConvocatoria: "Titulo convocatoria",
           estado: 6,
-          nombreEstado: "Ya se finalzo toto lo concerniente a esta postulacion"
+          nombreEstado: "Ya se finalzo toto lo concerniente a esta postulacion",
+          adenda: "",
+          orden_cambio: "",
+          notificacion_conformidad: "",
+          contrato: "",
+          fechaRegistro: "",
+          idPostulacion: 8,
         },
         {
-          codigoConvocatoria: "",
-          fechaRegistro: "",
-          idConvocatoria: 9,
-          idGrupoEmpresa: 9,
-          idNotiConf: 9,
-          idOrdenCambio: 9,
-          idPostulacion:9,
           nombreGrupoEmpresa: "MundoSoft",
+          idGrupoEmpresa: 9,
+          idConvocatoria: 9,
+          codigoConvocatoria: "",
           tituloConvocatoria: "Titulo convocatoria",
           estado: 7,
-          nombreEstado: "Ya se finalzo toto lo concerniente a esta postulacion"
+          nombreEstado: "Ya se finalzo toto lo concerniente a esta postulacion",
+          adenda: "",
+          orden_cambio: "",
+          notificacion_conformidad: "",
+          contrato: "",
+          fechaRegistro: "",
+          idPostulacion: 9,
         },
         {
-          codigoConvocatoria: "",
-          fechaRegistro: "",
-          idConvocatoria: 10,
-          idGrupoEmpresa: 10,
-          idNotiConf: 10,
-          idOrdenCambio: 10,
-          idPostulacion: 10,
           nombreGrupoEmpresa: "MundoSoft",
+          idGrupoEmpresa: 10,
+          idConvocatoria: 10,
+          codigoConvocatoria: "",
           tituloConvocatoria: "Titulo convocatoria",
           estado: 8,
-          nombreEstado: "Ya se finalzo toto lo concerniente a esta postulacion"
+          nombreEstado: "Ya se finalzo toto lo concerniente a esta postulacion",
+          adenda: "",
+          orden_cambio: "",
+          notificacion_conformidad: "",
+          contrato: "",
+          fechaRegistro: "",
+          idPostulacion: 10,
         },
         {
-          codigoConvocatoria: "",
-          fechaRegistro: "",
-          idConvocatoria: 11,
-          idGrupoEmpresa: 11,
-          idNotiConf: 11,
-          idOrdenCambio: 11,
-          idPostulacion: 11,
           nombreGrupoEmpresa: "MundoSoft",
+          idGrupoEmpresa: 11,
+          idConvocatoria: 11,
+          codigoConvocatoria: "",
           tituloConvocatoria: "Titulo convocatoria",
           estado: 9,
-          nombreEstado: "Ya se finalzo toto lo concerniente a esta postulacion"
+          nombreEstado: "Ya se finalzo toto lo concerniente a esta postulacion",
+          adenda: "",
+          orden_cambio: "",
+          notificacion_conformidad: "",
+          contrato: "",
+          fechaRegistro: "",
+          idPostulacion: 11,
         },
         {
-          codigoConvocatoria: "",
-          fechaRegistro: "",
-          idConvocatoria: 12,
+          nombreGrupoEmpresa: "MundoSoft",
           idGrupoEmpresa: 12,
-          idNotiConf: 12,
-          idOrdenCambio: 12,
-          idPostulacion: 12,
-          nombreGrupoEmpresa: "MundoSoft",
+          idConvocatoria: 12,
+          codigoConvocatoria: "",
           tituloConvocatoria: "Titulo convocatoria",
-          estado: 10,
-          nombreEstado: "Ya se finalzo toto lo concerniente a esta postulacion"
+          estado: 9,
+          nombreEstado: "Ya se finalzo toto lo concerniente a esta postulacion",
+          adenda: "",
+          orden_cambio: "",
+          notificacion_conformidad: "",
+          contrato: "",
+          fechaRegistro: "",
+          idPostulacion: 12,
         },
         {
-          codigoConvocatoria: "",
-          fechaRegistro: "",
-          idConvocatoria: 13,
-          idGrupoEmpresa: 13,
-          idNotiConf: 13,
-          idOrdenCambio: 13,
-          idPostulacion: 13,
           nombreGrupoEmpresa: "MundoSoft",
+          idGrupoEmpresa: 13,
+          idConvocatoria: 13,
+          codigoConvocatoria: "",
           tituloConvocatoria: "Titulo convocatoria",
           estado: 11,
-          nombreEstado: "Ya se finalzo toto lo concerniente a esta postulacion"
-        }
+          nombreEstado: "Ya se finalzo toto lo concerniente a esta postulacion",
+          adenda: "",
+          orden_cambio: "",
+          notificacion_conformidad: "",
+          contrato: "",
+          fechaRegistro: "",
+          idPostulacion: 13,
+        },
       ],
-      currentApplication: {
-        codigoConvocatoria: "",
-        fechaRegistro: "",
-        idConvocatoria: -1,
-        idGrupoEmpresa: -1,
-        idNotiConf: -1,
-        idOrdenCambio: 2,
-        idPostulacion: 2,
-        nombreGrupoEmpresa: "",
-        tituloConvocatoria: "",
-        estado: -1,
-        nombreEstado: "",
-      },
-
-      milestones: { id: "", hitos: [] },
-
-      modalTitle: "",
-      titleDoc: "",
+      //applications: [] as ApplicationsData[],
+      currentApplication: defaultValuesCurrentApplication,
       typeDoc: "",
-      downloadHref: "",
-      functionPublicar: () => "",
-
-      partAHref: "",
-      partBHref: "",
-      warrantyHref: "",
-      presentationHref: "",
-      constitutionHref: "",
     };
+
+    this.retrieveApplications = this.retrieveApplications.bind(this);
+    this.refreshList = this.refreshList.bind(this);
+
     this.renderStateTwoOptions = this.renderStateTwoOptions.bind(this);
     this.renderStateThreeOptions = this.renderStateThreeOptions.bind(this);
     this.renderStateFourOptions = this.renderStateFourOptions.bind(this);
@@ -222,20 +228,16 @@ export default class AnnouncementsList extends Component<Props, State> {
   }
 
   componentDidMount() {
-    this.retrieveApplications();
+    // this.retrieveApplications();
   }
 
-  retrieveApplications() {
-    // ApplicationsDataService.get("1")
-    //   .then((response) => {
-    //     this.setState({
-    //       applications: response.data,
-    //     });
-    //     console.log(response.data);
-    //   })
-    //   .catch((e) => {
-    //     console.log(e);
-    //   });
+  async retrieveApplications() {
+    try {
+      const applicationsData = await ApplicationsDataService.get(1);
+      this.setState({ applications: applicationsData.data });
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   refreshList() {
@@ -244,293 +246,306 @@ export default class AnnouncementsList extends Component<Props, State> {
   }
 
   renderStateTwoOptions(idGrupoEmpresa: number) {
-    return(
-        <>
-          <a
-              className="btn btn-info dropdown-toggle announcement"
-              href="#"
-              role="button"
-              id={`dropdown${idGrupoEmpresa}`}
-              data-bs-toggle="dropdown"
-              aria-expanded={false}
-          >
-            Opciones
-          </a>
-          <ul
-              className="dropdown-menu"
-              aria-labelledby={`dropdown${idGrupoEmpresa}`}
-          >
-            <li>
-              <a className="dropdown-item">
-                Revisar documentos
-              </a>
-            </li>
-          </ul>
-        </>
+    return (
+      <>
+        <a
+          className="btn btn-info dropdown-toggle announcement"
+          href="#"
+          role="button"
+          id={`dropdown${idGrupoEmpresa}`}
+          data-bs-toggle="dropdown"
+          aria-expanded={false}
+        >
+          Opciones
+        </a>
+        <ul
+          className="dropdown-menu"
+          aria-labelledby={`dropdown${idGrupoEmpresa}`}
+        >
+          <li>
+            <a className="dropdown-item">Revisar documentos</a>
+          </li>
+        </ul>
+      </>
     );
   }
 
   renderStateThreeOptions(idGrupoEmpresa: number) {
-    return(
-        <>
-          <a
-              className="btn btn-info dropdown-toggle announcement"
-              href="#"
-              role="button"
-              id={`dropdown${idGrupoEmpresa}`}
-              data-bs-toggle="dropdown"
-              aria-expanded={false}
-          >
-            Opciones
-          </a>
-          <ul
-              className="dropdown-menu"
-              aria-labelledby={`dropdown${idGrupoEmpresa}`}
-          >
-            <li>
-              <a className="dropdown-item">
-                Calificar observacion
-              </a>
-            </li>
-          </ul>
-        </>
+    return (
+      <>
+        <a
+          className="btn btn-info dropdown-toggle announcement"
+          href="#"
+          role="button"
+          id={`dropdown${idGrupoEmpresa}`}
+          data-bs-toggle="dropdown"
+          aria-expanded={false}
+        >
+          Opciones
+        </a>
+        <ul
+          className="dropdown-menu"
+          aria-labelledby={`dropdown${idGrupoEmpresa}`}
+        >
+          <li>
+            <a className="dropdown-item">Calificar observacion</a>
+          </li>
+        </ul>
+      </>
     );
   }
 
-  renderStateFourOptions(idGrupoEmpresa: number) {
-    return(
-        <>
-          <a
-              className="btn btn-info dropdown-toggle announcement"
+  renderStateFourOptions(
+    application: ApplicationsData,
+    idModal: string,
+    index: number
+  ) {
+    return (
+      <>
+        <button
+          className="btn btn-info btn-md dropdown-toggle announcement"
+          type="button"
+          id={`dropdownMenuButton${index}`}
+          data-bs-toggle="dropdown"
+          aria-expanded={false}
+          onClick={() => {
+            this.setState({ currentApplication: application });
+          }}
+        >
+          Opciones
+        </button>
+        <ul
+          className="dropdown-menu"
+          aria-labelledby={`dropdownMenuButton${index}`}
+        >
+          <li>
+            <a
+              className="dropdown-item"
               href="#"
-              role="button"
-              id={`dropdown${idGrupoEmpresa}`}
-              data-bs-toggle="dropdown"
-              aria-expanded={false}
-          >
-            Opciones
-          </a>
-          <ul
-              className="dropdown-menu"
-              aria-labelledby={`dropdown${idGrupoEmpresa}`}
-          >
-            <li>
-              <a className="dropdown-item">
-                Publicar notificacion de conformidad
-              </a>
-            </li>
-          </ul>
-        </>
+              data-bs-toggle="modal"
+              data-bs-target={`#${idModal}`}
+              onClick={() => {
+                this.setState({ typeDoc: "conformidad" });
+              }}
+            >
+              Publicar notificacion de conformidad
+            </a>
+          </li>
+        </ul>
+      </>
     );
   }
 
-  renderStateFiveOptions(idGrupoEmpresa: number) {
-    return(
-        <>
-          <a
-              className="btn btn-info dropdown-toggle announcement"
+  renderStateFiveOptions(
+    application: ApplicationsData,
+    idModal: string,
+    index: number
+  ) {
+    return (
+      <>
+        <button
+          className="btn btn-info btn-md dropdown-toggle announcement"
+          type="button"
+          id={`dropdownMenuButton${index}`}
+          data-bs-toggle="dropdown"
+          aria-expanded={false}
+          onClick={() => {
+            this.setState({ currentApplication: application });
+          }}
+        >
+          Opciones
+        </button>
+        <ul
+          className="dropdown-menu"
+          aria-labelledby={`dropdownMenuButton${index}`}
+        >
+          <li>
+            <a
+              className="dropdown-item"
               href="#"
-              role="button"
-              id={`dropdown${idGrupoEmpresa}`}
-              data-bs-toggle="dropdown"
-              aria-expanded={false}
-          >
-            Opciones
-          </a>
-          <ul
-              className="dropdown-menu"
-              aria-labelledby={`dropdown${idGrupoEmpresa}`}
-          >
-            <li>
-              <a className="dropdown-item">
-                Publicar contrato
-              </a>
-            </li>
-          </ul>
-        </>
+              data-bs-toggle="modal"
+              data-bs-target={`#${idModal}`}
+              onClick={() => {
+                this.setState({ typeDoc: "contrato" });
+              }}
+            >
+              Publicar contrato
+            </a>
+          </li>
+        </ul>
+      </>
     );
   }
 
   renderStateSixOptions(idGrupoEmpresa: number) {
-    return(
-        <>
-          <a
-              className="btn btn-info dropdown-toggle announcement"
-              href="#"
-              role="button"
-              id={`dropdown${idGrupoEmpresa}`}
-              data-bs-toggle="dropdown"
-              aria-expanded={false}
-          >
-            Opciones
-          </a>
-          <ul
-              className="dropdown-menu"
-              aria-labelledby={`dropdown${idGrupoEmpresa}`}
-          >
-            <li>
-              <a className="dropdown-item">
-                Calificar documentos
-              </a>
-            </li>
-          </ul>
-        </>
+    return (
+      <>
+        <a
+          className="btn btn-info dropdown-toggle announcement"
+          href="#"
+          role="button"
+          id={`dropdown${idGrupoEmpresa}`}
+          data-bs-toggle="dropdown"
+          aria-expanded={false}
+        >
+          Opciones
+        </a>
+        <ul
+          className="dropdown-menu"
+          aria-labelledby={`dropdown${idGrupoEmpresa}`}
+        >
+          <li>
+            <a className="dropdown-item">Calificar documentos</a>
+          </li>
+        </ul>
+      </>
     );
   }
 
-  renderStateSevenOptions(idGrupoEmpresa: number) {
-    return(
-        <>
-          <a
-              className="btn btn-info dropdown-toggle announcement"
+  renderStateSevenOptions(
+    application: ApplicationsData,
+    idModal: string,
+    index: number
+  ) {
+    return (
+      <>
+        <button
+          className="btn btn-info btn-md dropdown-toggle announcement"
+          type="button"
+          id={`dropdownMenuButton${index}`}
+          data-bs-toggle="dropdown"
+          aria-expanded={false}
+          onClick={() => {
+            this.setState({ currentApplication: application });
+          }}
+        >
+          Opciones
+        </button>
+        <ul
+          className="dropdown-menu"
+          aria-labelledby={`dropdownMenuButton${index}`}
+        >
+          <li>
+            <a
+              className="dropdown-item"
               href="#"
-              role="button"
-              id={`dropdown${idGrupoEmpresa}`}
-              data-bs-toggle="dropdown"
-              aria-expanded={false}
-          >
-            Opciones
-          </a>
-          <ul
-              className="dropdown-menu"
-              aria-labelledby={`dropdown${idGrupoEmpresa}`}
-          >
-            <li>
-              <a className="dropdown-item">
-                Publicar orden de cambio
-              </a>
-            </li>
-          </ul>
-        </>
+              data-bs-toggle="modal"
+              data-bs-target={`#${idModal}`}
+              onClick={() => {
+                this.setState({ typeDoc: "cambio" });
+              }}
+            >
+              Publicar orden de cambio
+            </a>
+          </li>
+        </ul>
+      </>
     );
   }
 
   renderStateNineOptions(idGrupoEmpresa: number) {
-    return(
-        <>
-          <a
-              className="btn btn-info dropdown-toggle announcement"
-              href="#"
-              role="button"
-              id={`dropdown${idGrupoEmpresa}`}
-              data-bs-toggle="dropdown"
-              aria-expanded={false}
-          >
-            Opciones
-          </a>
-          <ul
-              className="dropdown-menu"
-              aria-labelledby={`dropdown${idGrupoEmpresa}`}
-          >
-            <li>
-              <a className="dropdown-item">
-                Revisar documentacion corregida
-              </a>
-            </li>
-          </ul>
-        </>
+    return (
+      <>
+        <a
+          className="btn btn-info dropdown-toggle announcement"
+          href="#"
+          role="button"
+          id={`dropdown${idGrupoEmpresa}`}
+          data-bs-toggle="dropdown"
+          aria-expanded={false}
+        >
+          Opciones
+        </a>
+        <ul
+          className="dropdown-menu"
+          aria-labelledby={`dropdown${idGrupoEmpresa}`}
+        >
+          <li>
+            <a className="dropdown-item">Revisar documentacion corregida</a>
+          </li>
+        </ul>
+      </>
     );
   }
 
-  renderStateTenOptions(idGrupoEmpresa: number) {
-    return(
-        <>
-          <a
-              className="btn btn-info dropdown-toggle announcement"
+  renderStateTenOptions(
+    application: ApplicationsData,
+    idModal: string,
+    index: number
+  ) {
+    return (
+      <>
+        <button
+          className="btn btn-info btn-md dropdown-toggle announcement"
+          type="button"
+          id={`dropdownMenuButton${index}`}
+          data-bs-toggle="dropdown"
+          aria-expanded={false}
+          onClick={() => {
+            this.setState({ currentApplication: application });
+          }}
+        >
+          Opciones
+        </button>
+        <ul
+          className="dropdown-menu"
+          aria-labelledby={`dropdownMenuButton${index}`}
+        >
+          <li>
+            <a
+              className="dropdown-item"
               href="#"
-              role="button"
-              id={`dropdown${idGrupoEmpresa}`}
-              data-bs-toggle="dropdown"
-              aria-expanded={false}
-          >
-            Opciones
-          </a>
-          <ul
-              className="dropdown-menu"
-              aria-labelledby={`dropdown${idGrupoEmpresa}`}
-          >
-            <li>
-              <a className="dropdown-item">
-                Publicar adenda
-              </a>
-            </li>
-          </ul>
-        </>
+              data-bs-toggle="modal"
+              data-bs-target={`#${idModal}`}
+              onClick={() => {
+                this.setState({ typeDoc: "adenda" });
+              }}
+            >
+              Publicar adenda
+            </a>
+          </li>
+        </ul>
+      </>
     );
   }
 
   render() {
     const { applications } = this.state;
 
-    const postModalId = "postModal";
-    const modalId: string = "modalPostulacion";
+    const modalDetailsApplicationId = "modal-details-application";
+    const modalPostDocumentsId = "modal-post-documents";
 
     return (
       <>
-        <PostulationDetails
-          modalId={modalId}
-          milestones={this.state.milestones}
-          nameAnnouncement={this.state.currentApplication.tituloConvocatoria}
-          nameCompany={this.state.currentApplication.nombreGrupoEmpresa}
-          codeAnnouncement={this.state.currentApplication.codigoConvocatoria}
-          partAHref={this.state.partAHref}
-          partBHref={this.state.partBHref}
-          warrantyHref={this.state.warrantyHref}
-          presentationHref={this.state.presentationHref}
-          constitutionHref={this.state.constitutionHref}
-          fechaReg={this.state.currentApplication.fechaRegistro}
+        <PostulationDetailsModal
+          modalId={modalDetailsApplicationId}
+          currentApplication={this.state.currentApplication}
         />
         <PostModal
-          modalId={postModalId}
-          nameCompany={this.state.currentApplication.nombreGrupoEmpresa}
-          modalTitle={this.state.modalTitle}
-          functionPublicar={this.state.functionPublicar}
-          titleDoc={this.state.currentApplication.tituloConvocatoria}
+          modalId={modalPostDocumentsId}
           typeDoc={this.state.typeDoc}
-          downloadHref={this.state.downloadHref}
+          currentApplication={this.state.currentApplication}
         />
         <div className="container p-3 position-relative">
           <div className="row">
-            <div className="col-8">
+            <div className="col-12">
               <h3>Postulaciones</h3>
             </div>
           </div>
           <div className="row mb-2">
-              <div className="col-3 ms-5">
-                Nombre
-              </div>
-              <div className="col-3">
-                Titulo
-              </div>
-              <div className="col-3">
-                Estado
-              </div>
+            <div className="col-3 ms-5">Nombre</div>
+            <div className="col-3">Titulo</div>
+            <div className="col-3">Estado</div>
           </div>
           {applications &&
-            applications.map((application: ApplicationsData) => (
-              <div key={application.idGrupoEmpresa} className="row mx-0 mb-2">
+            applications.map((application, index) => (
+              <div key={index} className="row mx-0 mb-2">
                 <button
                   className="btn btn-info col-7 btn-md application-left"
                   data-bs-toggle="modal"
-                  data-bs-target={`#${modalId}`}
+                  data-bs-target={`#${modalDetailsApplicationId}`}
                   onClick={() => {
                     this.setState({ currentApplication: application });
-                    DocumentsDataService.getPostulationDocs(
-                      this.state.currentApplication.idPostulacion
-                    ).then((res) => {
-                      this.setState({
-                        partAHref: res.data.parteA,
-                        partBHref: res.data.parteB,
-                        warrantyHref: res.data.boletaDeGarantia,
-                        presentationHref: res.data.cartaDePresentacion,
-                        constitutionHref: res.data.constitucion,
-                      });
-                    });
-                    ApplicationsDataService.getApplicationMilestones(
-                      application.idPostulacion
-                    ).then((response) => {
-                      this.setState({ milestones: { hitos: response.data } });
-                    });
                   }}
                 >
                   <div className="row">
@@ -542,24 +557,88 @@ export default class AnnouncementsList extends Component<Props, State> {
                     </div>
                   </div>
                 </button>
-                <Tooltip title={<p style={{fontSize: '18px'}}>{application.nombreEstado}</p>} arrow>
-                  <div className={`btn btn-info col-3 btn-md application-right
-                  ${(application.estado === 1 || application.estado === 8) ? "state-one" : ((application.estado === 2 || application.estado === 9) ? "state-two": ((application.estado === 3 || application.estado === 6) ? "state-three" : ((application.estado === 4 || application.estado === 5 || application.estado === 7 || application.estado === 10) ? "state-four" : ((application.estado === 11) ? "state-five" : ""))))}`}
-                          data-bs-toggle="modal"
-                          data-bs-target={`#${modalId}`}
+                <Tooltip
+                  title={
+                    <p style={{ fontSize: "18px" }}>
+                      {application.nombreEstado}
+                    </p>
+                  }
+                  arrow
+                >
+                  <div
+                    className={`btn btn-info col-3 btn-md application-right
+                  ${
+                    application.estado === 1 || application.estado === 8
+                      ? "state-one"
+                      : application.estado === 2 || application.estado === 9
+                      ? "state-two"
+                      : application.estado === 3 || application.estado === 6
+                      ? "state-three"
+                      : application.estado === 4 ||
+                        application.estado === 5 ||
+                        application.estado === 7 ||
+                        application.estado === 10
+                      ? "state-four"
+                      : application.estado === 11
+                      ? "state-five"
+                      : ""
+                  }`}
+                    data-bs-toggle="modal"
+                    data-bs-target={`#${modalDetailsApplicationId}`}
                   >
-                    {(application.estado === 1 || application.estado === 8) ? "En espera de documentos" : ((application.estado === 2 || application.estado === 9) ? "Postulacion no revisada": ((application.estado === 3 || application.estado === 6) ? "En espera de calificacion" : ((application.estado === 4 || application.estado === 5 || application.estado === 7 || application.estado === 10) ? "En espera de publicacion" : ((application.estado === 11) ? "Postulacion concluida" : ""))))}
+                    {application.estado === 1 || application.estado === 8
+                      ? "En espera de documentos"
+                      : application.estado === 2 || application.estado === 9
+                      ? "Postulacion no revisada"
+                      : application.estado === 3 || application.estado === 6
+                      ? "En espera de calificacion"
+                      : application.estado === 4 ||
+                        application.estado === 5 ||
+                        application.estado === 7 ||
+                        application.estado === 10
+                      ? "En espera de publicacion"
+                      : application.estado === 11
+                      ? "Postulacion concluida"
+                      : ""}
                   </div>
                 </Tooltip>
                 <div className="dropdown col-2">
-                  {(application.estado === 2 && this.renderStateTwoOptions(application.idGrupoEmpresa))
-                  || (application.estado === 3 && this.renderStateThreeOptions(application.idGrupoEmpresa))
-                  || (application.estado === 4 && this.renderStateFourOptions(application.idGrupoEmpresa))
-                  || (application.estado === 5 && this.renderStateFiveOptions(application.idGrupoEmpresa))
-                  || (application.estado === 6 && this.renderStateSixOptions(application.idGrupoEmpresa))
-                  || (application.estado === 7 && this.renderStateSevenOptions(application.idGrupoEmpresa))
-                  || (application.estado === 9 && this.renderStateNineOptions(application.idGrupoEmpresa))
-                  || (application.estado === 10 && this.renderStateTenOptions(application.idGrupoEmpresa))}
+                  {(application.estado === 2 &&
+                    this.renderStateTwoOptions(application.idGrupoEmpresa)) ||
+                    (application.estado === 3 &&
+                      this.renderStateThreeOptions(
+                        application.idGrupoEmpresa
+                      )) ||
+                    (application.estado === 4 &&
+                      this.renderStateFourOptions(
+                        application,
+                        modalPostDocumentsId,
+                        index
+                      )) ||
+                    (application.estado === 5 &&
+                      this.renderStateFiveOptions(
+                        application,
+                        modalPostDocumentsId,
+                        index
+                      )) ||
+                    (application.estado === 6 &&
+                      this.renderStateSixOptions(application.idGrupoEmpresa)) ||
+                    (application.estado === 7 &&
+                      this.renderStateSevenOptions(
+                        application,
+                        modalPostDocumentsId,
+                        index
+                      )) ||
+                    (application.estado === 9 &&
+                      this.renderStateNineOptions(
+                        application.idGrupoEmpresa
+                      )) ||
+                    (application.estado === 10 &&
+                      this.renderStateTenOptions(
+                        application,
+                        modalPostDocumentsId,
+                        index
+                      ))}
                 </div>
               </div>
             ))}
