@@ -102,9 +102,9 @@ export default class AnnouncementsList extends Component<Props, State> {
               <h3>Convocatorias publicas</h3>
             </div>
             <div className="col-4">
-              <p className="text-secondary pb-0">
-                <strong>Consultor: {consultor}</strong>
-              </p>
+              {/*<p className="text-secondary pb-0">*/}
+              {/*  <strong>Consultor: {consultor}</strong>*/}
+              {/*</p>*/}
             </div>
           </div>
           {announcements &&
@@ -173,6 +173,21 @@ export default class AnnouncementsList extends Component<Props, State> {
                 </div>
               </>
             ))}
+          {announcements.length === 0 &&
+          <div className="container">
+            <div
+                className="row align-items-center text-info"
+                style={{minHeight: "50vh"}}>
+              <div className="col-12">
+                <div>
+                  <h1>¡Vaya!</h1>
+                </div>
+                <div>
+                  <h5 className="text-secondary">Parece que no hay ningun elemento para mostrar</h5>
+                </div>
+              </div>
+            </div>
+          </div>}
         </div>
       </>
     );

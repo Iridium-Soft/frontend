@@ -165,36 +165,40 @@ export default class UploadDocumentsPage extends Component<Props, State> {
                     </div>
                 </div>
                 <div className="container p-3 position-relative">
-                    <h3 className="row justify-content-center">Documentos</h3>
+                    <div className="row">
+                        <h3 className="col-8">
+                            Documentos
+                        </h3>
+                    </div>
                     <div className="row mx-0 mb-2">
                         <h5 className="col-12 offset-1">Parte A</h5>
-                        <div className="col-4 offset-1 mt-2">
+                        <div className="col-4 offset-2 mt-2">
                             <UploadDocument name="Parte A" parentCallback={this.handlePartA}/>
                         </div>
-                        <div className="col-4 offset-1 mt-2">
+                        <div className="col-4 offset-2 mt-2">
                             <UploadDocument name="Boleta de garantia" parentCallback={this.handleBoleta}/>
                         </div>
-                        <div className="col-4 offset-1 mt-4">
+                        <div className="col-4 offset-2 mt-4">
                             <UploadDocument name="Carta de presentacion" parentCallback={this.handleCarta}/>
                         </div>
-                        <div className="col-4 offset-1 mt-4">
+                        <div className="col-4 offset-2 mt-4">
                             <UploadDocument name="Constitucion" parentCallback={this.handleConstitucion}/>
                         </div>
                     </div>
                     <div className="row mx-0 mb-2 mt-4">
                         <h5 className="col-12 offset-1">Parte B</h5>
-                        <div className="col-4 offset-1 mt-2">
+                        <div className="col-4 offset-2 mt-2">
                             <UploadDocument name="Parte B" parentCallback={this.handlePartB} />
                         </div>
                     </div>
                     <div className="row mx-0 mb-2 mt-4">
                         <div className="row">
-                            <div className="col-2 offset-4"></div>
+                            <div className="col-2 offset-5"></div>
                             <div className="col-2 btn btn-danger text-white m-1" data-bs-toggle="modal"
                                  data-bs-target={`#asd`}>
                                 Cancelar
                             </div>
-                            <button className="col-2 btn btn-success m-1" onClick={() => (this.checkFields()) ? (this.uploadDocuments()) : null}>
+                            <button className="col-2 ms-5 btn btn-success m-1" onClick={() => (this.checkFields()) ? (this.uploadDocuments()) : null}>
                                 Enviar
                             </button>
                         </div>

@@ -248,7 +248,6 @@ export default class AnnouncementsList extends Component<Props, State> {
         <>
           <a
               className="btn btn-info dropdown-toggle announcement"
-              href="#"
               role="button"
               id={`dropdown${idGrupoEmpresa}`}
               data-bs-toggle="dropdown"
@@ -275,7 +274,6 @@ export default class AnnouncementsList extends Component<Props, State> {
         <>
           <a
               className="btn btn-info dropdown-toggle announcement"
-              href="#"
               role="button"
               id={`dropdown${idGrupoEmpresa}`}
               data-bs-toggle="dropdown"
@@ -302,7 +300,6 @@ export default class AnnouncementsList extends Component<Props, State> {
         <>
           <a
               className="btn btn-info dropdown-toggle announcement"
-              href="#"
               role="button"
               id={`dropdown${idGrupoEmpresa}`}
               data-bs-toggle="dropdown"
@@ -329,7 +326,6 @@ export default class AnnouncementsList extends Component<Props, State> {
         <>
           <a
               className="btn btn-info dropdown-toggle announcement"
-              href="#"
               role="button"
               id={`dropdown${idGrupoEmpresa}`}
               data-bs-toggle="dropdown"
@@ -356,7 +352,6 @@ export default class AnnouncementsList extends Component<Props, State> {
         <>
           <a
               className="btn btn-info dropdown-toggle announcement"
-              href="#"
               role="button"
               id={`dropdown${idGrupoEmpresa}`}
               data-bs-toggle="dropdown"
@@ -383,7 +378,6 @@ export default class AnnouncementsList extends Component<Props, State> {
         <>
           <a
               className="btn btn-info dropdown-toggle announcement"
-              href="#"
               role="button"
               id={`dropdown${idGrupoEmpresa}`}
               data-bs-toggle="dropdown"
@@ -410,7 +404,6 @@ export default class AnnouncementsList extends Component<Props, State> {
         <>
           <a
               className="btn btn-info dropdown-toggle announcement"
-              href="#"
               role="button"
               id={`dropdown${idGrupoEmpresa}`}
               data-bs-toggle="dropdown"
@@ -437,7 +430,6 @@ export default class AnnouncementsList extends Component<Props, State> {
         <>
           <a
               className="btn btn-info dropdown-toggle announcement"
-              href="#"
               role="button"
               id={`dropdown${idGrupoEmpresa}`}
               data-bs-toggle="dropdown"
@@ -563,6 +555,21 @@ export default class AnnouncementsList extends Component<Props, State> {
                 </div>
               </div>
             ))}
+          {applications.length === 0 &&
+          <div className="container">
+            <div
+                className="row align-items-center text-info"
+                style={{minHeight: "50vh"}}>
+              <div className="col-12">
+                <div>
+                  <h1>¡Vaya!</h1>
+                </div>
+                <div>
+                  <h5 className="text-secondary">Parece que no hay ningun elemento para mostrar</h5>
+                </div>
+              </div>
+            </div>
+          </div>}
         </div>
       </>
     );
