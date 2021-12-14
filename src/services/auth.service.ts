@@ -4,12 +4,9 @@ import FormData from "form-data";
 class AuthService {
   async login(data: any) {
     try {
-      const formData = new FormData();
-      formData.append("username", data.username);
-      formData.append("password", data.password);
-      const res = await http.post("/signin", formData, {
-        headers: formData.getHeaders(),
-      });
+      console.log(data);
+      const res = await http.post("/auth/login", data);
+      console.log(res.data);
       if (res.data.token) {
         localStorage.setItem("token", res.data.token);
         //localStorage.setItem("user", JSON.stringify(res.data.user));
