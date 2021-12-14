@@ -99,9 +99,9 @@ export default class GradeApplication extends Component<Props, State> {
                     dateOfIssue: response.data.fechaEm,
                     observations: response.data.observaciones,
                     refScores: response.data.calificacion,
-                    correctionDeadline: response.data.fechayHoraEntrega,
-                    correctionTime: this.convertDate(response.data.fechayHoraEntrega, true),
-                    correctionPlace: this.convertDate(response.data.fechayHoraEntrega, false),
+                    correctionDeadline: this.convertDate(response.data.fechayHoraEntrega, true),
+                    correctionTime: this.convertDate(response.data.fechayHoraEntrega, false),
+                    correctionPlace: response.data.lugarEntrega,
                 });
             })
             .catch((e) => {
