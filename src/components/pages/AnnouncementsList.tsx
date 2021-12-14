@@ -115,7 +115,7 @@ export default class AnnouncementsList extends Component<Props, State> {
               <>
                 <div className="row mx-0 mb-2">
                   <button
-                    className="btn btn-info col-9 btn-md announcement"
+                    className="btn btn-info col-11 btn-md announcement"
                     data-bs-toggle="modal"
                     data-bs-target={`#${modalId}`}
                     onClick={() =>
@@ -132,7 +132,7 @@ export default class AnnouncementsList extends Component<Props, State> {
                     </div>
                   </button>
 
-                  <div className="dropdown col-3">
+                  <div className="dropdown col-1">
                     <button
                       className="btn btn-info dropdown-toggle announcement"
                       type="button"

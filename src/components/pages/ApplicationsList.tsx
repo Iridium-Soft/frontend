@@ -37,9 +37,7 @@ export default class AnnouncementsList extends Component<Props, State> {
     };
 
     this.state = {
-      applications: [
-
-      ],
+        applications: [],
       //applications: [] as ApplicationsData[],
       currentApplication: defaultValuesCurrentApplication,
       typeDoc: "",
@@ -363,7 +361,7 @@ export default class AnnouncementsList extends Component<Props, State> {
             </div>
           </div>
           <div className="row mb-2">
-            <div className="col-3 ms-5">Nombre</div>
+            <div className="col-4 ms-5">Nombre</div>
             <div className="col-3">Titulo</div>
             <div className="col-3">Estado</div>
           </div>
@@ -371,7 +369,7 @@ export default class AnnouncementsList extends Component<Props, State> {
             applications.map((application, index) => (
               <div key={index} className="row mx-0 mb-2">
                 <button
-                  className="btn btn-info col-7 btn-md application-left"
+                  className="btn btn-info col-8 btn-md application-left"
                   data-bs-toggle="modal"
                   data-bs-target={`#${modalDetailsApplicationId}`}
                   onClick={() => {
@@ -432,7 +430,7 @@ export default class AnnouncementsList extends Component<Props, State> {
                       : ""}
                   </div>
                 </Tooltip>
-                <div className="dropdown col-2">
+                <div className="dropdown col-1">
                   {(application.estado === 2 &&
                     this.renderStateTwoOptions(application.idGrupoEmpresa)) ||
                     (application.estado === 3 &&
