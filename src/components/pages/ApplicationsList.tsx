@@ -37,172 +37,7 @@ export default class AnnouncementsList extends Component<Props, State> {
 
     this.state = {
       applications: [
-        {
-          nombreGrupoEmpresa: "IridiumSoft",
-          idGrupoEmpresa: 2,
-          idConvocatoria: 3,
-          codigoConvocatoria: "",
-          tituloConvocatoria: "Titulo convocatoria",
-          estado: 1,
-          nombreEstado: "En espera de reenvio de documentos",
-          adenda: "",
-          orden_cambio: "",
-          notificacion_conformidad: "",
-          contrato: "",
-          fechaRegistro: "",
-          idPostulacion: 1,
-        },
-        {
-          nombreGrupoEmpresa: "HolaSoft",
-          idGrupoEmpresa: 3,
-          idConvocatoria: 4,
-          codigoConvocatoria: "",
-          tituloConvocatoria: "Titulo convocatoria",
-          estado: 2,
-          nombreEstado:
-            "Aun no ha revisado la postulacion de esta grupo empresa",
-          adenda: "",
-          orden_cambio: "",
-          notificacion_conformidad: "",
-          contrato: "",
-          fechaRegistro: "",
-          idPostulacion: 2,
-        },
-        {
-          nombreGrupoEmpresa: "FracasoSoft",
-          idGrupoEmpresa: 4,
-          idConvocatoria: 5,
-          codigoConvocatoria: "",
-          tituloConvocatoria: "Titulo convocatoria",
-          estado: 3,
-          nombreEstado: "Registrada con notificacion de conformidad",
-          adenda: "",
-          orden_cambio: "",
-          notificacion_conformidad: "",
-          contrato: "",
-          fechaRegistro: "",
-          idPostulacion: 3,
-        },
-        {
-          nombreGrupoEmpresa: "MundoSoft",
-          idGrupoEmpresa: 5,
-          idConvocatoria: 6,
-          codigoConvocatoria: "",
-          tituloConvocatoria: "Titulo convocatoria",
-          estado: 4,
-          nombreEstado: "Ya se finalzo toto lo concerniente a esta postulacion",
-          adenda: "",
-          orden_cambio: "",
-          notificacion_conformidad: "",
-          contrato: "",
-          fechaRegistro: "",
-          idPostulacion: 4,
-        },
-        {
-          nombreGrupoEmpresa: "MundoSoft",
-          idGrupoEmpresa: 7,
-          idConvocatoria: 7,
-          codigoConvocatoria: "",
-          tituloConvocatoria: "Titulo convocatoria",
-          estado: 5,
-          nombreEstado: "Ya se finalzo toto lo concerniente a esta postulacion",
-          adenda: "",
-          orden_cambio: "",
-          notificacion_conformidad: "",
-          contrato: "",
-          fechaRegistro: "",
-          idPostulacion: 7,
-        },
-        {
-          nombreGrupoEmpresa: "MundoSoft",
-          idGrupoEmpresa: 8,
-          idConvocatoria: 8,
-          codigoConvocatoria: "",
-          tituloConvocatoria: "Titulo convocatoria",
-          estado: 6,
-          nombreEstado: "Ya se finalzo toto lo concerniente a esta postulacion",
-          adenda: "",
-          orden_cambio: "",
-          notificacion_conformidad: "",
-          contrato: "",
-          fechaRegistro: "",
-          idPostulacion: 8,
-        },
-        {
-          nombreGrupoEmpresa: "MundoSoft",
-          idGrupoEmpresa: 9,
-          idConvocatoria: 9,
-          codigoConvocatoria: "",
-          tituloConvocatoria: "Titulo convocatoria",
-          estado: 7,
-          nombreEstado: "Ya se finalzo toto lo concerniente a esta postulacion",
-          adenda: "",
-          orden_cambio: "",
-          notificacion_conformidad: "",
-          contrato: "",
-          fechaRegistro: "",
-          idPostulacion: 9,
-        },
-        {
-          nombreGrupoEmpresa: "MundoSoft",
-          idGrupoEmpresa: 10,
-          idConvocatoria: 10,
-          codigoConvocatoria: "",
-          tituloConvocatoria: "Titulo convocatoria",
-          estado: 8,
-          nombreEstado: "Ya se finalzo toto lo concerniente a esta postulacion",
-          adenda: "",
-          orden_cambio: "",
-          notificacion_conformidad: "",
-          contrato: "",
-          fechaRegistro: "",
-          idPostulacion: 10,
-        },
-        {
-          nombreGrupoEmpresa: "MundoSoft",
-          idGrupoEmpresa: 11,
-          idConvocatoria: 11,
-          codigoConvocatoria: "",
-          tituloConvocatoria: "Titulo convocatoria",
-          estado: 9,
-          nombreEstado: "Ya se finalzo toto lo concerniente a esta postulacion",
-          adenda: "",
-          orden_cambio: "",
-          notificacion_conformidad: "",
-          contrato: "",
-          fechaRegistro: "",
-          idPostulacion: 11,
-        },
-        {
-          nombreGrupoEmpresa: "MundoSoft",
-          idGrupoEmpresa: 12,
-          idConvocatoria: 12,
-          codigoConvocatoria: "",
-          tituloConvocatoria: "Titulo convocatoria",
-          estado: 9,
-          nombreEstado: "Ya se finalzo toto lo concerniente a esta postulacion",
-          adenda: "",
-          orden_cambio: "",
-          notificacion_conformidad: "",
-          contrato: "",
-          fechaRegistro: "",
-          idPostulacion: 12,
-        },
-        {
-          nombreGrupoEmpresa: "MundoSoft",
-          idGrupoEmpresa: 13,
-          idConvocatoria: 13,
-          codigoConvocatoria: "",
-          tituloConvocatoria: "Titulo convocatoria",
-          estado: 11,
-          nombreEstado: "Ya se finalzo toto lo concerniente a esta postulacion",
-          adenda: "",
-          orden_cambio: "",
-          notificacion_conformidad: "",
-          contrato: "",
-          fechaRegistro: "",
-          idPostulacion: 13,
-        },
+
       ],
       //applications: [] as ApplicationsData[],
       currentApplication: defaultValuesCurrentApplication,
@@ -226,13 +61,18 @@ export default class AnnouncementsList extends Component<Props, State> {
     this.retrieveApplications();
   }
 
-  async retrieveApplications() {
-    try {
-      const applicationsData = await ApplicationsDataService.get(1);
-      this.setState({ applications: applicationsData.data });
-    } catch (error) {
-      console.log(error);
-    }
+  retrieveApplications() {
+    ApplicationsDataService.get(1).then(
+        (response) => {
+          this.setState(
+              {
+                applications: response.data,
+              }
+          )
+        }
+    ).catch((e) => {
+      console.log(e);
+    })
   }
 
   refreshList() {
