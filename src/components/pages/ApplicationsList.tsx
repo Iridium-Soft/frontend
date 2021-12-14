@@ -223,7 +223,7 @@ export default class AnnouncementsList extends Component<Props, State> {
   }
 
   componentDidMount() {
-    // this.retrieveApplications();
+    this.retrieveApplications();
   }
 
   async retrieveApplications() {
