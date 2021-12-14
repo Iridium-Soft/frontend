@@ -13,6 +13,7 @@ type State = {
   applications: Array<ApplicationsData>;
   currentApplication: ApplicationsData;
   typeDoc: string;
+  loading: boolean;
 };
 
 export default class AnnouncementsList extends Component<Props, State> {
@@ -42,6 +43,7 @@ export default class AnnouncementsList extends Component<Props, State> {
       //applications: [] as ApplicationsData[],
       currentApplication: defaultValuesCurrentApplication,
       typeDoc: "",
+      loading: true,
     };
 
     this.retrieveApplications = this.retrieveApplications.bind(this);
@@ -67,6 +69,7 @@ export default class AnnouncementsList extends Component<Props, State> {
           this.setState(
               {
                 applications: response.data,
+                loading: false,
               }
           )
         }
@@ -469,7 +472,7 @@ export default class AnnouncementsList extends Component<Props, State> {
                 </div>
               </div>
             ))}
-          {applications.length === 0 && (
+          {applications.length === 0 && !this.state.loading && (
             <div className="container">
               <div
                 className="row align-items-center text-info"
@@ -488,6 +491,17 @@ export default class AnnouncementsList extends Component<Props, State> {
               </div>
             </div>
           )}
+            {this.state.loading && <div className="container">
+                <div
+                    className="row align-items-center text-info"
+                    style={{minHeight: "60vh"}}>
+                    <div className="col-2 offset-2">
+                        <div className="spinner-border fs-1" style={{width: "4rem", height:"4rem"}} role="status">
+                            <span className="visually-hidden">Loading...</span>
+                        </div>
+                    </div>
+                </div>
+            </div>}
         </div>
       </>
     );

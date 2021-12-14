@@ -13,6 +13,7 @@ type State = {
   currentAnnouncement: AnnouncementData;
   currectDocument: string;
   currentPetis: string;
+  loading: boolean;
 };
 
 export default class AnnouncementsList extends Component<Props, State> {
@@ -39,6 +40,7 @@ export default class AnnouncementsList extends Component<Props, State> {
       },
       currectDocument: "",
       currentPetis: "",
+      loading: true,
     };
   }
 
@@ -51,6 +53,7 @@ export default class AnnouncementsList extends Component<Props, State> {
       .then((response) => {
         this.setState({
           announcements: response.data,
+          loading: false,
         });
         console.log(response.data);
       })
@@ -173,7 +176,7 @@ export default class AnnouncementsList extends Component<Props, State> {
                 </div>
               </>
             ))}
-          {announcements.length === 0 &&
+          {announcements.length === 0 && !this.state.loading &&
           <div className="container">
             <div
                 className="row align-items-center text-info"
@@ -188,8 +191,20 @@ export default class AnnouncementsList extends Component<Props, State> {
               </div>
             </div>
           </div>}
+          {this.state.loading && <div className="container">
+            <div
+                className="row align-items-center text-info"
+                style={{minHeight: "60vh"}}>
+              <div className="col-2 offset-2">
+                <div className="spinner-border fs-1" style={{width: "4rem", height:"4rem"}} role="status">
+                  <span className="visually-hidden">Loading...</span>
+                </div>
+              </div>
+            </div>
+          </div>}
         </div>
       </>
     );
   }
 }
+

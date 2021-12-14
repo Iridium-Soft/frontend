@@ -14,6 +14,7 @@ type State = {
   announcements: Array<AnnouncementData>;
   currentAnnouncement: AnnouncementData;
   currentPetis: PetisData;
+  loading: boolean;
 };
 
 export default class MyAnnouncementsList extends Component<Props, State> {
@@ -46,6 +47,7 @@ export default class MyAnnouncementsList extends Component<Props, State> {
         documento: "",
         publica: false,
       },
+      loading: true,
     };
   }
 
@@ -58,6 +60,7 @@ export default class MyAnnouncementsList extends Component<Props, State> {
       .then((response) => {
         this.setState({
           announcements: response.data,
+          loading: false,
         });
       })
       .catch((e) => {
@@ -188,7 +191,7 @@ export default class MyAnnouncementsList extends Component<Props, State> {
                 </div>
               </>
             ))}
-          {announcements.length === 0 &&
+          {announcements.length === 0 && !this.state.loading &&
           <div className="container">
             <div
                 className="row align-items-center text-info"
@@ -199,6 +202,17 @@ export default class MyAnnouncementsList extends Component<Props, State> {
                 </div>
                 <div>
                   <h5 className="text-secondary">Parece que no hay ningun elemento para mostrar</h5>
+                </div>
+              </div>
+            </div>
+          </div>}
+          {this.state.loading && <div className="container">
+            <div
+                className="row align-items-center text-info"
+                style={{minHeight: "60vh"}}>
+              <div className="col-2 offset-2">
+                <div className="spinner-border fs-1" style={{width: "4rem", height:"4rem"}} role="status">
+                  <span className="visually-hidden">Loading...</span>
                 </div>
               </div>
             </div>
