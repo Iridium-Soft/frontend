@@ -21,28 +21,7 @@ export default class SidebarComponent extends Component<Props, State> {
       isDocumentOpen: false,
       isWorkSpaceOpen: false,
       permissions: [
-            {
-              "id": 5,
-              "name": "/my_announcements",
-              "guard_name": "api",
-              "created_at": "2021-12-12T15:02:10.000000Z",
-              "updated_at": "2021-12-12T15:02:10.000000Z",
-              "pivot": {
-                "role_id": 2,
-                "permission_id": 5
-              }
-            },
-            {
-              "id": 6,
-              "name": "/announcement_form",
-              "guard_name": "api",
-              "created_at": "2021-12-12T15:02:10.000000Z",
-              "updated_at": "2021-12-12T15:02:10.000000Z",
-              "pivot": {
-                "role_id": 2,
-                "permission_id": 6
-              }
-            },
+            
           ],
     };
     this.toggleSideBar = this.toggleSideBar.bind(this);
