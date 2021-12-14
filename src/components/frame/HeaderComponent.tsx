@@ -26,10 +26,7 @@ export default class HeaderComponent extends Component<Props, State> {
   }
 
   componentDidMount() {
-    this.setState({ currentUser: {
-      name: "FracasoSoft",
-      password: "afdsfas",
-      }});
+    AuthService.getCurrentUser();
   }
   //AuthService.getCurrentUser()
 
@@ -47,7 +44,7 @@ export default class HeaderComponent extends Component<Props, State> {
             >
               <strong>S A E T I S</strong>
             </Link>
-            {localStorage.getItem("token") ? (
+            {!localStorage.getItem("token") ? (
               <button
                 type="button"
                 className="btn border-white border-2 login-button"
