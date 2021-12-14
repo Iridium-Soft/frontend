@@ -26,8 +26,12 @@ export default class HeaderComponent extends Component<Props, State> {
   }
 
   componentDidMount() {
-    this.setState({ currentUser: AuthService.getCurrentUser() });
+    this.setState({ currentUser: {
+      name: "FracasoSoft",
+      password: "afdsfas",
+      }});
   }
+  //AuthService.getCurrentUser()
 
   render() {
     const modalId = "login-modal";
@@ -43,10 +47,10 @@ export default class HeaderComponent extends Component<Props, State> {
             >
               <strong>S A E T I S</strong>
             </Link>
-            {!localStorage.getItem("token") ? (
+            {localStorage.getItem("token") ? (
               <button
                 type="button"
-                className="btn btn-secondary me-3"
+                className="btn border-white border-2 login-button"
                 data-bs-toggle="modal"
                 data-bs-target={`#${modalId}`}
               >
@@ -55,13 +59,14 @@ export default class HeaderComponent extends Component<Props, State> {
             ) : (
               <div className="dropdown me-3">
                 <button
-                  className="btn btn-secondary dropdown-toggle"
+                  className="btn border-white border-2 still-button"
                   type="button"
                   id="dropdownMenuUserGE"
                   data-bs-toggle="dropdown"
                   aria-expanded={false}
                 >
-                  {this.state.currentUser ? this.state.currentUser.name : "..."}
+                  <i className="fa fa-circle pe-2" style={{fontSize: "13px", color: "#24bf61"}}></i>
+                  <strong>{this.state.currentUser ? this.state.currentUser.name : "..."}</strong>
                 </button>
                 <ul
                   className="dropdown-menu"
@@ -74,7 +79,7 @@ export default class HeaderComponent extends Component<Props, State> {
                         AuthService.logout();
                       }}
                     >
-                      LogOut
+                      Cerrar sesión
                     </button>
                   </li>
                 </ul>

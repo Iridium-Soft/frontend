@@ -245,7 +245,6 @@ export default class AnnouncementsList extends Component<Props, State> {
       <>
         <a
           className="btn btn-info dropdown-toggle announcement"
-          href="#"
           role="button"
           id={`dropdown${idGrupoEmpresa}`}
           data-bs-toggle="dropdown"
@@ -270,7 +269,6 @@ export default class AnnouncementsList extends Component<Props, State> {
       <>
         <a
           className="btn btn-info dropdown-toggle announcement"
-          href="#"
           role="button"
           id={`dropdown${idGrupoEmpresa}`}
           data-bs-toggle="dropdown"
@@ -316,7 +314,6 @@ export default class AnnouncementsList extends Component<Props, State> {
           <li>
             <a
               className="dropdown-item"
-              href="#"
               data-bs-toggle="modal"
               data-bs-target={`#${idModal}`}
               onClick={() => {
@@ -357,7 +354,6 @@ export default class AnnouncementsList extends Component<Props, State> {
           <li>
             <a
               className="dropdown-item"
-              href="#"
               data-bs-toggle="modal"
               data-bs-target={`#${idModal}`}
               onClick={() => {
@@ -377,7 +373,6 @@ export default class AnnouncementsList extends Component<Props, State> {
       <>
         <a
           className="btn btn-info dropdown-toggle announcement"
-          href="#"
           role="button"
           id={`dropdown${idGrupoEmpresa}`}
           data-bs-toggle="dropdown"
@@ -423,7 +418,6 @@ export default class AnnouncementsList extends Component<Props, State> {
           <li>
             <a
               className="dropdown-item"
-              href="#"
               data-bs-toggle="modal"
               data-bs-target={`#${idModal}`}
               onClick={() => {
@@ -443,7 +437,6 @@ export default class AnnouncementsList extends Component<Props, State> {
       <>
         <a
           className="btn btn-info dropdown-toggle announcement"
-          href="#"
           role="button"
           id={`dropdown${idGrupoEmpresa}`}
           data-bs-toggle="dropdown"
@@ -489,7 +482,6 @@ export default class AnnouncementsList extends Component<Props, State> {
           <li>
             <a
               className="dropdown-item"
-              href="#"
               data-bs-toggle="modal"
               data-bs-target={`#${idModal}`}
               onClick={() => {

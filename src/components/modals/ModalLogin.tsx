@@ -53,16 +53,16 @@ export const ModalLogin = (props: Props) => {
     >
       <div className="modal-dialog">
         <div className="modal-content">
-          <div className="modal-header">
-            <h5 className="modal-title" id={modalLabel}>
+          <div className="modal-header bg-dark">
+            <h5 className="modal-title text-white" id={modalLabel}>
               Iniciar sesión
             </h5>
             <button
               type="button"
-              className="btn-close"
+              className="bg-dark btn text-white"
               data-bs-dismiss="modal"
               aria-label="Close"
-            ></button>
+            ><i className="fa fa-times fs-4"></i></button>
           </div>
           <div className="modal-body">
             <Formik
@@ -114,7 +114,7 @@ export const ModalLogin = (props: Props) => {
                   )}
                 </div>
                 <div className="d-grid gap-2 col-6 mx-auto">
-                  <button className="btn btn-primary" type="submit">
+                  <button className="btn btn-info text-light" type="submit">
                     Iniciar sesión
                   </button>
                 </div>
