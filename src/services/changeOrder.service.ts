@@ -10,7 +10,7 @@ class ChangeOrderDataService {
   }
 
   generar(id: string) {
-    return http.get(`/generar/ordencambio/${id}`);
+    return http.get(`/ordendecambio/autollenado/${id}`);
   }
 
   createChangeOrder(data: any, id: any) {

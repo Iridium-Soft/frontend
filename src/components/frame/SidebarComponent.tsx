@@ -21,7 +21,7 @@ export default class SidebarComponent extends Component<Props, State> {
       isDocumentOpen: false,
       isWorkSpaceOpen: false,
       permissions: [
-            
+
           ],
     };
     this.toggleSideBar = this.toggleSideBar.bind(this);
