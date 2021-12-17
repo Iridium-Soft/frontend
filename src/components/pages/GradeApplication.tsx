@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import ChangeOrderData from "../../types/changeOrder.type";
 import ChangeOrderDataService from '../../services/changeOrder.service'
+import ComplianceNotificationDataService from '../../services/complianceNotification.service'
 import Snackbar from "@mui/material/Snackbar";
 import ScoresTable from "../ScoresTable";
 import IconButton from "@mui/material/IconButton";
@@ -92,21 +93,38 @@ export default class GradeApplication extends Component<Props, State> {
     }
 
     retrieveChangeOrderData() {
-        ChangeOrderDataService.get("1")
-            .then((response) => {
-                this.setState({
-                    companyGroup: response.data.grupoEmpresa,
-                    dateOfIssue: response.data.fechaEm,
-                    observations: response.data.observaciones,
-                    refScores: response.data.calificacion,
-                    correctionDeadline: this.convertDate(response.data.fechayHoraEntrega, true),
-                    correctionTime: this.convertDate(response.data.fechayHoraEntrega, false),
-                    correctionPlace: response.data.lugarEntrega,
+        if(this.props.flag === 0) {
+            ChangeOrderDataService.get("1")
+                .then((response) => {
+                    this.setState({
+                        companyGroup: response.data.grupoEmpresa,
+                        dateOfIssue: response.data.fechaEm,
+                        observations: response.data.observaciones,
+                        refScores: response.data.calificacion,
+                        correctionDeadline: this.convertDate(response.data.fechayHoraEntrega, true),
+                        correctionTime: this.convertDate(response.data.fechayHoraEntrega, false),
+                        correctionPlace: response.data.lugarEntrega,
+                    });
+                })
+                .catch((e) => {
+                    console.log(e);
                 });
-            })
-            .catch((e) => {
-                console.log(e);
-            });
+        } else {
+            ComplianceNotificationDataService.getInfo("1")
+                .then((response) => {
+                    this.setState({
+                        companyGroup: response.data.grupoEmpresa,
+                        dateOfIssue: response.data.fechaEm,
+                        refScores: response.data.calificacion,
+                        correctionDeadline: this.convertDate(response.data.fechayHoraEntrega, true),
+                        correctionTime: this.convertDate(response.data.fechayHoraEntrega, false),
+                        correctionPlace: response.data.lugarEntrega,
+                    });
+                })
+                .catch((e) => {
+                    console.log(e);
+                });
+        }
     }
     convertDate(dat: string, typ: boolean) {
         let ans: string = "";

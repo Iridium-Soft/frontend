@@ -9,6 +9,10 @@ class ComplianceNotificationDataService {
         return http.get(`/postulacion/propias/${id}`);
     }
 
+    getInfo(id: string) {
+        return http.get(`/notificacionconformidad/autollenado/${id}`);
+    }
+
     generar(id: string) {
         return http.get(`/generar/notificacionconformidad/${id}`);
     }
