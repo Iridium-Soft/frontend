@@ -8,7 +8,7 @@ import IconButton from "@mui/material/IconButton";
 type ChangeElement = React.ChangeEvent<HTMLInputElement>;
 
 type Props = {
-
+    flag: number,
 }
 
 type State = {
@@ -325,7 +325,7 @@ export default class GradeApplication extends Component<Props, State> {
                         <div className="modal-content">
                             <div className="modal-header">
                                 <h5 className="modal-title">
-                                    ¿Está seguro de cancelar la el registro de su {observations.length > 0 ? "orden de cambio" : "notificacion de conformidad"}?
+                                    ¿Está seguro de cancelar la el registro de su {this.props.flag === 0 ? "orden de cambio" : "notificacion de conformidad"}?
                                 </h5>
                                 <button
                                     type="button"
@@ -356,7 +356,7 @@ export default class GradeApplication extends Component<Props, State> {
                 <div className="container p-3 position-relative">
                     <div className="row">
                         <div className="col-12">
-                            <h3>Registrar calificiacion - {observations.length > 0 ? "Orden de cambio" : "Notificacion de conformidad"}</h3>
+                            <h3>Registrar calificiacion - {this.props.flag === 0 ? "Orden de cambio" : "Notificacion de conformidad"}</h3>
                         </div>
                     </div>
                     <div className="form-group row m-3">
@@ -393,7 +393,7 @@ export default class GradeApplication extends Component<Props, State> {
                     <div className="form-group row m-3">
                         <ScoresTable parentCallback={this.handleScores} refScores={this.state.refScores}/>
                     </div>
-                    {observations.length > 0 && <div className="form-group row m-3">
+                    {this.props.flag === 0 && <div className="form-group row m-3">
                         Observaciones de contrato
                         <table className="table table-bordered">
                             <tbody>
@@ -418,11 +418,11 @@ export default class GradeApplication extends Component<Props, State> {
                         </table>
                     </div>}
                     <div className="form-group row m-3">
-                        <h5><strong>Informacion de {observations.length > 0 ? "entrega de correccion" : "firma de contrato"}</strong></h5>
+                        <h5><strong>Informacion de {this.props.flag === 0 ? "entrega de correccion" : "firma de contrato"}</strong></h5>
                     </div>
                     <div className="form-group row m-3">
                         <label htmlFor="fechaContrato" className="col-md-4 col-form-label">
-                            Fecha de {observations.length > 0 ? "entrega de correccion" : "firma de contrato"}
+                            Fecha de {this.props.flag === 0 ? "entrega de correccion" : "firma de contrato"}
                         </label>
                         <div className="col-md-2">
                             <input
