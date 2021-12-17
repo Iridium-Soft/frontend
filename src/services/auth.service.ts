@@ -19,6 +19,8 @@ class AuthService {
   }
 
   async logout() {
+    localStorage.removeItem("token");
+    window.location.assign("/");
     try {
       await http.post(
         "/auth/logout",
@@ -27,8 +29,6 @@ class AuthService {
           headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
         }
       );
-      localStorage.removeItem("token");
-      window.location.assign("/");
     } catch (err) {
       console.log(err);
     }
