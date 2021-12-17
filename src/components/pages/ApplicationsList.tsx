@@ -1,4 +1,5 @@
 import { Component } from "react";
+import { Link } from "react-router-dom";
 import ApplicationsDataService from "../../services/applications.service";
 import ApplicationsData from "../../types/applications.type";
 import { PostulationDetailsModal } from "../modals/PostulationDetailsModal";
@@ -98,7 +99,7 @@ export default class AnnouncementsList extends Component<Props, State> {
           aria-labelledby={`dropdown${idGrupoEmpresa}`}
         >
           <li>
-            <a className="dropdown-item">Revisar documentos</a>
+            <Link to="/application_review"><a className="dropdown-item">Revisar documentos</a></Link>
           </li>
         </ul>
       </>
@@ -122,7 +123,7 @@ export default class AnnouncementsList extends Component<Props, State> {
           aria-labelledby={`dropdown${idGrupoEmpresa}`}
         >
           <li>
-            <a className="dropdown-item">Calificar observacion</a>
+              <Link to="/grade_application"><a className="dropdown-item">Calificar documentos</a></Link>
           </li>
         </ul>
       </>
@@ -226,7 +227,7 @@ export default class AnnouncementsList extends Component<Props, State> {
           aria-labelledby={`dropdown${idGrupoEmpresa}`}
         >
           <li>
-            <a className="dropdown-item">Calificar documentos</a>
+              <Link to="/grade_observations"><a className="dropdown-item">Calificar documentos</a></Link>
           </li>
         </ul>
       </>
@@ -290,7 +291,7 @@ export default class AnnouncementsList extends Component<Props, State> {
           aria-labelledby={`dropdown${idGrupoEmpresa}`}
         >
           <li>
-            <a className="dropdown-item">Revisar documentacion corregida</a>
+              <Link to="/observations_review"><a className="dropdown-item">Revisar documentacion corregida</a></Link>
           </li>
         </ul>
       </>
