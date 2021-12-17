@@ -99,7 +99,7 @@ export default class AnnouncementsList extends Component<Props, State> {
           aria-labelledby={`dropdown${idGrupoEmpresa}`}
         >
           <li>
-            <Link to="/application_review"><a className="dropdown-item">Revisar documentos</a></Link>
+            <Link to="/application_review" style={{ textDecoration: 'none' }}><a className="dropdown-item">Revisar documentos</a></Link>
           </li>
         </ul>
       </>
@@ -123,7 +123,7 @@ export default class AnnouncementsList extends Component<Props, State> {
           aria-labelledby={`dropdown${idGrupoEmpresa}`}
         >
           <li>
-              <Link to="/grade_application"><a className="dropdown-item">Calificar documentos</a></Link>
+              <Link to="/grade_application" style={{ textDecoration: 'none' }}><a className="dropdown-item">Calificar documentos</a></Link>
           </li>
         </ul>
       </>
@@ -227,7 +227,7 @@ export default class AnnouncementsList extends Component<Props, State> {
           aria-labelledby={`dropdown${idGrupoEmpresa}`}
         >
           <li>
-              <Link to="/grade_observations"><a className="dropdown-item">Calificar documentos</a></Link>
+              <Link to="/grade_observations" style={{ textDecoration: 'none' }}><a className="dropdown-item">Calificar documentos</a></Link>
           </li>
         </ul>
       </>
@@ -291,7 +291,7 @@ export default class AnnouncementsList extends Component<Props, State> {
           aria-labelledby={`dropdown${idGrupoEmpresa}`}
         >
           <li>
-              <Link to="/observations_review"><a className="dropdown-item">Revisar documentacion corregida</a></Link>
+              <Link to="/observations_review" style={{ textDecoration: 'none' }}><a className="dropdown-item">Revisar documentacion corregida</a></Link>
           </li>
         </ul>
       </>

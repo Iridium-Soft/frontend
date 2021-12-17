@@ -120,13 +120,23 @@ export default class SidebarComponent extends Component<Props, State> {
                 </a>
               </li>
               <li className={`${(this.checkPermissions(2) ? "" : "d-none")}`} >
-                <a>Aplicar a convocatoria</a>
+                <a><Link to="/apply_to_announcement" style={{ textDecoration: 'none' }}>
+                  Aplicar a convocatoria
+                </Link></a>
               </li>
               <li className={`${(this.checkPermissions(1) ? "" : "d-none")}`} >
-                <a>Registrar calendario de trabajo</a>
+                <a>
+                  <Link to="/my_work_calendar" style={{ textDecoration: 'none' }}>
+                    Registrar calendario de trabajo
+                  </Link>
+                </a>
               </li>
               <li className={`${(this.checkPermissions(3) ? "" : "d-none")}`} >
-                <a>Registrar documentos</a>
+                <a>
+                  <Link to="/documents" style={{ textDecoration: 'none' }}>
+                    Registrar documentos
+                  </Link>
+                </a>
               </li>
             </ul>
           </li>
@@ -145,10 +155,14 @@ export default class SidebarComponent extends Component<Props, State> {
                 </a>
               </li>
               <li className={`${(this.checkPermissions(6) ? "" : "d-none")}`}>
-                <Link to="/announcement_form">Nueva convocatoria</Link>
+                <a>
+                  <Link to="/announcement_form">Nueva convocatoria</Link>
+                </a>
               </li>
               <li className={`${(this.checkPermissions(7) ? "" : "d-none")}`}>
-                <Link to="/petis_form">Nuevo pliego de especificacion</Link>
+                <a>
+                  <Link to="/petis_form">Nuevo pliego de especificacion</Link>
+                </a>
               </li>
             </ul>
           </li>
@@ -167,10 +181,10 @@ export default class SidebarComponent extends Component<Props, State> {
                 </a>
               </li>
               <li className={`${(this.checkPermissions(5) ? "" : "d-none")}`}>
-                <Link to="/my_announcements">Mis convocatorias</Link>
+                <a><Link to="/my_announcements">Mis convocatorias</Link></a>
               </li>
               <li className={`${(this.checkPermissions(8) ? "" : "d-none")}`}>
-                <Link to="/my_applications">Postulaciones</Link>
+                <a><Link to="/my_applications">Postulaciones</Link></a>
               </li>
             </ul>
           </li>
