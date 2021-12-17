@@ -20,14 +20,13 @@ class AuthService {
 
   async logout() {
     try {
-      //await http.post("/logout", { token: localStorage.getItem("token") });
-      const token = localStorage.getItem("token");
-      const formData = new FormData();
-      formData.append("token", token ? token : "");
-      await http.post("/logout", formData, {
-        headers: formData.getHeaders(),
-        // Here we send the token in the header
-      });
+      await http.post(
+        "/auth/logout",
+        {},
+        {
+          headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+        }
+      );
       localStorage.removeItem("token");
       window.location.assign("/");
     } catch (err) {
