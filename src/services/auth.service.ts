@@ -9,7 +9,7 @@ class AuthService {
       console.log(res.data);
       if (res.data.token) {
         localStorage.setItem("token", res.data.token);
-        //localStorage.setItem("user", JSON.stringify(res.data.user));
+        localStorage.setItem("geData", JSON.stringify(res.data.nombreGE));
         return true;
       }
     } catch (err) {
@@ -34,12 +34,14 @@ class AuthService {
     }
   }
 
-  async getCurrentUser() {
+  getCurrentUser() {
     if (!localStorage.getItem("token")) {
       return null;
     } else {
-      const res = await http.get("/user");
-      return res.data;
+      let jsonToParse: any = "";
+      jsonToParse = localStorage.getItem("geData");
+      const geData = JSON.parse(jsonToParse);
+      return geData;
     }
   }
 }

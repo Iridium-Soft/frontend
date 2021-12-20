@@ -26,9 +26,13 @@ export default class HeaderComponent extends Component<Props, State> {
   }
 
   componentDidMount() {
-    AuthService.getCurrentUser();
+    const geData = AuthService.getCurrentUser();
+    if (geData) {
+      this.setState({
+        currentUser: geData,
+      });
+    }
   }
-  //AuthService.getCurrentUser()
 
   render() {
     const modalId = "login-modal";
@@ -62,8 +66,15 @@ export default class HeaderComponent extends Component<Props, State> {
                   data-bs-toggle="dropdown"
                   aria-expanded={false}
                 >
-                  <i className="fa fa-circle pe-2" style={{fontSize: "13px", color: "#24bf61"}}></i>
-                  <strong>{this.state.currentUser ? this.state.currentUser.name : "..."}</strong>
+                  <i
+                    className="fa fa-circle pe-2"
+                    style={{ fontSize: "13px", color: "#24bf61" }}
+                  ></i>
+                  <strong>
+                    {this.state.currentUser
+                      ? this.state.currentUser.nombre
+                      : "..."}
+                  </strong>
                 </button>
                 <ul
                   className="dropdown-menu"
