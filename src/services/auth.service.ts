@@ -19,7 +19,7 @@ class AuthService {
   }
 
   async logout() {
-    localStorage.removeItem("token");
+    localStorage.clear();
     window.location.assign("/");
     try {
       await http.post(
