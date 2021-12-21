@@ -10,8 +10,8 @@ class WorkCalendarDataService {
     return http.get(`/Hitoplanificacion/${id}`);
   }
 
-  create(data: WorkCalendarData) {
-    return http.post("/postulacion/planificacion", data);
+  create(data: WorkCalendarData, id: number) {
+    return http.post(`/postulacion/planificacion/${id}`, data);
   }
 
   update(data: WorkCalendarData, id: any) {

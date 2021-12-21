@@ -1,15 +1,16 @@
 import React, { Component } from "react";
 import "./SidebarComponent.css";
 import { Link } from "react-router-dom";
-import SidebarDataService from "../../services/sidebar.service"
+import SidebarDataService from "../../services/sidebar.service";
+import AuthService from "../../services/auth.service";
 
 type Props = {};
 type State = {
-  isSideBarOpen: boolean,
-  isApplicationOpen: boolean,
-  isDocumentOpen: boolean,
-  isWorkSpaceOpen: boolean,
-  permissions: Array<any>,
+  isSideBarOpen: boolean;
+  isApplicationOpen: boolean;
+  isDocumentOpen: boolean;
+  isWorkSpaceOpen: boolean;
+  permissions: Array<any>;
 };
 
 export default class SidebarComponent extends Component<Props, State> {
@@ -20,9 +21,7 @@ export default class SidebarComponent extends Component<Props, State> {
       isApplicationOpen: false,
       isDocumentOpen: false,
       isWorkSpaceOpen: false,
-      permissions: [
-
-          ],
+      permissions: [],
     };
     this.toggleSideBar = this.toggleSideBar.bind(this);
     this.toggleSubMenu = this.toggleSubMenu.bind(this);
@@ -35,23 +34,28 @@ export default class SidebarComponent extends Component<Props, State> {
   }
 
   retrievePermissions() {
-    SidebarDataService.get("1").then((response) => {
-      this.setState({
-        permissions: response.data.permisos,
+    const user_id = localStorage.getItem("token")
+      ? AuthService.getCurrentUser().user_id
+      : "1";
+    SidebarDataService.get(user_id)
+      .then((response) => {
+        this.setState({
+          permissions: response.data.permisos,
+        });
+      })
+      .catch((e) => {
+        console.log(e);
       });
-    }).catch((e) => {
-      console.log(e)
-    })
   }
 
   checkPermissions(id: number) {
     let per: any = this.state.permissions;
     let ans: boolean = false;
     per.map((p: any) => {
-      if(p.id === id) {
+      if (p.id === id) {
         ans = true;
       }
-    })
+    });
     return ans;
   }
 
@@ -65,23 +69,28 @@ export default class SidebarComponent extends Component<Props, State> {
   }
 
   toggleSubMenu(sb: number) {
-    if(sb === 0) {
+    if (sb === 0) {
       this.setState({
         isApplicationOpen: !this.state.isApplicationOpen,
-      })
-    } else if(sb === 1) {
+      });
+    } else if (sb === 1) {
       this.setState({
         isDocumentOpen: !this.state.isDocumentOpen,
-      })
-    } else if(sb === 2) {
+      });
+    } else if (sb === 2) {
       this.setState({
         isWorkSpaceOpen: !this.state.isWorkSpaceOpen,
-      })
+      });
     }
   }
 
   render() {
-    const { isSideBarOpen, isApplicationOpen, isDocumentOpen, isWorkSpaceOpen} = this.state;
+    const {
+      isSideBarOpen,
+      isApplicationOpen,
+      isDocumentOpen,
+      isWorkSpaceOpen,
+    } = this.state;
 
     return (
       <div className={`sidebar bg-black ${isSideBarOpen ? "close" : ""}`}>
@@ -95,7 +104,9 @@ export default class SidebarComponent extends Component<Props, State> {
           <li>
             <Link to="/announcements_list">
               <i className="fa fa-bullhorn"></i>
-              <span className="link_name">{!isSideBarOpen ? "Convocatorias disponibles" : ""}</span>
+              <span className="link_name">
+                {!isSideBarOpen ? "Convocatorias disponibles" : ""}
+              </span>
             </Link>
             <ul className="sub-menu blank">
               <li>
@@ -105,13 +116,28 @@ export default class SidebarComponent extends Component<Props, State> {
               </li>
             </ul>
           </li>
-          <li className={`${isApplicationOpen ? "showMenu" : ""}`} onClick={() => {this.toggleSubMenu(0)}}>
-            <div className={`iocn-link ${(this.checkPermissions(2) || this.checkPermissions(1) || this.checkPermissions(3) ? "" : "d-none")}`}>
+          <li
+            className={`${isApplicationOpen ? "showMenu" : ""}`}
+            onClick={() => {
+              this.toggleSubMenu(0);
+            }}
+          >
+            <div
+              className={`iocn-link ${
+                this.checkPermissions(2) ||
+                this.checkPermissions(1) ||
+                this.checkPermissions(3)
+                  ? ""
+                  : "d-none"
+              }`}
+            >
               <a>
                 <i className="fa fa-mail-bulk"></i>
-                <span className="link_name">{!isSideBarOpen ? "Postulacion" : ""}</span>
+                <span className="link_name">
+                  {!isSideBarOpen ? "Postulacion" : ""}
+                </span>
               </a>
-              <i className="fa fa-chevron-down arrow" ></i>
+              <i className="fa fa-chevron-down arrow"></i>
             </div>
             <ul className="sub-menu">
               <li>
@@ -119,79 +145,117 @@ export default class SidebarComponent extends Component<Props, State> {
                   Postulacion
                 </a>
               </li>
-              <li className={`${(this.checkPermissions(2) ? "" : "d-none")}`} >
-                <a><Link to="/apply_to_announcement" style={{ textDecoration: 'none' }}>
-                  Aplicar a convocatoria
-                </Link></a>
-              </li>
-              <li className={`${(this.checkPermissions(1) ? "" : "d-none")}`} >
+              <li className={`${this.checkPermissions(2) ? "" : "d-none"}`}>
                 <a>
-                  <Link to="/my_work_calendar" style={{ textDecoration: 'none' }}>
+                  <Link
+                    to="/apply_to_announcement"
+                    style={{ textDecoration: "none" }}
+                  >
+                    Aplicar a convocatoria
+                  </Link>
+                </a>
+              </li>
+              <li className={`${this.checkPermissions(1) ? "" : "d-none"}`}>
+                <a>
+                  <Link
+                    to="/my_work_calendar"
+                    style={{ textDecoration: "none" }}
+                  >
                     Registrar calendario de trabajo
                   </Link>
                 </a>
               </li>
-              <li className={`${(this.checkPermissions(3) ? "" : "d-none")}`} >
+              <li className={`${this.checkPermissions(3) ? "" : "d-none"}`}>
                 <a>
-                  <Link to="/documents" style={{ textDecoration: 'none' }}>
+                  <Link to="/documents" style={{ textDecoration: "none" }}>
                     Registrar documentos
                   </Link>
                 </a>
               </li>
             </ul>
           </li>
-          <li className={`${isDocumentOpen ? "showMenu" : ""}`} onClick={() => {this.toggleSubMenu(1)}}>
-            <div className={`iocn-link ${(this.checkPermissions(6) || this.checkPermissions(7) ? "" : "d-none")}`} style={!isSideBarOpen ? {height: "90px"} : {height: "50px"}}>
+          <li
+            className={`${isDocumentOpen ? "showMenu" : ""}`}
+            onClick={() => {
+              this.toggleSubMenu(1);
+            }}
+          >
+            <div
+              className={`iocn-link ${
+                this.checkPermissions(6) || this.checkPermissions(7)
+                  ? ""
+                  : "d-none"
+              }`}
+              style={!isSideBarOpen ? { height: "90px" } : { height: "50px" }}
+            >
               <a>
                 <i className="fa fa-file-alt"></i>
-                <span className="link_name">{!isSideBarOpen ? "Nuevo documento" : ""}</span>
+                <span className="link_name">
+                  {!isSideBarOpen ? "Nuevo documento" : ""}
+                </span>
               </a>
-              <i className="fa fa-chevron-down arrow" ></i>
+              <i className="fa fa-chevron-down arrow"></i>
             </div>
             <ul className="sub-menu">
               <li>
-                <a className="link_name">
-                  Nuevo documento
-                </a>
+                <a className="link_name">Nuevo documento</a>
               </li>
-              <li className={`${(this.checkPermissions(6) ? "" : "d-none")}`}>
+              <li className={`${this.checkPermissions(6) ? "" : "d-none"}`}>
                 <a>
                   <Link to="/announcement_form">Nueva convocatoria</Link>
                 </a>
               </li>
-              <li className={`${(this.checkPermissions(7) ? "" : "d-none")}`}>
+              <li className={`${this.checkPermissions(7) ? "" : "d-none"}`}>
                 <a>
                   <Link to="/petis_form">Nuevo pliego de especificacion</Link>
                 </a>
               </li>
             </ul>
           </li>
-          <li className={`${isWorkSpaceOpen ? "showMenu" : ""}`} onClick={() => {this.toggleSubMenu(2)}}>
-            <div className={`iocn-link ${(this.checkPermissions(5) || this.checkPermissions(8) ? "" : "d-none")}`} style={!isSideBarOpen ? {height: "90px"} : {height: "50px"}}>
+          <li
+            className={`${isWorkSpaceOpen ? "showMenu" : ""}`}
+            onClick={() => {
+              this.toggleSubMenu(2);
+            }}
+          >
+            <div
+              className={`iocn-link ${
+                this.checkPermissions(5) || this.checkPermissions(8)
+                  ? ""
+                  : "d-none"
+              }`}
+              style={!isSideBarOpen ? { height: "90px" } : { height: "50px" }}
+            >
               <a>
                 <i className="fas fa-chalkboard-teacher"></i>
-                <span className="link_name">{!isSideBarOpen ? "Espacio de trabajo" : ""}</span>
+                <span className="link_name">
+                  {!isSideBarOpen ? "Espacio de trabajo" : ""}
+                </span>
               </a>
-              <i className="fa fa-chevron-down arrow" ></i>
+              <i className="fa fa-chevron-down arrow"></i>
             </div>
             <ul className="sub-menu">
               <li>
-                <a className="link_name">
-                  Espacio de trabajo
+                <a className="link_name">Espacio de trabajo</a>
+              </li>
+              <li className={`${this.checkPermissions(5) ? "" : "d-none"}`}>
+                <a>
+                  <Link to="/my_announcements">Mis convocatorias</Link>
                 </a>
               </li>
-              <li className={`${(this.checkPermissions(5) ? "" : "d-none")}`}>
-                <a><Link to="/my_announcements">Mis convocatorias</Link></a>
-              </li>
-              <li className={`${(this.checkPermissions(8) ? "" : "d-none")}`}>
-                <a><Link to="/my_applications">Postulaciones</Link></a>
+              <li className={`${this.checkPermissions(8) ? "" : "d-none"}`}>
+                <a>
+                  <Link to="/my_applications">Postulaciones</Link>
+                </a>
               </li>
             </ul>
           </li>
-          <li className={`${(this.checkPermissions(4) ? "" : "d-none")}`}>
+          <li className={`${this.checkPermissions(4) ? "" : "d-none"}`}>
             <Link to="/inbox_postulation">
               <i className="fa fa-inbox"></i>
-              <span className="link_name">{!isSideBarOpen ? "Bandeja de entrada" : ""}</span>
+              <span className="link_name">
+                {!isSideBarOpen ? "Bandeja de entrada" : ""}
+              </span>
             </Link>
             <ul className="sub-menu blank">
               <li>
@@ -206,5 +270,3 @@ export default class SidebarComponent extends Component<Props, State> {
     );
   }
 }
-
-

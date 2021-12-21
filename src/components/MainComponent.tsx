@@ -52,8 +52,16 @@ export default class MainComponent extends Component<Props, State> {
           <Route exact path="/my_work_calendar" component={WorkCalendar} />
           <Route exact path="/petis_form" component={PetisForm} />
           <Route exact path="/my_applications" component={ApplicationsList} />
-          <Route exact path="/grade_application" component={() => <GradeApplication flag={1}/>}/>
-          <Route exact path="/grade_observations" component={() => <GradeApplication flag={0}/>}/>
+          <Route
+            exact
+            path="/grade_application"
+            component={() => <GradeApplication flag={1} />}
+          />
+          <Route
+            exact
+            path="/grade_observations"
+            component={() => <GradeApplication flag={0} />}
+          />
           <Route exact path="/addendum" component={Addendum} />
           <Route
             exact
@@ -72,13 +80,8 @@ export default class MainComponent extends Component<Props, State> {
           />
           <Route
             exact
-            path="/inbox_postulation/1"
-            component={() => <DocumentsPostulation companyId={1} />}
-          />
-          <Route
-            exact
-            path="/inbox_postulation/2"
-            component={() => <DocumentsPostulation companyId={2} />}
+            path="/inbox_postulation"
+            component={DocumentsPostulation}
           />
           <Redirect to="/announcements_list" />
         </Switch>

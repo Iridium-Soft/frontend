@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import "./WorkCalendar.css";
 import WorkCalendarDataService from "../../services/workCalendar.service";
 import WorkCalendarData from "../../types/workCalendar.type";
+import AuthService from "../../services/auth.service";
 
 import Snackbar from "@mui/material/Snackbar";
 import IconButton from "@mui/material/IconButton";
@@ -137,10 +138,13 @@ export default class WorkCalendar extends Component<Props, State> {
   sendWorkCalendar() {
     let mens: string = "Registro de calendario de trabajo exitoso";
     if (this.state.sum === 100) {
-      WorkCalendarDataService.create({
-        id: this.state.milestones.id,
-        hitos: this.state.milestones.hitos,
-      });
+      WorkCalendarDataService.create(
+        {
+          id: this.state.milestones.id,
+          hitos: this.state.milestones.hitos,
+        },
+        AuthService.getCurrentUser().id
+      );
     } else {
       mens = "Debe ingresar una cantidad de hitos que sume exactamente 100%";
     }

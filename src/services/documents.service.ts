@@ -22,8 +22,8 @@ class DocumentsDataService {
     return http.get(`/documento/convocatoria/${id}`);
   }
 
-  create(data: DocumentData) {
-    return http.post("/postulacion/documentos/6", data);
+  create(data: DocumentData, id: number) {
+    return http.post(`/postulacion/documentos/${id}`, data);
   }
 
   update(data: DocumentData, id: any) {
@@ -46,6 +46,5 @@ class DocumentsDataService {
     return http.get(`/documento/pliegoespecificacion/convocatoria/${id}`);
   }
 }
-
 
 export default new DocumentsDataService();

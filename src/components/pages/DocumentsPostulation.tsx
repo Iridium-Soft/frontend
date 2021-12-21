@@ -2,11 +2,10 @@ import React, { useEffect, useState } from "react";
 import { ModelPostulationDocsModal } from "../modals/ModelPostulationDocsModal";
 import InboxDocumentsDataService from "../../services/inboxDocuments.service";
 import InboxDocumentsData from "../../types/inboxDocuments.type";
+import AuthService from "../../services/auth.service";
 import "./AnnouncementsList.css";
 
-type Props = {
-  companyId: number;
-};
+type Props = {};
 
 export const DocumentsPostulation = (props: Props) => {
   const [documentsReceived, setDocumentsReceived] = useState(
@@ -24,7 +23,7 @@ export const DocumentsPostulation = (props: Props) => {
   });
 
   useEffect(() => {
-    InboxDocumentsDataService.getAll(props.companyId)
+    InboxDocumentsDataService.getAll(AuthService.getCurrentUser().id)
       .then((response) => {
         setDocumentsReceived(response.data);
       })

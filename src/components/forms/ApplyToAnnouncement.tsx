@@ -4,6 +4,7 @@ import AnnouncementData from "../../types/announcement.type";
 import Snackbar from "@mui/material/Snackbar";
 import IconButton from "@mui/material/IconButton";
 import ApplicationDataService from "../../services/applications.service";
+import AuthService from "../../services/auth.service";
 
 type Props = {};
 type State = {
@@ -51,7 +52,7 @@ export default class ApplyToAnnouncement extends Component<Props, State> {
   }
 
   retrieveAnnouncements() {
-    AnnouncementDataService.getAll()
+    AnnouncementDataService.get(AuthService.getCurrentUser().consultor_id)
       .then((response) => {
         this.setState({
           announcements: response.data,
