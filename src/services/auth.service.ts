@@ -19,19 +19,23 @@ class AuthService {
   }
 
   async logout() {
+    const user_id = this.getCurrentUser().user_id;
+    const token = localStorage.getItem("token");
     localStorage.clear();
-    window.location.assign("/");
     try {
       await http.post(
         "/auth/logout",
-        {},
         {
-          headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+          user_id: user_id,
+        },
+        {
+          headers: { Authorization: `Bearer ${token}` },
         }
       );
     } catch (err) {
       console.log(err);
     }
+    window.location.assign("/");
   }
 
   getCurrentUser() {
