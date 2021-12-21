@@ -16,76 +16,112 @@ import ProvisionContract from "./pages/ProvisionContract";
 import ReviewApplicationPage from "./pages/review_pages/ReviewApplicationPage";
 import ReviewObservationsPage from "./pages/review_pages/ReviewObservationsPage";
 import { DocumentsPostulation } from "./pages/DocumentsPostulation";
+import SidebarDataService from "../services/sidebar.service";
 
 type Props = {};
 
-type State = {};
+type State = {
+  permissions: Array<any>,
+};
 
 export default class MainComponent extends Component<Props, State> {
+  constructor(props: Props) {
+    super(props);
+
+    this.state = {
+      permissions: [],
+    }
+
+    this.retrievePermissions = this.retrievePermissions.bind(this);
+  }
+
+  retrievePermissions() {
+    const user_id = localStorage.getItem("token")
+        ? localStorage.getItem("id") + ""
+        : "1";
+    SidebarDataService.get(user_id)
+        .then((response) => {
+          this.setState({
+            permissions: response.data.permisos,
+          });
+        })
+        .catch((e) => {
+          console.log(e);
+        });
+  }
+
+  routesDictionary: any = {
+    1: <Route exact path="/documents" component={UploadDocumentsPage}/>,
+    2: <Route
+        exact
+        path="/apply_to_announcement"
+        component={ApplyToAnnouncement}
+    />,
+    3: <Route exact path="/my_work_calendar" component={WorkCalendar} />,
+    4: <Route
+        exact
+        path="/inbox_postulation"
+        component={DocumentsPostulation}
+    />,
+    5: <Route
+        exact
+        path="/my_announcements"
+        component={MyAnnouncementsList}
+    />,
+    6: <Route
+        exact
+        path="/announcement_form"
+        component={AnnouncementsForm}
+    />,
+    7: <Route exact path="/petis_form" component={PetisForm} />,
+    8: <Route exact path="/my_applications" component={ApplicationsList} />,
+    9: <Route
+        exact
+        path="/grade_application"
+        component={() => <GradeApplication flag={1} />}
+    />,
+    10: <Route
+        exact
+        path="/grade_observations"
+        component={() => <GradeApplication flag={0} />}
+    />,
+    11: <Route exact path="/addendum" component={Addendum} />,
+    12: <Route
+        exact
+        path="/provision_contract"
+        component={ProvisionContract}
+    />,
+    13: <Route
+        exact
+        path="/application_review"
+        component={ReviewApplicationPage}
+    />,
+    14: <Route
+        exact
+        path="/observations_review"
+        component={ReviewObservationsPage}
+    />
+  }
+
   render() {
+    const { permissions } = this.state;
     return (
       <>
         <HeaderComponent />
-        <SidebarComponent />
+        <SidebarComponent permissions={this.state.permissions}/>
         <Switch>
           <Route
             exact
             path="/announcements_list"
             component={AnnouncementsList}
           />
-          <Route exact path="/documents" component={UploadDocumentsPage} />
-          <Route
-            exact
-            path="/my_announcements"
-            component={MyAnnouncementsList}
-          />
-          <Route
-            exact
-            path="/announcement_form"
-            component={AnnouncementsForm}
-          />
-          <Route
-            exact
-            path="/apply_to_announcement"
-            component={ApplyToAnnouncement}
-          />
-          <Route exact path="/my_work_calendar" component={WorkCalendar} />
-          <Route exact path="/petis_form" component={PetisForm} />
-          <Route exact path="/my_applications" component={ApplicationsList} />
-          <Route
-            exact
-            path="/grade_application"
-            component={() => <GradeApplication flag={1} />}
-          />
-          <Route
-            exact
-            path="/grade_observations"
-            component={() => <GradeApplication flag={0} />}
-          />
-          <Route exact path="/addendum" component={Addendum} />
-          <Route
-            exact
-            path="/provision_contract"
-            component={ProvisionContract}
-          />
-          <Route
-            exact
-            path="/application_review"
-            component={ReviewApplicationPage}
-          />
-          <Route
-            exact
-            path="/observations_review"
-            component={ReviewObservationsPage}
-          />
-          <Route
-            exact
-            path="/inbox_postulation"
-            component={DocumentsPostulation}
-          />
+          {permissions && permissions.map((per) => {
+            return this.routesDictionary[per.id]
+          })}
           <Redirect to="/announcements_list" />
         </Switch>
       </>
     );
   }
 }
+

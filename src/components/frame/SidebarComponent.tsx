@@ -4,13 +4,14 @@ import { Link } from "react-router-dom";
 import SidebarDataService from "../../services/sidebar.service";
 import AuthService from "../../services/auth.service";
 
-type Props = {};
+type Props = {
+  permissions: Array<any>;
+};
 type State = {
   isSideBarOpen: boolean;
   isApplicationOpen: boolean;
   isDocumentOpen: boolean;
   isWorkSpaceOpen: boolean;
-  permissions: Array<any>;
 };
 
 export default class SidebarComponent extends Component<Props, State> {
@@ -21,35 +22,14 @@ export default class SidebarComponent extends Component<Props, State> {
       isApplicationOpen: false,
       isDocumentOpen: false,
       isWorkSpaceOpen: false,
-      permissions: [],
     };
     this.toggleSideBar = this.toggleSideBar.bind(this);
     this.toggleSubMenu = this.toggleSubMenu.bind(this);
-    this.retrievePermissions = this.retrievePermissions.bind(this);
     this.checkPermissions = this.checkPermissions.bind(this);
   }
 
-  componentDidMount() {
-    this.retrievePermissions();
-  }
-
-  retrievePermissions() {
-    const user_id = localStorage.getItem("token")
-      ? localStorage.getItem("id") + ""
-      : "1";
-    SidebarDataService.get(user_id)
-      .then((response) => {
-        this.setState({
-          permissions: response.data.permisos,
-        });
-      })
-      .catch((e) => {
-        console.log(e);
-      });
-  }
-
   checkPermissions(id: number) {
-    let per: any = this.state.permissions;
+    let per: any = this.props.permissions;
     let ans: boolean = false;
     per.map((p: any) => {
       if (p.id === id) {
