@@ -35,6 +35,10 @@ export default class MainComponent extends Component<Props, State> {
     this.retrievePermissions = this.retrievePermissions.bind(this);
   }
 
+  componentDidMount() {
+    this.retrievePermissions();
+  }
+
   retrievePermissions() {
     const user_id = localStorage.getItem("token")
         ? localStorage.getItem("id") + ""
