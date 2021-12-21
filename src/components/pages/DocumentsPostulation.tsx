@@ -21,11 +21,13 @@ export const DocumentsPostulation = (props: Props) => {
     },
     docRequeridos: [] as Array<{ id: any; nombre: string }>,
   });
-  
+  const [loading, setLoading] = useState(true);
+
   useEffect(() => {
     InboxDocumentsDataService.getAll(AuthService.getCurrentUser().id)
       .then((response) => {
         setDocumentsReceived(response.data);
+        setLoading(false);
       })
       .catch((error) => {
         console.log(error);
@@ -76,6 +78,32 @@ export const DocumentsPostulation = (props: Props) => {
               </button>
             </div>
           ))}
+        {documentsReceived?.documento.length === 0 && !loading &&
+        <div className="container">
+          <div
+              className="row align-items-center text-info"
+              style={{minHeight: "50vh"}}>
+            <div className="col-12">
+              <div>
+                <h1>¡Vaya!</h1>
+              </div>
+              <div>
+                <h5 className="text-secondary">Parece que no hay ningun elemento para mostrar</h5>
+              </div>
+            </div>
+          </div>
+        </div>}
+        {loading && <div className="container">
+          <div
+              className="row align-items-center text-info"
+              style={{minHeight: "60vh"}}>
+            <div className="col-2 offset-2">
+              <div className="spinner-border fs-1" style={{width: "4rem", height:"4rem"}} role="status">
+                <span className="visually-hidden">Loading...</span>
+              </div>
+            </div>
+          </div>
+        </div>}
       </div>
     </>
   );
