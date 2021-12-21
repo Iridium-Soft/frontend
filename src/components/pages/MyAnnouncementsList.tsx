@@ -56,7 +56,7 @@ export default class MyAnnouncementsList extends Component<Props, State> {
   }
 
   retrieveAnnouncements() {
-    AnnouncementDataService.getAll()
+    AnnouncementDataService.get(localStorage.getItem("id") + "")
       .then((response) => {
         this.setState({
           announcements: response.data,
@@ -108,9 +108,12 @@ export default class MyAnnouncementsList extends Component<Props, State> {
           modalId={modalIdPliego}
         />
         <div className="container p-3 position-relative">
-          <h2 className="row"> <div className="col-8">
-            <h3> Mis convocatorias</h3>
-          </div></h2>
+          <h2 className="row">
+            {" "}
+            <div className="col-8">
+              <h3> Mis convocatorias</h3>
+            </div>
+          </h2>
           {announcements &&
             announcements.map((announcement: AnnouncementData) => (
               <>
@@ -191,32 +194,43 @@ export default class MyAnnouncementsList extends Component<Props, State> {
                 </div>
               </>
             ))}
-          {announcements.length === 0 && !this.state.loading &&
-          <div className="container">
-            <div
+          {announcements.length === 0 && !this.state.loading && (
+            <div className="container">
+              <div
                 className="row align-items-center text-info"
-                style={{minHeight: "50vh"}}>
-              <div className="col-12">
-                <div>
-                  <h1>¡Vaya!</h1>
-                </div>
-                <div>
-                  <h5 className="text-secondary">Parece que no hay ningun elemento para mostrar</h5>
+                style={{ minHeight: "50vh" }}
+              >
+                <div className="col-12">
+                  <div>
+                    <h1>¡Vaya!</h1>
+                  </div>
+                  <div>
+                    <h5 className="text-secondary">
+                      Parece que no hay ningun elemento para mostrar
+                    </h5>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>}
-          {this.state.loading && <div className="container">
-            <div
+          )}
+          {this.state.loading && (
+            <div className="container">
+              <div
                 className="row align-items-center text-info"
-                style={{minHeight: "60vh"}}>
-              <div className="col-2 offset-2">
-                <div className="spinner-border fs-1" style={{width: "4rem", height:"4rem"}} role="status">
-                  <span className="visually-hidden">Loading...</span>
+                style={{ minHeight: "60vh" }}
+              >
+                <div className="col-2 offset-2">
+                  <div
+                    className="spinner-border fs-1"
+                    style={{ width: "4rem", height: "4rem" }}
+                    role="status"
+                  >
+                    <span className="visually-hidden">Loading...</span>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>}
+          )}
         </div>
       </>
     );

@@ -58,7 +58,7 @@ export default class HeaderComponent extends Component<Props, State> {
                 Iniciar sesión
               </button>
             ) : (
-              <div className="dropdown me-3">
+              <div className="dropdown me-5">
                 <button
                   className="btn border-white border-2 still-button"
                   type="button"

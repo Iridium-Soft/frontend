@@ -187,6 +187,12 @@ export default class AnnouncementsForm extends Component<Props, State> {
     });
   }
 
+  componentDidMount() {
+    this.setState({
+      id: localStorage.getItem("id") + "",
+    });
+  }
+
   render() {
     const closeSnackbar = (
       event: React.SyntheticEvent | React.MouseEvent,
