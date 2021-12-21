@@ -154,7 +154,7 @@ export default class ApplyToAnnouncement extends Component<Props, State> {
                     } else {
                       ApplicationDataService.createApply({
                         convocatoria_id: this.state.currentAnnouncement.id,
-                      });
+                      }, AuthService.getCurrentUser().id);
                       this.setState({
                         message:
                           "Usted GRUPOEMPRESA ha aplicado correctamente, puede proceder a llenar los documentos de la postulación.",

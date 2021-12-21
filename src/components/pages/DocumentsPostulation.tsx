@@ -21,7 +21,7 @@ export const DocumentsPostulation = (props: Props) => {
     },
     docRequeridos: [] as Array<{ id: any; nombre: string }>,
   });
-
+  
   useEffect(() => {
     InboxDocumentsDataService.getAll(AuthService.getCurrentUser().id)
       .then((response) => {

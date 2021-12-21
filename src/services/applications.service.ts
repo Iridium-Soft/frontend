@@ -19,8 +19,8 @@ class ApplicationsDataService {
     return http.post("/postulacion", data);
   }
 
-  createApply(data: any) {
-    return http.post("/postulacion", data);
+  createApply(data: any, id: string) {
+    return http.post(`/postulacion/${id}`, data);
   }
 
   update(data: ApplicationsData, id: any) {
