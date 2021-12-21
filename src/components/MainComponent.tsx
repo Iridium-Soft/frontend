@@ -130,14 +130,18 @@ export default class MainComponent extends Component<Props, State> {
                 return this.routesDictionary[per.id];
               }
             })}
-          {permissions && permissions.length === 0 && <>
-            <Route
-                exact
-                path="/announcements_list"
-                component={AnnouncementsList}
-            />
-            <Redirect to="/announcements_list" />
-          </>}
+          {permissions &&
+            permissions.length === 0 &&
+            !localStorage.getItem("token") && (
+              <>
+                <Route
+                  exact
+                  path="/announcements_list"
+                  component={AnnouncementsList}
+                />
+                <Redirect to="/announcements_list" />
+              </>
+            )}
         </Switch>
       </>
     );
