@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import AnnouncementDataService from "../../services/announcement.service";
 import Snackbar from "@mui/material/Snackbar";
 import IconButton from "@mui/material/IconButton";
+import AuthService from "../../services/auth.service";
 
 type FormElement = React.FormEvent<HTMLFormElement>;
 type ChangeElement = React.ChangeEvent<HTMLInputElement>;
@@ -190,6 +191,7 @@ export default class AnnouncementsForm extends Component<Props, State> {
   componentDidMount() {
     this.setState({
       id: localStorage.getItem("id") + "",
+      consultorEnc: AuthService.getCurrentUser().nombre,
     });
   }
 

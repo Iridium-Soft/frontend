@@ -59,7 +59,7 @@ export default class MyAnnouncementsList extends Component<Props, State> {
     AnnouncementDataService.get(localStorage.getItem("id") + "")
       .then((response) => {
         this.setState({
-          announcements: response.data,
+          announcements: response.data.convocatorias,
           loading: false,
         });
       })

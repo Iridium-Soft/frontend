@@ -54,10 +54,12 @@ export default class PetisForm extends Component<Props, State> {
   }
 
   retrieveAnnouncements() {
-    AnnouncementDataService.getAllSinPliego()
+    AnnouncementDataService.getAllSinPliego(
+      Number(localStorage.getItem("id") + "")
+    )
       .then((response) => {
         this.setState({
-          announcements: response.data,
+          announcements: response.data.convocatorias,
         });
         console.log(response.data);
       })

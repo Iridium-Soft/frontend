@@ -5,8 +5,8 @@ class AnnouncementDataService {
   getAll() {
     return http.get("/convocatoria");
   }
-  getAllSinPliego() {
-    return http.get("/convocatoria/sinpliego");
+  getAllSinPliego(id: number) {
+    return http.get(`/convocatoria/sinpliego/${id}`);
   }
 
   get(id: string) {

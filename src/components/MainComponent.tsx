@@ -112,16 +112,24 @@ export default class MainComponent extends Component<Props, State> {
         <HeaderComponent />
         <SidebarComponent permissions={permissions} />
         <Switch>
-          <Route
-            exact
-            path="/announcements_list"
-            component={AnnouncementsList}
-          />
           {permissions &&
-            permissions.map((per) => {
-              return this.routesDictionary[per.id];
+            permissions.map((per, index) => {
+              if (permissions.length - 1 === index) {
+                return (
+                  <>
+                    {this.routesDictionary[per.id]}
+                    <Route
+                      exact
+                      path="/announcements_list"
+                      component={AnnouncementsList}
+                    />
+                    <Redirect to="/announcements_list" />
+                  </>
+                );
+              } else {
+                return this.routesDictionary[per.id];
+              }
             })}
-          <Redirect to="/announcements_list" />
         </Switch>
       </>
     );
