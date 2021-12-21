@@ -4,12 +4,13 @@ import FormData from "form-data";
 class AuthService {
   async login(data: any) {
     try {
-      console.log(data);
+      // console.log(data);
       const res = await http.post("/auth/login", data);
-      console.log(res.data);
+      // console.log(res.data);
       if (res.data.token) {
         localStorage.setItem("token", res.data.token);
         localStorage.setItem("geData", JSON.stringify(res.data.nombreGE));
+        localStorage.setItem("id", res.data.id);
         return true;
       }
     } catch (err) {
@@ -19,7 +20,7 @@ class AuthService {
   }
 
   async logout() {
-    const user_id = this.getCurrentUser().user_id;
+    const user_id = localStorage.getItem("id");
     const token = localStorage.getItem("token");
     localStorage.clear();
     try {

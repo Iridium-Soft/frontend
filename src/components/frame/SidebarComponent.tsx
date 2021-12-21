@@ -35,7 +35,7 @@ export default class SidebarComponent extends Component<Props, State> {
 
   retrievePermissions() {
     const user_id = localStorage.getItem("token")
-      ? AuthService.getCurrentUser().user_id
+      ? localStorage.getItem("id") + ""
       : "1";
     SidebarDataService.get(user_id)
       .then((response) => {
