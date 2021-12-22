@@ -235,20 +235,20 @@ export default class UploadDocumentsPage extends Component<Props, State> {
             </div>
           </div>
           <div className="row mx-0 mb-2 mt-4">
-            <div className="row">
+            <div className="row fixed-bottom">
               <div className="col-2 offset-5"></div>
               <div
-                className="col-2 btn btn-danger text-white m-1"
-                data-bs-toggle="modal"
-                data-bs-target={`#asd`}
+                  className="col-2 btn btn-danger text-white mb-1"
+                  data-bs-toggle="modal"
+                  data-bs-target={`#asd`}
               >
                 Cancelar
               </div>
               <button
-                className="col-2 ms-5 btn btn-success m-1"
-                onClick={() =>
-                  this.checkFields() ? this.uploadDocuments() : null
-                }
+                  className="col-2 ms-5 btn btn-success m-1"
+                  onClick={() =>
+                      this.checkFields() ? this.uploadDocuments() : null
+                  }
               >
                 Enviar
               </button>
