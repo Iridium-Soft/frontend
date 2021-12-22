@@ -52,8 +52,8 @@ export const PostModal = (props: Props) => {
       buttonTextHide: "Ocultar orden de cambio",
       functionGet: async () => {
         const docBase64 = await ChangeOrderDataService.getOrderDownload(
-          //props.currentApplication.orden_cambio
-          "PanIntegral.pdf"
+          props.currentApplication.orden_cambio
+          // "PanIntegral.pdf"
         );
         setCurrentDocument(docBase64.data);
       },
@@ -71,8 +71,8 @@ export const PostModal = (props: Props) => {
       functionGet: async () => {
         const docBase64 =
           await ConformityNotificationDataService.getNotifyDownload(
-            //props.currentApplication.notificacion_conformidad
-            "PanIntegral.pdf"
+            props.currentApplication.notificacion_conformidad
+            // "PanIntegral.pdf"
           );
         setCurrentDocument(docBase64.data);
       },
@@ -90,8 +90,8 @@ export const PostModal = (props: Props) => {
       buttonTextHide: "Ocultar adenda",
       functionGet: async () => {
         const docBase64 = await AddendumDataService.getAddendumDownload(
-          //props.currentApplication.adenda
-          "PanIntegral.pdf"
+          props.currentApplication.adenda
+          // "PanIntegral.pdf"
         );
         setCurrentDocument(docBase64.data);
       },
@@ -108,8 +108,8 @@ export const PostModal = (props: Props) => {
       buttonTextHide: "Ocultar contrato",
       functionGet: async () => {
         const docBase64 = await ContractDataService.getContractDownload(
-          //props.currentApplication.contrato
-          "PanIntegral.pdf"
+          props.currentApplication.contrato
+          // "PanIntegral.pdf"
         );
         setCurrentDocument(docBase64.data);
       },
