@@ -149,6 +149,9 @@ export default class WorkCalendar extends Component<Props, State> {
       mens = "Debe ingresar una cantidad de hitos que sume exactamente 100%";
     }
     this.setState({ message: mens, open: true });
+    setTimeout(() => {
+      window.location.reload();
+    }, 3000);
   }
 
   render() {

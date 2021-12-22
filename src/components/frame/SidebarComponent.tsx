@@ -135,7 +135,7 @@ export default class SidebarComponent extends Component<Props, State> {
                   </Link>
                 </a>
               </li>
-              <li className={`${this.checkPermissions(1) ? "" : "d-none"}`}>
+              <li className={`${this.checkPermissions(3) ? "" : "d-none"}`}>
                 <a>
                   <Link
                     to="/my_work_calendar"
@@ -145,7 +145,7 @@ export default class SidebarComponent extends Component<Props, State> {
                   </Link>
                 </a>
               </li>
-              <li className={`${this.checkPermissions(3) ? "" : "d-none"}`}>
+              <li className={`${this.checkPermissions(1) ? "" : "d-none"}`}>
                 <a>
                   <Link to="/documents" style={{ textDecoration: "none" }}>
                     Registrar documentos
