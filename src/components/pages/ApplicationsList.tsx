@@ -64,16 +64,186 @@ export default class AnnouncementsList extends Component<Props, State> {
   }
 
   retrieveApplications() {
-    ApplicationsDataService.get(AuthService.getCurrentUser().id)
-      .then((response) => {
-        this.setState({
-          applications: response.data,
-          loading: false,
-        });
-      })
-      .catch((e) => {
-        console.log(e);
-      });
+    // ApplicationsDataService.get(AuthService.getCurrentUser().id)
+    //   .then((response) => {
+    //     this.setState({
+    //       applications: response.data,
+    //       loading: false,
+    //     });
+    //   })
+    //   .catch((e) => {
+    //     console.log(e);
+    //   });
+      this.setState({
+          applications: [
+              {
+                  nombreGrupoEmpresa: "Iridium",
+                  idGrupoEmpresa: 2,
+                  idConvocatoria: 2,
+                  idPostulacion: 2,
+                  codigoConvocatoria: "2020convo-2",
+                  tituloConvocatoria: "Convocatoria primera",
+                  estado: 1,
+                  nombreEstado: "En espera de documentos",
+                  adenda: "dags168egav6srdga.pdf",
+                  orden_cambio:"dags168egav6srdga.pdf",
+                  notificacion_conformidad: "dags168egav6srdga.pdf",
+                    contrato:"dags168egav6srdga.pdf",
+                  fechaRegistro: "fdfad",
+                },
+              {
+                  nombreGrupoEmpresa: "Iridium",
+                  idGrupoEmpresa: 3,
+                  idConvocatoria: 3,
+                  idPostulacion: 3,
+                  codigoConvocatoria: "2020convo-2",
+                  tituloConvocatoria: "Convocatoria primera",
+                  estado: 2,
+                  nombreEstado: "En espera de documentos",
+                  adenda: "dags168egav6srdga.pdf",
+                  orden_cambio:"dags168egav6srdga.pdf",
+                  notificacion_conformidad: "dags168egav6srdga.pdf",
+                  contrato:"dags168egav6srdga.pdf",
+                  fechaRegistro: "fdfad",
+              },
+              {
+                  nombreGrupoEmpresa: "Iridium",
+                  idGrupoEmpresa: 4,
+                  idConvocatoria: 4,
+                  idPostulacion: 4,
+                  codigoConvocatoria: "2020convo-2",
+                  tituloConvocatoria: "Convocatoria primera",
+                  estado: 3,
+                  nombreEstado: "En espera de documentos",
+                  adenda: "dags168egav6srdga.pdf",
+                  orden_cambio:"dags168egav6srdga.pdf",
+                  notificacion_conformidad: "dags168egav6srdga.pdf",
+                  contrato:"dags168egav6srdga.pdf",
+                  fechaRegistro: "fdfad",
+              },
+              {
+                  nombreGrupoEmpresa: "Iridium",
+                  idGrupoEmpresa:5,
+                  idConvocatoria: 5,
+                  idPostulacion: 5,
+                  codigoConvocatoria: "2020convo-2",
+                  tituloConvocatoria: "Convocatoria primera",
+                  estado: 4,
+                  nombreEstado: "En espera de documentos",
+                  adenda: "dags168egav6srdga.pdf",
+                  orden_cambio:"dags168egav6srdga.pdf",
+                  notificacion_conformidad: "dags168egav6srdga.pdf",
+                  contrato:"dags168egav6srdga.pdf",
+                  fechaRegistro: "fdfad",
+              },
+              {
+                  nombreGrupoEmpresa: "Iridium",
+                  idGrupoEmpresa: 6,
+                  idConvocatoria: 6,
+                  idPostulacion: 6,
+                  codigoConvocatoria: "2020convo-2",
+                  tituloConvocatoria: "Convocatoria primera",
+                  estado: 5,
+                  nombreEstado: "En espera de documentos",
+                  adenda: "dags168egav6srdga.pdf",
+                  orden_cambio:"dags168egav6srdga.pdf",
+                  notificacion_conformidad: "dags168egav6srdga.pdf",
+                  contrato:"dags168egav6srdga.pdf",
+                  fechaRegistro: "fdfad",
+              },
+              {
+                  nombreGrupoEmpresa: "Iridium",
+                  idGrupoEmpresa: 7,
+                  idConvocatoria: 7,
+                  idPostulacion: 7,
+                  codigoConvocatoria: "2020convo-2",
+                  tituloConvocatoria: "Convocatoria primera",
+                  estado: 6,
+                  nombreEstado: "En espera de documentos",
+                  adenda: "dags168egav6srdga.pdf",
+                  orden_cambio:"dags168egav6srdga.pdf",
+                  notificacion_conformidad: "dags168egav6srdga.pdf",
+                  contrato:"dags168egav6srdga.pdf",
+                  fechaRegistro: "fdfad",
+              },
+              {
+                  nombreGrupoEmpresa: "Iridium",
+                  idGrupoEmpresa: 8,
+                  idConvocatoria: 8,
+                  idPostulacion: 8,
+                  codigoConvocatoria: "2020convo-2",
+                  tituloConvocatoria: "Convocatoria primera",
+                  estado: 7,
+                  nombreEstado: "En espera de documentos",
+                  adenda: "dags168egav6srdga.pdf",
+                  orden_cambio:"dags168egav6srdga.pdf",
+                  notificacion_conformidad: "dags168egav6srdga.pdf",
+                  contrato:"dags168egav6srdga.pdf",
+                  fechaRegistro: "fdfad",
+              },
+              {
+                  nombreGrupoEmpresa: "Iridium",
+                  idGrupoEmpresa: 9,
+                  idConvocatoria: 9,
+                  idPostulacion: 9,
+                  codigoConvocatoria: "2020convo-2",
+                  tituloConvocatoria: "Convocatoria primera",
+                  estado: 8,
+                  nombreEstado: "En espera de documentos",
+                  adenda: "dags168egav6srdga.pdf",
+                  orden_cambio:"dags168egav6srdga.pdf",
+                  notificacion_conformidad: "dags168egav6srdga.pdf",
+                  contrato:"dags168egav6srdga.pdf",
+                  fechaRegistro: "fdfad",
+              },
+              {
+                  nombreGrupoEmpresa: "Iridium",
+                  idGrupoEmpresa: 10,
+                  idConvocatoria: 10,
+                  idPostulacion: 10,
+                  codigoConvocatoria: "2020convo-2",
+                  tituloConvocatoria: "Convocatoria primera",
+                  estado: 9,
+                  nombreEstado: "En espera de documentos",
+                  adenda: "dags168egav6srdga.pdf",
+                  orden_cambio:"dags168egav6srdga.pdf",
+                  notificacion_conformidad: "dags168egav6srdga.pdf",
+                  contrato:"dags168egav6srdga.pdf",
+                  fechaRegistro: "fdfad",
+              },
+              {
+                  nombreGrupoEmpresa: "Iridium",
+                  idGrupoEmpresa: 11,
+                  idConvocatoria: 11,
+                  idPostulacion: 11,
+                  codigoConvocatoria: "2020convo-2",
+                  tituloConvocatoria: "Convocatoria primera",
+                  estado: 10,
+                  nombreEstado: "En espera de documentos",
+                  adenda: "dags168egav6srdga.pdf",
+                  orden_cambio:"dags168egav6srdga.pdf",
+                  notificacion_conformidad: "dags168egav6srdga.pdf",
+                  contrato:"dags168egav6srdga.pdf",
+                  fechaRegistro: "fdfad",
+              },
+              {
+                  nombreGrupoEmpresa: "Iridium",
+                  idGrupoEmpresa: 111,
+                  idConvocatoria: 111,
+                  idPostulacion: 111,
+                  codigoConvocatoria: "2020convo-2",
+                  tituloConvocatoria: "Convocatoria primera",
+                  estado: 11,
+                  nombreEstado: "En espera de documentos",
+                  adenda: "dags168egav6srdga.pdf",
+                  orden_cambio:"dags168egav6srdga.pdf",
+                  notificacion_conformidad: "dags168egav6srdga.pdf",
+                  contrato:"dags168egav6srdga.pdf",
+                  fechaRegistro: "fdfad",
+              }
+
+  ]
+  })
   }
 
   refreshList() {
