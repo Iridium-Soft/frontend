@@ -26,7 +26,8 @@ class ChangeOrderDataService {
   }
 
   getOrderDownload(fileId: any) {
-    return http.get(`/documento/ordencambio/${fileId}`);
+    // return http.get(`/documento/ordencambio/${fileId}`);
+    return http.get(`/documento/convocatoria/${fileId}`);
   }
 
   getOrderName(id: any) {

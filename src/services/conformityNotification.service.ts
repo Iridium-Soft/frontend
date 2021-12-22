@@ -6,7 +6,8 @@ class ConformityNotificationDataService {
   }
 
   getNotifyDownload(fileId: any) {
-    return http.get(`/documento/notificacion/${fileId}`);
+    // return http.get(`/documento/notificacion/${fileId}`);
+    return http.get(`/documento/convocatoria/${fileId}`);
   }
 
   getNotifyName(id: any) {
