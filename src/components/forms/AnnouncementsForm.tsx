@@ -190,7 +190,7 @@ export default class AnnouncementsForm extends Component<Props, State> {
 
   componentDidMount() {
     this.setState({
-      id: localStorage.getItem("id") + "",
+      id: AuthService.getCurrentUser().id,
       consultorEnc: AuthService.getCurrentUser().nombre,
     });
   }

@@ -7,6 +7,7 @@ import { PostModal } from "../modals/PostModal";
 import { Tooltip } from "@mui/material";
 import "./ApplicationsList.css";
 import "./AnnouncementsList.css";
+import AuthService from "../../services/auth.service";
 
 type Props = {};
 
@@ -38,7 +39,7 @@ export default class AnnouncementsList extends Component<Props, State> {
     };
 
     this.state = {
-        applications: [],
+      applications: [],
       //applications: [] as ApplicationsData[],
       currentApplication: defaultValuesCurrentApplication,
       typeDoc: "",
@@ -63,18 +64,16 @@ export default class AnnouncementsList extends Component<Props, State> {
   }
 
   retrieveApplications() {
-    ApplicationsDataService.get(1).then(
-        (response) => {
-          this.setState(
-              {
-                applications: response.data,
-                loading: false,
-              }
-          )
-        }
-    ).catch((e) => {
-      console.log(e);
-    })
+    ApplicationsDataService.get(AuthService.getCurrentUser().id)
+      .then((response) => {
+        this.setState({
+          applications: response.data,
+          loading: false,
+        });
+      })
+      .catch((e) => {
+        console.log(e);
+      });
   }
 
   refreshList() {
@@ -99,7 +98,9 @@ export default class AnnouncementsList extends Component<Props, State> {
           aria-labelledby={`dropdown${idGrupoEmpresa}`}
         >
           <li>
-            <Link to="/application_review" style={{ textDecoration: 'none' }}><a className="dropdown-item">Revisar documentos</a></Link>
+            <Link to="/application_review" style={{ textDecoration: "none" }}>
+              <a className="dropdown-item">Revisar documentos</a>
+            </Link>
           </li>
         </ul>
       </>
@@ -123,7 +124,9 @@ export default class AnnouncementsList extends Component<Props, State> {
           aria-labelledby={`dropdown${idGrupoEmpresa}`}
         >
           <li>
-              <Link to="/grade_application" style={{ textDecoration: 'none' }}><a className="dropdown-item">Calificar documentos</a></Link>
+            <Link to="/grade_application" style={{ textDecoration: "none" }}>
+              <a className="dropdown-item">Calificar documentos</a>
+            </Link>
           </li>
         </ul>
       </>
@@ -227,7 +230,9 @@ export default class AnnouncementsList extends Component<Props, State> {
           aria-labelledby={`dropdown${idGrupoEmpresa}`}
         >
           <li>
-              <Link to="/grade_observations" style={{ textDecoration: 'none' }}><a className="dropdown-item">Calificar documentos</a></Link>
+            <Link to="/grade_observations" style={{ textDecoration: "none" }}>
+              <a className="dropdown-item">Calificar documentos</a>
+            </Link>
           </li>
         </ul>
       </>
@@ -291,7 +296,9 @@ export default class AnnouncementsList extends Component<Props, State> {
           aria-labelledby={`dropdown${idGrupoEmpresa}`}
         >
           <li>
-              <Link to="/observations_review" style={{ textDecoration: 'none' }}><a className="dropdown-item">Revisar documentacion corregida</a></Link>
+            <Link to="/observations_review" style={{ textDecoration: "none" }}>
+              <a className="dropdown-item">Revisar documentacion corregida</a>
+            </Link>
           </li>
         </ul>
       </>
@@ -490,17 +497,24 @@ export default class AnnouncementsList extends Component<Props, State> {
               </div>
             </div>
           )}
-            {this.state.loading && <div className="container">
-                <div
-                    className="row align-items-center text-info"
-                    style={{minHeight: "60vh"}}>
-                    <div className="col-2 offset-2">
-                        <div className="spinner-border fs-1" style={{width: "4rem", height:"4rem"}} role="status">
-                            <span className="visually-hidden">Loading...</span>
-                        </div>
-                    </div>
+          {this.state.loading && (
+            <div className="container">
+              <div
+                className="row align-items-center text-info"
+                style={{ minHeight: "60vh" }}
+              >
+                <div className="col-2 offset-2">
+                  <div
+                    className="spinner-border fs-1"
+                    style={{ width: "4rem", height: "4rem" }}
+                    role="status"
+                  >
+                    <span className="visually-hidden">Loading...</span>
+                  </div>
                 </div>
-            </div>}
+              </div>
+            </div>
+          )}
         </div>
       </>
     );
