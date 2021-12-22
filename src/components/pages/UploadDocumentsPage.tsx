@@ -77,6 +77,10 @@ export default class UploadDocumentsPage extends Component<Props, State> {
     };
     console.log(variable);
     DocumentsDataService.create(variable, AuthService.getCurrentUser().id);
+
+    setTimeout(() => {
+      window.location.reload();
+    }, 3000);
   }
 
   handlePartA = (childData: string) => {

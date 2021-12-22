@@ -55,7 +55,7 @@ export default class ApplyToAnnouncement extends Component<Props, State> {
     AnnouncementDataService.get(AuthService.getCurrentUser().consultor_id)
       .then((response) => {
         this.setState({
-          announcements: response.data,
+          announcements: response.data.convocatorias,
         });
         console.log(response.data);
       })
@@ -152,14 +152,20 @@ export default class ApplyToAnnouncement extends Component<Props, State> {
                         open: true,
                       });
                     } else {
-                      ApplicationDataService.createApply({
-                        convocatoria_id: this.state.currentAnnouncement.id,
-                      }, AuthService.getCurrentUser().id);
+                      ApplicationDataService.createApply(
+                        {
+                          convocatoria_id: this.state.currentAnnouncement.id,
+                        },
+                        AuthService.getCurrentUser().id
+                      );
                       this.setState({
                         message:
                           "Usted GRUPOEMPRESA ha aplicado correctamente, puede proceder a llenar los documentos de la postulación.",
                         open: true,
                       });
+                      setTimeout(() => {
+                        window.location.reload();
+                      }, 3000);
                     }
                   }}
                 >
