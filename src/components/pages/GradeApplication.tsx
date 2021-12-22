@@ -94,7 +94,7 @@ export default class GradeApplication extends Component<Props, State> {
 
     retrieveChangeOrderData() {
         if(this.props.flag === 0) {
-            ChangeOrderDataService.get("1")
+            ChangeOrderDataService.get(localStorage.getItem("idPostulacionCalificacion") + "")
                 .then((response) => {
                     this.setState({
                         companyGroup: response.data.grupoEmpresa,
@@ -110,7 +110,7 @@ export default class GradeApplication extends Component<Props, State> {
                     console.log(e);
                 });
         } else {
-            ComplianceNotificationDataService.getInfo("1")
+            ComplianceNotificationDataService.getInfo(localStorage.getItem("idPostulacionCalificacion") + "")
                 .then((response) => {
                     this.setState({
                         companyGroup: response.data.grupoEmpresa,

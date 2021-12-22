@@ -107,7 +107,7 @@ export default class AnnouncementsList extends Component<Props, State> {
     );
   }
 
-  renderStateThreeOptions(idGrupoEmpresa: number) {
+  renderStateThreeOptions(idGrupoEmpresa: number, idPostulacion: number) {
     return (
       <>
         <a
@@ -125,7 +125,9 @@ export default class AnnouncementsList extends Component<Props, State> {
         >
           <li>
             <Link to="/grade_application" style={{ textDecoration: "none" }}>
-              <a className="dropdown-item">Calificar documentos</a>
+              <button className="dropdown-item"
+                      onClick={() => {localStorage.setItem("idPostulacionCalificacion", idPostulacion + "");}}
+              >Calificar documentos</button>
             </Link>
           </li>
         </ul>
@@ -213,7 +215,7 @@ export default class AnnouncementsList extends Component<Props, State> {
     );
   }
 
-  renderStateSixOptions(idGrupoEmpresa: number) {
+  renderStateSixOptions(idGrupoEmpresa: number, idPostulacion: number) {
     return (
       <>
         <a
@@ -231,7 +233,9 @@ export default class AnnouncementsList extends Component<Props, State> {
         >
           <li>
             <Link to="/grade_observations" style={{ textDecoration: "none" }}>
-              <a className="dropdown-item">Calificar documentos</a>
+              <button className="dropdown-item"
+                onClick={() => {localStorage.setItem("idPostulacionCalificacion", idPostulacion + "");}}
+              >Calificar documentos</button>
             </Link>
           </li>
         </ul>
@@ -443,7 +447,8 @@ export default class AnnouncementsList extends Component<Props, State> {
                     this.renderStateTwoOptions(application.idGrupoEmpresa)) ||
                     (application.estado === 3 &&
                       this.renderStateThreeOptions(
-                        application.idGrupoEmpresa
+                        application.idGrupoEmpresa,
+                          application.idPostulacion,
                       )) ||
                     (application.estado === 4 &&
                       this.renderStateFourOptions(
@@ -458,7 +463,7 @@ export default class AnnouncementsList extends Component<Props, State> {
                         index
                       )) ||
                     (application.estado === 6 &&
-                      this.renderStateSixOptions(application.idGrupoEmpresa)) ||
+                      this.renderStateSixOptions(application.idGrupoEmpresa, application.idPostulacion)) ||
                     (application.estado === 7 &&
                       this.renderStateSevenOptions(
                         application,
