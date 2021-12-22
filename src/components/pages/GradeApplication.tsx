@@ -59,13 +59,15 @@ export default class GradeApplication extends Component<Props, State> {
             open: false,
         }
 
-        let arreglito: any = this.state.observations;
-        arreglito.pop();
-        this.setState(
-            {
-                observations: arreglito,
-            }
-        )
+        if(this.props.flag === 0) {
+            let arreglito: any = this.state.observations;
+            arreglito.pop();
+            this.setState(
+                {
+                    observations: arreglito,
+                }
+            )
+        }
 
         this.retrieveChangeOrderData = this.retrieveChangeOrderData.bind(this);
 
