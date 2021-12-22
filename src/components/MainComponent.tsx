@@ -123,7 +123,7 @@ export default class MainComponent extends Component<Props, State> {
                       path="/announcements_list"
                       component={AnnouncementsList}
                     />
-                    <Redirect to="/announcements_list" />
+                    {/*<Redirect to="/announcements_list" />*/}
                   </>
                 );
               } else {
