@@ -64,7 +64,6 @@ export default class GradeApplicationCompliance extends Component<Props, State> 
         this.handleChangeOrderCode = this.handleChangeOrderCode.bind(this);
         this.handleDateOfIssue = this.handleDateOfIssue.bind(this);
 
-        this.deleteObservation = this.deleteObservation.bind(this);
         this.handleSection = this.handleSection.bind(this);
         this.handleDescription = this.handleDescription.bind(this);
 
