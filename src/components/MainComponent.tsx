@@ -17,6 +17,8 @@ import ReviewApplicationPage from "./pages/review_pages/ReviewApplicationPage";
 import ReviewObservationsPage from "./pages/review_pages/ReviewObservationsPage";
 import { DocumentsPostulation } from "./pages/DocumentsPostulation";
 import SidebarDataService from "../services/sidebar.service";
+import GradeApplicationChangeOrder from "./pages/GradeApplicationChangeOrder";
+import GradeApplicationCompliance from "./pages/GradeApplicationCompliance";
 
 type Props = {};
 
@@ -75,14 +77,14 @@ export default class MainComponent extends Component<Props, State> {
       <Route
         exact
         path="/grade_application"
-        component={() => <GradeApplication flag={1} />}
+        component={GradeApplicationChangeOrder}
       />
     ),
     10: (
       <Route
         exact
         path="/grade_observations"
-        component={() => <GradeApplication flag={0} />}
+        component={GradeApplicationCompliance}
       />
     ),
     11: <Route exact path="/addendum" component={Addendum} />,
