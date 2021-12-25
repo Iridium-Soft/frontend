@@ -244,7 +244,7 @@ export default class GradeApplicationCompliance extends Component<Props, State> 
 
     checkScores() {
         for(let i = 0; i < this.state.refScores?.length; i++) {
-            if(this.state.scoresObtained[i].puntuacion > this.state.refScores[i]?.puntajeReferencial || !this.state.scoresObtained[i].puntuacion || this.state.scoresObtained[i].puntuacion < 0) {
+            if(this.state.scoresObtained[i].puntuacion > this.state.refScores[i]?.puntaje || !this.state.scoresObtained[i].puntuacion || this.state.scoresObtained[i].puntuacion < 0) {
                 this.setState({
                     scoresMessage: "Tabla de puntajes: Alguno de los puntajes es incorrecto"
                 })
