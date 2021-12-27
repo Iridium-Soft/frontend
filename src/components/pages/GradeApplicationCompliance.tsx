@@ -232,7 +232,7 @@ export default class GradeApplicationCompliance extends Component<Props, State> 
             evaluacion: this.state.scoresObtained,
         };
 
-            ChangeOrderDataService.createComplianceNotification(elem, "1")
+            ChangeOrderDataService.createComplianceNotification(elem, localStorage.getItem("idPostulacionCalificacion") + "")
                 .then(() => {
 
                 })

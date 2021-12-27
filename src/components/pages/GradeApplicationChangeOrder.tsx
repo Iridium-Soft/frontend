@@ -249,7 +249,7 @@ export default class GradeApplicationChangeOrder extends Component<Props, State>
             evaluacion: this.state.scoresObtained,
         };
 
-            ChangeOrderDataService.createChangeOrder(elem, "1")
+            ChangeOrderDataService.createChangeOrder(elem, localStorage.getItem("idPostulacionCalificacion") + "")
                 .then(() => {
 
                 })
