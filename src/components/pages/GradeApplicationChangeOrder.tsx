@@ -245,7 +245,7 @@ export default class GradeApplicationChangeOrder extends Component<Props, State>
         const elem: any = {
             fecha_entrega: this.state.dateOfIssue,
             lugar_entrega: this.state.correctionPlace,
-            fecha_emision: this.state.correctionTime,
+            fecha_emision: this.state.correctionDeadline,
             evaluacion: this.state.scoresObtained,
         };
 
