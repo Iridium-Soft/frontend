@@ -2,7 +2,7 @@ import { Component } from "react";
 import AnnouncementDataService from "../../services/announcement.service";
 import "./AnnouncementsList.css";
 import AnnouncementData from "../../types/announcement.type";
-import PostAnnouncement from "../modals/PostAnnouncement";
+import AuthService from "../../services/auth.service";
 import PostSimpleAnnouncement from "../modals/PostSimpleAnnouncement";
 import PostSpecificationsTIS from "../modals/PostSpecificationsTIS";
 import PetisData from "../../types/petis.type";
@@ -56,7 +56,7 @@ export default class MyAnnouncementsList extends Component<Props, State> {
   }
 
   retrieveAnnouncements() {
-    AnnouncementDataService.get(localStorage.getItem("id") + "")
+    AnnouncementDataService.get(AuthService.getCurrentUser().id)
       .then((response) => {
         this.setState({
           announcements: response.data.convocatorias,

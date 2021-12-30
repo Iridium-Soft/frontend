@@ -160,9 +160,9 @@ export default class AnnouncementsForm extends Component<Props, State> {
       return;
     }
     AnnouncementDataService.create({
-      id: this.state.id,
+      id: AuthService.getCurrentUser().id,
       titulo: this.state.titulo,
-      consultorEnc: this.state.consultorEnc,
+      consultorEnc: AuthService.getCurrentUser().nombre,
       codigo: this.state.codigo,
       descripcion: this.state.descripcion,
       fechaLimRec: this.state.fechaLimRec,
