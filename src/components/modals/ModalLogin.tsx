@@ -62,7 +62,9 @@ export const ModalLogin = (props: Props) => {
               className="bg-dark btn text-white"
               data-bs-dismiss="modal"
               aria-label="Close"
-            ><i className="fa fa-times fs-4"></i></button>
+            >
+              <i className="fa fa-times fs-4"></i>
+            </button>
           </div>
           <div className="modal-body">
             <Formik
@@ -107,9 +109,7 @@ export const ModalLogin = (props: Props) => {
                 <div className="form-group row justify-content-center mb-3">
                   {!userNameValid && (
                     <div className="col-auto text-danger">
-                      El nombre de usuario que ingresaste no pertenece a ninguna
-                      cuenta. Comprueba el nombre de usuario y vuelve a
-                      interntarlo
+                      Nombre de usuario o contraseña incorrectos
                     </div>
                   )}
                 </div>
