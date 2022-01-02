@@ -31,8 +31,8 @@ export const ModalRegister = (props: Props) => {
       nombre: values.nameGE,
       consultor_id: Number(values.currentConsultant),
     };
-    AuthService.registerGE(newGE);
-    alert("Usuario registrado correctamente");
+    const dataReg = await AuthService.registerGE(newGE);
+    alert(dataReg.data.message);
     window.location.reload();
   };
 
