@@ -2,6 +2,7 @@ import { Component } from "react";
 import { Link } from "react-router-dom";
 import AuthService from "../../services/auth.service";
 import { ModalLogin } from "../modals/ModalLogin";
+import { ModalRegister } from "../modals/ModalRegister";
 import "./HeaderComponent.css";
 
 type Props = {};
@@ -35,11 +36,13 @@ export default class HeaderComponent extends Component<Props, State> {
   }
 
   render() {
-    const modalId = "login-modal";
+    const modalLoginId = "login-modal";
+    const modalRegisterId = "register-modal";
 
     return (
       <>
-        <ModalLogin modalId={modalId} />
+        <ModalLogin modalId={modalLoginId} />
+        <ModalRegister modalId={modalRegisterId} />
         <nav className="navbar bg-black navbar-expand-lg fixed-top">
           <div className="container-fluid align-middle">
             <Link
@@ -49,14 +52,24 @@ export default class HeaderComponent extends Component<Props, State> {
               <strong>S A E T I S</strong>
             </Link>
             {!localStorage.getItem("token") ? (
-              <button
-                type="button"
-                className="btn border-white border-2 login-button"
-                data-bs-toggle="modal"
-                data-bs-target={`#${modalId}`}
-              >
-                Iniciar sesión
-              </button>
+              <div>
+                <button
+                  type="button"
+                  className="btn border-white border-2 login-button me-3"
+                  data-bs-toggle="modal"
+                  data-bs-target={`#${modalRegisterId}`}
+                >
+                  Registrarse
+                </button>
+                <button
+                  type="button"
+                  className="btn border-white border-2 login-button"
+                  data-bs-toggle="modal"
+                  data-bs-target={`#${modalLoginId}`}
+                >
+                  Iniciar sesión
+                </button>
+              </div>
             ) : (
               <div className="dropdown me-5">
                 <button

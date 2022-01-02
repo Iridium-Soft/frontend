@@ -39,6 +39,10 @@ class AuthService {
     window.location.assign("/");
   }
 
+  registerGE(data: any) {
+    return http.post("/auth/register", data);
+  }
+
   getCurrentUser() {
     if (!localStorage.getItem("token")) {
       return null;
