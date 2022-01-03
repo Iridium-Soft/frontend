@@ -261,7 +261,7 @@ export default class ReviewApplicationPage extends Component<Props, State> {
                           this.state.observaciones.length === 0 ? 0 : 1,
                       }
                     );
-                    //window.location.reload();
+                    window.location.reload();
                   }}
                 >
                   Continuar

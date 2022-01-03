@@ -77,14 +77,14 @@ export default class MainComponent extends Component<Props, State> {
       <Route
         exact
         path="/grade_application"
-        component={GradeApplicationChangeOrder}
+        component={GradeApplicationCompliance}
       />
     ),
     10: (
       <Route
         exact
         path="/grade_observations"
-        component={GradeApplicationCompliance}
+        component={GradeApplicationChangeOrder}
       />
     ),
     11: <Route exact path="/addendum" component={Addendum} />,
