@@ -81,7 +81,7 @@ export default class AnnouncementsList extends Component<Props, State> {
     this.setState({});
   }
 
-  renderStateTwoOptions(idGrupoEmpresa: number) {
+  renderStateTwoOptions(idGrupoEmpresa: number, idPostulacion: number) {
     return (
       <>
         <a
@@ -99,7 +99,14 @@ export default class AnnouncementsList extends Component<Props, State> {
         >
           <li>
             <Link to="/application_review" style={{ textDecoration: "none" }}>
-              <a className="dropdown-item">Revisar documentos</a>
+              <a
+                className="dropdown-item"
+                onClick={() => {
+                  localStorage.setItem("idPostulacion", idPostulacion + "");
+                }}
+              >
+                Revisar documentos
+              </a>
             </Link>
           </li>
         </ul>
@@ -125,9 +132,17 @@ export default class AnnouncementsList extends Component<Props, State> {
         >
           <li>
             <Link to="/grade_application" style={{ textDecoration: "none" }}>
-              <button className="dropdown-item"
-                      onClick={() => {localStorage.setItem("idPostulacionCalificacion", idPostulacion + "");}}
-              >Calificar documentos</button>
+              <button
+                className="dropdown-item"
+                onClick={() => {
+                  localStorage.setItem(
+                    "idPostulacionCalificacion",
+                    idPostulacion + ""
+                  );
+                }}
+              >
+                Calificar documentos
+              </button>
             </Link>
           </li>
         </ul>
@@ -233,9 +248,17 @@ export default class AnnouncementsList extends Component<Props, State> {
         >
           <li>
             <Link to="/grade_observations" style={{ textDecoration: "none" }}>
-              <button className="dropdown-item"
-                onClick={() => {localStorage.setItem("idPostulacionCalificacion", idPostulacion + "");}}
-              >Calificar documentos</button>
+              <button
+                className="dropdown-item"
+                onClick={() => {
+                  localStorage.setItem(
+                    "idPostulacionCalificacion",
+                    idPostulacion + ""
+                  );
+                }}
+              >
+                Calificar documentos
+              </button>
             </Link>
           </li>
         </ul>
@@ -444,11 +467,14 @@ export default class AnnouncementsList extends Component<Props, State> {
                 </Tooltip>
                 <div className="dropdown col-1">
                   {(application.estado === 2 &&
-                    this.renderStateTwoOptions(application.idGrupoEmpresa)) ||
+                    this.renderStateTwoOptions(
+                      application.idGrupoEmpresa,
+                      application.idPostulacion
+                    )) ||
                     (application.estado === 3 &&
                       this.renderStateThreeOptions(
                         application.idGrupoEmpresa,
-                          application.idPostulacion,
+                        application.idPostulacion
                       )) ||
                     (application.estado === 4 &&
                       this.renderStateFourOptions(
@@ -463,7 +489,10 @@ export default class AnnouncementsList extends Component<Props, State> {
                         index
                       )) ||
                     (application.estado === 6 &&
-                      this.renderStateSixOptions(application.idGrupoEmpresa, application.idPostulacion)) ||
+                      this.renderStateSixOptions(
+                        application.idGrupoEmpresa,
+                        application.idPostulacion
+                      )) ||
                     (application.estado === 7 &&
                       this.renderStateSevenOptions(
                         application,
