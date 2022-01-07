@@ -14,7 +14,7 @@ export const ModalLogin = (props: Props) => {
     let validUserName = await AuthService.login(values);
     if (validUserName) {
       setUserNameValid(true);
-      window.location.reload();
+      window.location.assign("/announcements_list");
     } else {
       setUserNameValid(false);
     }

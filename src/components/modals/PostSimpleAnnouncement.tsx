@@ -66,14 +66,14 @@ export default function PostAnnouncement(props: Props): JSX.Element {
         pliego: "",
       },
       id
-    ).then((response) => {
-      setMessage(
-          response.data
-      );
-      setOpen(true);
-    }).catch((e) => {
-      console.log(e)}
-    );
+    )
+      .then((response) => {
+        setMessage(response.data);
+        setOpen(true);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
     props.refresh();
   };
   const retrieveAnnouncementDoc = () => {
@@ -144,7 +144,7 @@ export default function PostAnnouncement(props: Props): JSX.Element {
                 data-bs-dismiss="modal"
                 aria-label="Close"
                 onClick={() => {
-                  window.location.reload();
+                  window.location.assign("/announcements_list");
                 }}
               ></button>
             </div>

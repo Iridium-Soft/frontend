@@ -70,14 +70,14 @@ export default function PostAnnouncement(props: Props): JSX.Element {
         pliego: "",
       },
       id
-    ).then((response) => {
-      setMessage(
-          response.data
-      );
-      setOpen(true);
-    }).catch((e) => {
-      console.log(e)}
-    );
+    )
+      .then((response) => {
+        setMessage(response.data);
+        setOpen(true);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
     props.refresh();
   };
   const retrieveAnnouncementDoc = () => {
@@ -148,7 +148,7 @@ export default function PostAnnouncement(props: Props): JSX.Element {
                 data-bs-dismiss="modal"
                 aria-label="Close"
                 onClick={() => {
-                  window.location.reload();
+                  window.location.assign("/announcements_list");
                 }}
               ></button>
             </div>
@@ -246,7 +246,7 @@ export default function PostAnnouncement(props: Props): JSX.Element {
                   if (consultantsSelected.length > 0) {
                     publishAnnouncement();
                     setTimeout(() => {
-                      window.location.reload();
+                      window.location.assign("/announcements_list");
                     }, 6000);
                   } else {
                     setMessage("No existen consultores seleccionados");

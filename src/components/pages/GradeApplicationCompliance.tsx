@@ -329,7 +329,7 @@ export default class GradeApplicationCompliance extends Component<
                   type="button"
                   className="btn btn-info text-white"
                   onClick={() => {
-                    window.location.reload();
+                    window.location.assign("/announcements_list");
                   }}
                 >
                   Confirmar

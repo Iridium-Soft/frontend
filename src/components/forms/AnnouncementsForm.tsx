@@ -249,7 +249,7 @@ export default class AnnouncementsForm extends Component<Props, State> {
                 <button
                   type="button"
                   className="btn btn-primary"
-                  onClick={() => window.location.reload()}
+                  onClick={() => window.location.assign("/announcements_list")}
                 >
                   Aceptar
                 </button>

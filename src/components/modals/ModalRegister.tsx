@@ -33,7 +33,7 @@ export const ModalRegister = (props: Props) => {
     };
     const dataReg = await AuthService.registerGE(newGE);
     alert(dataReg.data.message);
-    window.location.reload();
+    window.location.assign("/announcements_list");
   };
 
   const validate = (values: any) => {

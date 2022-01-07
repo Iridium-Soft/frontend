@@ -79,7 +79,7 @@ export default class UploadDocumentsPage extends Component<Props, State> {
     DocumentsDataService.create(variable, AuthService.getCurrentUser().id);
 
     setTimeout(() => {
-      window.location.reload();
+      window.location.assign("/announcements_list");
     }, 3000);
   }
 
@@ -185,7 +185,7 @@ export default class UploadDocumentsPage extends Component<Props, State> {
                   type="button"
                   className="btn btn-info text-white"
                   onClick={() => {
-                    window.location.reload();
+                    window.location.assign("/announcements_list");
                   }}
                 >
                   Confirmar
@@ -238,17 +238,17 @@ export default class UploadDocumentsPage extends Component<Props, State> {
             <div className="row fixed-bottom">
               <div className="col-2 offset-5"></div>
               <div
-                  className="col-2 btn btn-danger text-white mb-1"
-                  data-bs-toggle="modal"
-                  data-bs-target={`#asd`}
+                className="col-2 btn btn-danger text-white mb-1"
+                data-bs-toggle="modal"
+                data-bs-target={`#asd`}
               >
                 Cancelar
               </div>
               <button
-                  className="col-2 ms-5 btn btn-success m-1"
-                  onClick={() =>
-                      this.checkFields() ? this.uploadDocuments() : null
-                  }
+                className="col-2 ms-5 btn btn-success m-1"
+                onClick={() =>
+                  this.checkFields() ? this.uploadDocuments() : null
+                }
               >
                 Enviar
               </button>

@@ -7,19 +7,21 @@ type Props = {};
 
 type State = {
   companyGroups: Array<any>;
-  companyGroup: string,
-  companyGroupId: number,
-  dateOfIssue: string,
+  companyGroup: string;
+  companyGroupId: number;
+  dateOfIssue: string;
   sections: Array<any>;
-  observations: [{
-    observacion: string,
-    descripcion: string
-  }],
-  observation: string,
-  description: string,
+  observations: [
+    {
+      observacion: string;
+      descripcion: string;
+    }
+  ];
+  observation: string;
+  description: string;
 
-  message: string,
-  open: boolean,
+  message: string;
+  open: boolean;
 };
 
 export default class Addendum extends Component<Props, State> {
@@ -27,33 +29,32 @@ export default class Addendum extends Component<Props, State> {
     super(props);
 
     this.state = {
-      companyGroups:
-        [
-          {
-            "nombreGrupoEmpresa": "Iridium",
-            "idGrupoEmpresa": 1,
-            "idConvocatoria": 1,
-            "codigoConvocatoria": "2020convo-2",
-            "tituloConvocatoria": "Convocatoria primera",
-            "id": 1
-          },
-          {
-            "nombreGrupoEmpresa": "Pacha",
-            "idGrupoEmpresa": 2,
-            "idConvocatoria": 1,
-            "codigoConvocatoria": "2020convo-2",
-            "tituloConvocatoria": "Convocatoria primera",
-            "id": 2
-          },
-          {
-            "nombreGrupoEmpresa": "AlgoSoft",
-            "idGrupoEmpresa": 3,
-            "idConvocatoria": 1,
-            "codigoConvocatoria": "2020convo-2",
-            "tituloConvocatoria": "Convocatoria primera",
-            "id": 3
-          }
-        ],
+      companyGroups: [
+        {
+          nombreGrupoEmpresa: "Iridium",
+          idGrupoEmpresa: 1,
+          idConvocatoria: 1,
+          codigoConvocatoria: "2020convo-2",
+          tituloConvocatoria: "Convocatoria primera",
+          id: 1,
+        },
+        {
+          nombreGrupoEmpresa: "Pacha",
+          idGrupoEmpresa: 2,
+          idConvocatoria: 1,
+          codigoConvocatoria: "2020convo-2",
+          tituloConvocatoria: "Convocatoria primera",
+          id: 2,
+        },
+        {
+          nombreGrupoEmpresa: "AlgoSoft",
+          idGrupoEmpresa: 3,
+          idConvocatoria: 1,
+          codigoConvocatoria: "2020convo-2",
+          tituloConvocatoria: "Convocatoria primera",
+          id: 3,
+        },
+      ],
       companyGroup: "",
       companyGroupId: 0,
       dateOfIssue: "",
@@ -61,15 +62,15 @@ export default class Addendum extends Component<Props, State> {
       observations: [
         {
           observacion: "",
-          descripcion: ""
-        }
+          descripcion: "",
+        },
       ],
       observation: "",
       description: "",
 
       message: "",
       open: false,
-    }
+    };
 
     this.retrieveAddendumData = this.retrieveAddendumData.bind(this);
     this.handleCompanyGroup = this.handleCompanyGroup.bind(this);
@@ -83,39 +84,39 @@ export default class Addendum extends Component<Props, State> {
 
   retrieveAddendumData() {
     ChangeOrderDataService.get("1")
-        .then((response) => {
-          this.setState({
-            companyGroups: response.data,
-          });
-          console.log(response.data);
-        })
-        .catch((e) => {
-          console.log(e);
+      .then((response) => {
+        this.setState({
+          companyGroups: response.data,
         });
+        console.log(response.data);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
   }
 
   handleCompanyGroup() {
     const cgps: any = this.state.companyGroups;
     let cgId: number = 0;
 
-    for(let i = 0; i < cgps.length; i++) {
-      if(cgps[i].nombre === this.state.companyGroup) {
+    for (let i = 0; i < cgps.length; i++) {
+      if (cgps[i].nombre === this.state.companyGroup) {
         cgId = cgps[i].id;
       }
     }
     this.setState({
       companyGroupId: cgId,
-    })
+    });
   }
 
   handleSubmit() {
-    if(this.state.companyGroup === "") {
+    if (this.state.companyGroup === "") {
       this.setState({
         message: "No selecciono niguna Grupo Empresa",
         open: true,
-      })
+      });
       return false;
-    } else if(this.state.dateOfIssue === "") {
+    } else if (this.state.dateOfIssue === "") {
       this.setState({
         message: "No selecciono ninguna fecha de emision de contrato",
         open: true,
@@ -127,8 +128,8 @@ export default class Addendum extends Component<Props, State> {
   render() {
     const { companyGroups, sections } = this.state;
     const closeSnackbar = (
-        event: React.SyntheticEvent | React.MouseEvent,
-        reason?: string
+      event: React.SyntheticEvent | React.MouseEvent,
+      reason?: string
     ) => {
       if (reason === "clickaway") {
         return;
@@ -137,24 +138,24 @@ export default class Addendum extends Component<Props, State> {
     };
 
     const actionCloseSnackbar = (
-        <IconButton
-            size="small"
-            aria-label="close"
-            color="inherit"
-            onClick={closeSnackbar}
-        >
-          <span aria-hidden="true">&times;</span>
-        </IconButton>
+      <IconButton
+        size="small"
+        aria-label="close"
+        color="inherit"
+        onClick={closeSnackbar}
+      >
+        <span aria-hidden="true">&times;</span>
+      </IconButton>
     );
     return (
       <>
         <div
-            className="modal fade"
-            id="asd"
-            tabIndex={-1}
-            aria-labelledby={`labelasd`}
-            role="dialog"
-            aria-hidden={true}
+          className="modal fade"
+          id="asd"
+          tabIndex={-1}
+          aria-labelledby={`labelasd`}
+          role="dialog"
+          aria-hidden={true}
         >
           <div className="modal-dialog">
             <div className="modal-content">
@@ -163,24 +164,26 @@ export default class Addendum extends Component<Props, State> {
                   ¿Está seguro de cancelar la el registro de su adenda?
                 </h5>
                 <button
-                    type="button"
-                    className="btn-close"
-                    data-bs-dismiss="modal"
-                    aria-label="Close"
+                  type="button"
+                  className="btn-close"
+                  data-bs-dismiss="modal"
+                  aria-label="Close"
                 ></button>
               </div>
               <div className="modal-footer">
                 <button
-                    type="button"
-                    className="btn btn-secondary text-white"
-                    data-bs-dismiss="modal"
+                  type="button"
+                  className="btn btn-secondary text-white"
+                  data-bs-dismiss="modal"
                 >
                   Cancelar
                 </button>
                 <button
-                    type="button"
-                    className="btn btn-info text-white"
-                    onClick={() => {window.location.reload()}}
+                  type="button"
+                  className="btn btn-info text-white"
+                  onClick={() => {
+                    window.location.assign("/announcements_list");
+                  }}
                 >
                   Confirmar
                 </button>
@@ -191,9 +194,7 @@ export default class Addendum extends Component<Props, State> {
         <div className="container p-3 position-relative">
           <div className="row">
             <div className="col-8">
-              <h3>
-                Adenda
-              </h3>
+              <h3>Adenda</h3>
             </div>
           </div>
           <div className="form-group row m-3">
@@ -205,21 +206,22 @@ export default class Addendum extends Component<Props, State> {
             </label>
             <div className="col-md-8">
               <select
-                  className="form-select form-select-lg"
-                  value={this.state.companyGroup}
-                  onChange={(e) => {
-                    this.setState({ companyGroup: e.target.value });
-                    this.handleCompanyGroup();
-                  }}
+                className="form-select form-select-lg"
+                value={this.state.companyGroup}
+                onChange={(e) => {
+                  this.setState({ companyGroup: e.target.value });
+                  this.handleCompanyGroup();
+                }}
               >
                 <option value="" disabled selected>
                   Seleccione una grupo empresa
                 </option>
-                {companyGroups && companyGroups.map((cg: any) => (
+                {companyGroups &&
+                  companyGroups.map((cg: any) => (
                     <option value={cg.nombreGrupoEmpresa}>
                       {cg.nombreGrupoEmpresa}
                     </option>
-                ))}
+                  ))}
               </select>
             </div>
           </div>
@@ -253,20 +255,19 @@ export default class Addendum extends Component<Props, State> {
                 <tr>
                   <td>
                     <select
-                        className="form-select form-select-sm"
-                        value={this.state.observation}
-                        onChange={(e) => {
-                          this.setState({ observation: e.target.value });
-                        }}
+                      className="form-select form-select-sm"
+                      value={this.state.observation}
+                      onChange={(e) => {
+                        this.setState({ observation: e.target.value });
+                      }}
                     >
                       <option value="" disabled selected>
                         Seleccione una observacion
                       </option>
-                      {sections && sections.map((cg: any) => (
-                          <option value={cg.seccion}>
-                            {cg.seccion}
-                          </option>
-                      ))}
+                      {sections &&
+                        sections.map((cg: any) => (
+                          <option value={cg.seccion}>{cg.seccion}</option>
+                        ))}
                     </select>
                   </td>
                   <td>
@@ -309,18 +310,22 @@ export default class Addendum extends Component<Props, State> {
               </button>
             </div>
             <div className="col-2">
-              <button type="submit" className="btn btn-lg btn-success" onClick={this.handleSubmit}>
+              <button
+                type="submit"
+                className="btn btn-lg btn-success"
+                onClick={this.handleSubmit}
+              >
                 Registrar
               </button>
             </div>
           </div>
         </div>
         <Snackbar
-            open={this.state.open}
-            autoHideDuration={6000}
-            onClose={closeSnackbar}
-            message={this.state.message}
-            action={actionCloseSnackbar}
+          open={this.state.open}
+          autoHideDuration={6000}
+          onClose={closeSnackbar}
+          message={this.state.message}
+          action={actionCloseSnackbar}
         />
       </>
     );

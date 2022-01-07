@@ -150,7 +150,7 @@ export default class WorkCalendar extends Component<Props, State> {
     }
     this.setState({ message: mens, open: true });
     setTimeout(() => {
-      window.location.reload();
+      window.location.assign("/announcements_list");
     }, 3000);
   }
 
@@ -211,7 +211,7 @@ export default class WorkCalendar extends Component<Props, State> {
                   type="button"
                   className="btn btn-success text-white"
                   onClick={() => {
-                    window.location.reload();
+                    window.location.assign("/announcements_list");
                   }}
                 >
                   Confirmar

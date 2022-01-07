@@ -132,7 +132,7 @@ export default class ApplyToAnnouncement extends Component<Props, State> {
                   className="btn btn-secondary"
                   data-bs-dismiss="modal"
                   onClick={() => {
-                    window.location.reload();
+                    window.location.assign("/announcements_list");
                   }}
                 >
                   Cancelar
@@ -164,7 +164,7 @@ export default class ApplyToAnnouncement extends Component<Props, State> {
                         open: true,
                       });
                       setTimeout(() => {
-                        window.location.reload();
+                        window.location.assign("/announcements_list");
                       }, 3000);
                     }
                   }}
@@ -208,7 +208,7 @@ export default class ApplyToAnnouncement extends Component<Props, State> {
                   type="button"
                   className="btn btn-danger text-white"
                   onClick={() => {
-                    window.location.reload();
+                    window.location.assign("/announcements_list");
                   }}
                 >
                   Cancelar
