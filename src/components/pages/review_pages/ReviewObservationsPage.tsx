@@ -67,7 +67,7 @@ export default class ReviewObservationsPage extends Component<Props, State> {
   }
 
   retrieveFirstData() {
-    ObservationsReviewDataService.get("1")
+    ObservationsReviewDataService.get(localStorage.getItem("idPostulacionCalificacion") + "")
       .then((response) => {
         this.setState({
           nombreGrupoEmpresa: response.data.nombreGP,
@@ -98,7 +98,7 @@ export default class ReviewObservationsPage extends Component<Props, State> {
   }
 
   retrieveData() {
-    ObservationsReviewDataService.get("1")
+    ObservationsReviewDataService.get(localStorage.getItem("idPostulacionCalificacion") + "")
       .then((response) => {
         this.setState({
           nombreGrupoEmpresa: response.data.nombreGP,
