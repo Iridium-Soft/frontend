@@ -210,14 +210,14 @@ export const PostModal = (props: Props) => {
             <div className="modal-footer">
               <button
                 type="button"
-                className="btn btn-secondary"
+                className="btn btn-danger text-white"
                 data-bs-dismiss="modal"
               >
                 Cancelar
               </button>
               <button
                 type="button"
-                className="btn btn-primary"
+                className="btn btn-success text-white"
                 onClick={() => {
                   if (props.typeDoc) {
                     typesDocs[props.typeDoc].functionPost();
