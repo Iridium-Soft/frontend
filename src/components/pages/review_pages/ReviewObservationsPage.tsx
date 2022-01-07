@@ -316,7 +316,7 @@ export default class ReviewObservationsPage extends Component<Props, State> {
                           Number(localStorage.getItem("idPostulacion") + ""),
                           {
                             contrato:
-                                this.state.esAdenda ? 1 : 0,
+                                this.state.esAdenda ? 0 : 1,
                           }
                       );
                       window.location.assign("/announcements_list");
