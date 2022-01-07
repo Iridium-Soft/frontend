@@ -9,7 +9,7 @@ class ChangeOrderDataService {
     return http.get(`/ordendecambio/autollenado/${id}`);
   }
 
-  generar(id: string) {
+  generateOrder(id: string) {
     return http.get(`/generar/ordencambio/${id}`);
   }
 
