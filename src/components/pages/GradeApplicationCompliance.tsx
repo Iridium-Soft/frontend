@@ -228,9 +228,9 @@ export default class GradeApplicationCompliance extends Component<
       open: true,
     });
     this.postGrade();
-    await ComplianceNotificationDataService.generateNotify(
-      localStorage.getItem("idPostulacion") + ""
-    );
+//     await ComplianceNotificationDataService.generateNotify(
+//       localStorage.getItem("idPostulacion") + ""
+//     );
     window.location.assign("/my_applications");
   }
 
