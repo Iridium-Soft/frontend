@@ -415,7 +415,7 @@ export default class ReviewObservationsPage extends Component<Props, State> {
                                   >
                                     <div className="row">
                                       <div className="col-6">
-                                        Observacion: {ob.observacion.id}
+                                        Observacion: {index + 1}
                                       </div>
                                       <div className="col-6">
                                         Corregida:{" "}
