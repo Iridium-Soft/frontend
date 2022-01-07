@@ -397,7 +397,7 @@ export default class ReviewObservationsPage extends Component<Props, State> {
                     <Table aria-label="simple table">
                       <TableBody>
                         {observations &&
-                          observations.map((ob: any) => {
+                          observations.map((ob: any, index) => {
                             numbers++;
                             return (
                               <>
@@ -447,7 +447,7 @@ export default class ReviewObservationsPage extends Component<Props, State> {
                                   >
                                     <div className="row">
                                       <div className="col-4">
-                                        Observacion: {ob.observacion.id}
+                                        Observacion: {index + 1}
                                       </div>
                                     </div>
                                   </button>
