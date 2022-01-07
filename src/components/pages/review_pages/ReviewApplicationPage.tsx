@@ -171,10 +171,10 @@ export default class ReviewApplicationPage extends Component<Props, State> {
         message: "Se registro exitosamente la observacion",
         open: true,
       });
-      this.retrieveData();
     });
+    this.retrieveData();
   }
-
+  
   deleteObservation(valu: number) {
     ApplicationReviewDataService.deleteObservation(valu + "").then(
       (response) => {
