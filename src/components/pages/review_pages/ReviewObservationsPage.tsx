@@ -312,7 +312,7 @@ export default class ReviewObservationsPage extends Component<Props, State> {
                   className="btn btn-success text-white"
                   onClick={
                     async () => {
-                      await ApplicationReviewDataService.sendReview(
+                      await ApplicationReviewDataService.sendReviewChangeOrder(
                           Number(localStorage.getItem("idPostulacion") + ""),
                           {
                             contrato:

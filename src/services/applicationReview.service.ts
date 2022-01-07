@@ -13,6 +13,10 @@ class ApplicationReviewDataService {
     return http.put(`/terminarrevision/postulacion/${id}`, data);
   }
 
+  sendReviewChangeOrder(id: number, data: any) {
+    return http.put(`/terminarrevision/ordencambio/${id}`, data);
+  }
+
   registerObservation(data: any) {
     return http.post(`/revision/observaciones/`, data);
   }
