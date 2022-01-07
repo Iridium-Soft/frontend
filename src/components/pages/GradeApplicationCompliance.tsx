@@ -227,7 +227,7 @@ export default class GradeApplicationCompliance extends Component<
       message: "Registro de calificacion realizada exitosamente",
       open: true,
     });
-    this.postGrade();
+    await this.postGrade();
 //     await ComplianceNotificationDataService.generateNotify(
 //       localStorage.getItem("idPostulacion") + ""
 //     );
