@@ -123,6 +123,13 @@ export default class WorkCalendar extends Component<Props, State> {
       milestones: variable,
       sum: this.state.sum + this.state.porcentajeCobro,
     });
+    this.setState({
+      nombre: "",
+      fechaIni: "",
+      fechaFin: "",
+      porcentajeCobro: 0,
+      entregables: "",
+    })
   }
 
   deleteMilestone() {
@@ -260,6 +267,7 @@ export default class WorkCalendar extends Component<Props, State> {
                         className="input col-12"
                         id="nombre"
                         name="nombre"
+                        value={this.state.nombre}
                         required
                         onChange={this.handleNombre}
                       />
@@ -270,6 +278,7 @@ export default class WorkCalendar extends Component<Props, State> {
                         className="input col-12"
                         id="fechaIni"
                         name="fechaIni"
+                        value={this.state.fechaIni}
                         required
                         onChange={this.handleFechaIni}
                       />
@@ -280,6 +289,7 @@ export default class WorkCalendar extends Component<Props, State> {
                         className="input col-12"
                         id="fechaFin"
                         name="fechaFin"
+                        value={this.state.fechaFin}
                         onChange={this.handleFechaFin}
                         required
                       />
@@ -290,6 +300,7 @@ export default class WorkCalendar extends Component<Props, State> {
                         className="input col-12"
                         id="porcentaje"
                         name="porcentaje"
+                        value={this.state.porcentajeCobro}
                         onChange={this.handlePorcentaje}
                         required
                       />
@@ -300,6 +311,7 @@ export default class WorkCalendar extends Component<Props, State> {
                         className="input col-12"
                         id="entregables"
                         name="entregables"
+                        value={this.state.entregables}
                         onChange={this.handleEntregables}
                         required
                       />
