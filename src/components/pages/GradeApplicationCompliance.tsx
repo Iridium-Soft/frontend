@@ -223,14 +223,14 @@ export default class GradeApplicationCompliance extends Component<
       });
       return false;
     }
-    await this.setState({
+    this.setState({
       message: "Registro de calificacion realizada exitosamente",
       open: true,
     });
     await this.postGrade();
-//     await ComplianceNotificationDataService.generateNotify(
-//       localStorage.getItem("idPostulacion") + ""
-//     );
+    //await ComplianceNotificationDataService.generateNotify(
+    //  localStorage.getItem("idPostulacion") + ""
+    //);
     window.location.assign("/my_applications");
   }
 

@@ -213,7 +213,7 @@ export default class GradeApplicationChangeOrder extends Component<
     });
   }
 
-  handleSubmit() {
+  async handleSubmit() {
     this.checkScores();
     if (this.state.companyGroup === "") {
       this.setState({
@@ -244,10 +244,11 @@ export default class GradeApplicationChangeOrder extends Component<
       message: "Registro de calificacion realizada exitosamente",
       open: true,
     });
-    this.postGrade();
+    await this.postGrade();
+    window.location.assign("/my_applications");
   }
 
-  postGrade() {
+  async postGrade() {
     const elem: any = {
       fecha_entrega: this.state.dateOfIssue,
       lugar_entrega: this.state.correctionPlace,
@@ -255,7 +256,7 @@ export default class GradeApplicationChangeOrder extends Component<
       evaluacion: this.state.scoresObtained,
     };
 
-    ChangeOrderDataService.createChangeOrder(
+    await ChangeOrderDataService.createChangeOrder(
       elem,
       localStorage.getItem("idPostulacionCalificacion") + ""
     )
