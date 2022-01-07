@@ -59,7 +59,7 @@ export const PostModal = (props: Props) => {
       },
       functionPost: async () => {
         const messageResponse = await ChangeOrderDataService.updatePostOrder(
-          props.currentApplication.idGrupoEmpresa
+          localStorage.getItem("idPostulacion") + ""
         );
         showSnackbar(messageResponse.data.mensaje);
       },
@@ -79,7 +79,7 @@ export const PostModal = (props: Props) => {
       functionPost: async () => {
         const messageResponse =
           await ConformityNotificationDataService.updatePostNotification(
-            props.currentApplication.idGrupoEmpresa
+            localStorage.getItem("idPostulacion") + ""
           );
         showSnackbar(messageResponse.data.mensaje);
       },
@@ -97,7 +97,7 @@ export const PostModal = (props: Props) => {
       },
       functionPost: async () => {
         const messageResponse = await AddendumDataService.updatePostAddendum(
-          props.currentApplication.idGrupoEmpresa
+          localStorage.getItem("idPostulacion") + ""
         );
         showSnackbar(messageResponse.data.mensaje);
       },
@@ -115,7 +115,7 @@ export const PostModal = (props: Props) => {
       },
       functionPost: async () => {
         const messageResponse = await ContractDataService.updatePostContract(
-          props.currentApplication.idGrupoEmpresa
+          localStorage.getItem("idPostulacion") + ""
         );
         showSnackbar(messageResponse.data.mensaje);
       },

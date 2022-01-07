@@ -155,7 +155,7 @@ export const ModalRegister = (props: Props) => {
                       type="email"
                       className="form-control"
                       name="emailGE"
-                      placeholder="Nombre de usuario"
+                      placeholder="Correo electrónico"
                     />
                   </div>
                   <div className="col-12 text-danger">
