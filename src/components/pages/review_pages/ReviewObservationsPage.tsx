@@ -310,8 +310,16 @@ export default class ReviewObservationsPage extends Component<Props, State> {
                 <button
                   type="button"
                   className="btn btn-success text-white"
-                  onClick={() => {
-                    window.location.assign("/announcements_list");
+                  onClick={
+                    async () => {
+                      await ApplicationReviewDataService.sendReview(
+                          Number(localStorage.getItem("idPostulacion") + ""),
+                          {
+                            contrato:
+                                this.state.correct ? 1 : 0,
+                          }
+                      );
+                      window.location.assign("/announcements_list");
                   }}
                 >
                   Continuar
